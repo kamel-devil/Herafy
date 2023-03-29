@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:herafy/main.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 
-import '../../main.dart';
 import '../model/DTProductModel.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
@@ -72,7 +72,7 @@ class CartListViewState extends State<CartListView> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 100,
               width: 100,
               child: Image.network(

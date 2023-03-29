@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:herafy/main.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../main.dart';
 import '../MWDrawerScreen2.dart';
 import '../store/ListModels.dart';
 import '../utils/AppColors.dart';

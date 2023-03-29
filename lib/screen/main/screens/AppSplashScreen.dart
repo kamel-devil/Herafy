@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:herafy/screen/DTDashboardScreen.dart';
+import 'package:herafy/screen/main/utils/AppConstant.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import '../../../utils/AppConstant.dart';
-import '../../DTDashboardScreen.dart';
 
 
 class AppSplashScreen extends StatefulWidget {
@@ -34,7 +33,7 @@ class _AppSplashScreenState extends State<AppSplashScreen> with SingleTickerProv
     if (isWeb) {
       DTDashboardScreen().launch(context, isNewTask: true);
     } else {
-      DTDashboardScreen().launch(context, isNewTask: true);
+      // ProKitLauncher().launch(context, isNewTask: true);
     }
   }
 
