@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTChatMessageModel.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTChatModel.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTMessageScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+
+import '../main.dart';
+import '../model/DTChatMessageModel.dart';
+import '../model/DTChatModel.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTDataProvider.dart';
+import '../utils/DTWidgets.dart';
 import 'DTDrawerWidget.dart';
+import 'DTMessageScreen.dart';
 
 class DTChatScreen extends StatefulWidget {
   static String tag = '/DTChatScreen';
@@ -60,7 +61,7 @@ class DTChatScreenState extends State<DTChatScreen> {
       FocusScope.of(context).requestFocus(msgFocusNode);
       setState(() {});
 
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       msgListing.insert(0, msgModel1);
 
@@ -81,8 +82,8 @@ class DTChatScreenState extends State<DTChatScreen> {
   Widget build(BuildContext context) {
     Widget msgList() {
       return ListView.separated(
-        separatorBuilder: (_, i) => Divider(),
-        padding: EdgeInsets.all(8),
+        separatorBuilder: (_, i) => const Divider(),
+        padding: const EdgeInsets.all(8),
         itemCount: chats.length,
         itemBuilder: (_, index) {
           DTChatModel data = chats[index];
@@ -99,7 +100,7 @@ class DTChatScreenState extends State<DTChatScreen> {
               }
             },
             child: Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -128,10 +129,10 @@ class DTChatScreenState extends State<DTChatScreen> {
                             2.width,
                             Row(
                               children: [
-                                Icon(Icons.done_all, color: appColorPrimary, size: 14).withHeight(14),
+                                const Icon(Icons.done_all, color: appColorPrimary, size: 14).withHeight(14),
                                 2.width,
                                 Container(
-                                  decoration: BoxDecoration(color: appColorPrimary, shape: BoxShape.circle),
+                                  decoration: const BoxDecoration(color: appColorPrimary, shape: BoxShape.circle),
                                   child: Text(
                                     data.unreadCount.toString(),
                                     style: secondaryTextStyle(color: white, size: 10),
@@ -162,21 +163,21 @@ class DTChatScreenState extends State<DTChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(flex: 2, child: msgList()),
-          VerticalDivider(width: 5),
+          const VerticalDivider(width: 5),
           Expanded(
             flex: 6,
             child: Stack(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                   decoration: BoxDecoration(color: appStore.appBarColor, boxShadow: defaultBoxShadow()),
                   child: ListView.separated(
-                    separatorBuilder: (_, i) => Divider(color: Colors.transparent),
+                    separatorBuilder: (_, i) => const Divider(color: Colors.transparent),
                     shrinkWrap: true,
                     reverse: true,
                     controller: scrollController,
                     itemCount: msgListing.length,
-                    padding: EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 70),
+                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 70),
                     itemBuilder: (_, index) {
                       DTChatMessageModel data = msgListing[index];
                       var isMe = data.Sender_id == sender_id;
@@ -188,7 +189,7 @@ class DTChatScreenState extends State<DTChatScreen> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                     decoration: BoxDecoration(color: appStore.appBarColor, boxShadow: defaultBoxShadow()),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

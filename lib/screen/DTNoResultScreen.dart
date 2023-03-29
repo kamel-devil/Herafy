@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+import '../utils/AppConstant.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTWidgets.dart';
 import 'DTDrawerWidget.dart';
 
 class DTNoResultScreen extends StatefulWidget {

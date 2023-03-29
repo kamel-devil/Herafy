@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
 
 class DTChangePasswordScreen extends StatefulWidget {
   static String tag = '/DTChangePasswordScreen';
@@ -49,7 +49,7 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
       body: Center(
         child: Container(
           width: dynamicWidth(context),
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           child: Form(
             key: formKey,
@@ -67,10 +67,10 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     suffix: Icon(!oldPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
                       oldPassObscureText = !oldPassObscureText;
@@ -91,10 +91,10 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'New Password',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     suffix: Icon(!newPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
                       newPassObscureText = !newPassObscureText;
@@ -115,10 +115,10 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     suffix: Icon(!confirmPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
                       confirmPassObscureText = !confirmPassObscureText;
@@ -136,7 +136,7 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                 16.height,
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                   decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                   child: Text('Submit', style: boldTextStyle(color: white, size: 18)),
                 ).onTap(() {

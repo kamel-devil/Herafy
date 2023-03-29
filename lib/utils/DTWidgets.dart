@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTChatMessageModel.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 
 import '../../main.dart';
+import '../model/DTChatMessageModel.dart';
+import 'AppColors.dart';
+import 'AppWidget.dart';
 
 Widget priceWidget(int? price, {bool applyStrike = false, double? fontSize, Color? textColor}) {
   return Text(
@@ -30,7 +31,7 @@ Widget dot() {
   return Container(
     height: 7,
     width: 7,
-    decoration: BoxDecoration(color: Colors.black12, shape: BoxShape.circle),
+    decoration: const BoxDecoration(color: Colors.black12, shape: BoxShape.circle),
   );
 }
 
@@ -64,7 +65,7 @@ Widget errorWidget(BuildContext context, String image, String title, String desc
           right: 20,
           child: Container(
             decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.isDarkModeOn ? Colors.black26 : Colors.white70),
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -154,7 +155,7 @@ class ChatMessageWidget extends StatelessWidget {
       crossAxisAlignment: isMe.validate() ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
           margin: isMe.validate()
               ? EdgeInsets.only(top: 3.0, bottom: 3.0, right: 0, left: (dynamicWidth(context) * 0.25).toDouble())
               : EdgeInsets.only(top: 4.0, bottom: 4.0, left: 0, right: (dynamicWidth(context) * 0.25).toDouble()),
@@ -162,8 +163,8 @@ class ChatMessageWidget extends StatelessWidget {
             color: !isMe ? appColorPrimary : appStore.appBarColor,
             boxShadow: defaultBoxShadow(),
             borderRadius: isMe.validate()
-                ? BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10), bottomRight: Radius.circular(0), topRight: Radius.circular(10))
-                : BorderRadius.only(bottomLeft: Radius.circular(0), topLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(10)),
+                ? const BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10), bottomRight: Radius.circular(0), topRight: Radius.circular(10))
+                : const BorderRadius.only(bottomLeft: Radius.circular(0), topLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(10)),
             border: Border.all(color: isMe ? Theme.of(context).dividerColor : Colors.transparent),
           ),
           child: Column(

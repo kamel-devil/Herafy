@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTDashboardWidget.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+
+import '../main.dart';
+import '../utils/AppWidget.dart';
+import 'DTDashboardWidget.dart';
 import 'DTDrawerWidget.dart';
 
 class DTDashboardScreen extends StatefulWidget {

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTDashboardScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTDrawerWidget.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTForgotPwdScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTSignUpScreen.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
+import '../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import 'DTDashboardScreen.dart';
+import 'DTDrawerWidget.dart';
+import 'DTForgotPwdScreen.dart';
+import 'DTSignUpScreen.dart';
+
 
 class DTSignInScreen extends StatefulWidget {
   static String tag = '/DTSignInScreen';
@@ -49,13 +51,13 @@ class DTSignInScreenState extends State<DTSignInScreen> {
       appBar: appBar(context, 'Sign In'),
       drawer: DTDrawerWidget(),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: dynamicWidth(context),
           child: Form(
             key: formKey,
            autovalidateMode: AutovalidateMode.onUserInteraction,
            child: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -67,10 +69,10 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       labelStyle: secondaryTextStyle(),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -90,10 +92,10 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       labelStyle: secondaryTextStyle(),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                       suffix: Icon(!obscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
                         obscureText = !obscureText;
@@ -110,7 +112,7 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                       DTForgotPwdScreen().launch(context);
                     },
                     child: Container(
-                      padding: EdgeInsets.only(top: 8, bottom: 8),
+                      padding: const EdgeInsets.only(top: 8, bottom: 8),
                       alignment: Alignment.topRight,
                       child: Text("Forgot Password?", style: boldTextStyle(color: appColorPrimary)),
                     ),
@@ -118,7 +120,7 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                   16.height,
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                     child: Text('Sign In', style: boldTextStyle(color: white, size: 18)),
                   ).onTap(() {
@@ -126,18 +128,18 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                     DTDashboardScreen().launch(context);
 
                     /// Remove comment if you want enable validation
-                    /*if (formKey.currentState.validate()) {
-                        formKey.currentState.save();
+                    if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
                         DTDashboardScreen().launch(context);
                       } else {
                         autoValidate = true;
                       }
-                      setState(() {});*/
+                      setState(() {});
                   }),
                   10.height,
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                     child: Text('Sign Up', style: boldTextStyle(color: white, size: 18)),
                   ).onTap(() {
@@ -151,27 +153,27 @@ class DTSignInScreenState extends State<DTSignInScreen> {
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow(), shape: BoxShape.circle),
-                        child: Icon(MaterialCommunityIcons.google_glass, color: white),
+                        child: const Icon(MaterialCommunityIcons.google_glass, color: white),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow(), shape: BoxShape.circle),
-                        child: Icon(FontAwesome.facebook, color: white),
+                        child: const Icon(FontAwesome.facebook, color: white),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow(), shape: BoxShape.circle),
-                        child: Icon(Feather.twitter, color: white),
+                        child: const Icon(Feather.twitter, color: white),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow(), shape: BoxShape.circle),
-                        child: Icon(Feather.linkedin, color: white),
+                        child: const Icon(Feather.linkedin, color: white),
                       ),
                     ],
                   ),

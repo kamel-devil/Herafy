@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+import '../utils/AppColors.dart';
+import '../utils/AppConstant.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTWidgets.dart';
 import 'DTDrawerWidget.dart';
 
 class DTFAQDetailScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _DTFAQDetailScreenState extends State<DTFAQDetailScreen> {
         appBar: appBar(context, 'What is Airbnb plus and how to different?'),
         drawer: DTDrawerWidget(),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -74,15 +74,15 @@ class _DTFAQDetailScreenState extends State<DTFAQDetailScreen> {
                 children: [
                   Container(
                     width: 100,
-                    padding: EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 16),
-                    decoration: BoxDecoration(color: Colors.green.withOpacity(0.7), borderRadius: BorderRadius.all(Radius.circular(30)), border: Border.all(color: Colors.black12, width: 0.5)),
+                    padding: const EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 16),
+                    decoration: BoxDecoration(color: Colors.green.withOpacity(0.7), borderRadius: const BorderRadius.all(Radius.circular(30)), border: Border.all(color: Colors.black12, width: 0.5)),
                     child: Text('Yes', style: primaryTextStyle(size: 14, color: white), textAlign: TextAlign.center),
                   ),
                   8.width,
                   Container(
                     width: 100,
-                    padding: EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 16),
-                    decoration: BoxDecoration(color: redColor.withOpacity(0.7), borderRadius: BorderRadius.all(Radius.circular(30)), border: Border.all(color: Colors.black12, width: 0.5)),
+                    padding: const EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 16),
+                    decoration: BoxDecoration(color: redColor.withOpacity(0.7), borderRadius: const BorderRadius.all(Radius.circular(30)), border: Border.all(color: Colors.black12, width: 0.5)),
                     child: Text('No', style: primaryTextStyle(size: 14, color: white), textAlign: TextAlign.center),
                   )
                 ],

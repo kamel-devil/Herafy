@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+import '../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
 
 class DTForgotPwdScreen extends StatefulWidget {
@@ -60,10 +60,10 @@ class _DTForgotPwdScreenState extends State<DTForgotPwdScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       labelStyle: secondaryTextStyle(),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -77,7 +77,7 @@ class _DTForgotPwdScreenState extends State<DTForgotPwdScreen> {
                   20.height,
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                     child: Text('Send', style: boldTextStyle(color: white, size: 18)),
                   ).onTap(() {

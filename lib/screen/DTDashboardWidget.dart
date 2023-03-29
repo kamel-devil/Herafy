@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/CategoryModel.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTProductModel.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTCartScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTCategoryDetailScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTSearchScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTSignInScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:prokit_flutter/main/utils/rating_bar.dart';
 
+import '../main.dart';
+import '../model/CategoryModel.dart';
+import '../model/DTProductModel.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppConstant.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTDataProvider.dart';
+import '../utils/DTWidgets.dart';
+import '../utils/rating_bar.dart';
+import 'DTCartScreen.dart';
+import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
+import 'DTSearchScreen.dart';
+import 'DTSignInScreen.dart';
 
 class DTDashboardWidget extends StatefulWidget {
   static String tag = '/DTDashboardWidget';
@@ -90,7 +90,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
           border: Border.all(color: viewLineColor),
           color: appStore.scaffoldBackground,
         ),
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Icon(AntDesign.search1, color: appStore.textSecondaryColor),
@@ -98,7 +99,6 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             Text('Search', style: boldTextStyle(color: appStore.textSecondaryColor)),
           ],
         ),
-        padding: EdgeInsets.all(10),
       ).onTap(() {
         DTSearchScreen().launch(context);
       });
@@ -107,7 +107,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     Widget horizontalList() {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(right: 8, top: 8),
+        padding: const EdgeInsets.only(right: 8, top: 8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: categories.map((e) {
@@ -118,8 +118,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: appColorPrimary),
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(shape: BoxShape.circle, color: appColorPrimary),
                     child: Image.asset(e.icon!, height: 30, width: 30, color: white),
                   ),
                   4.height,
@@ -136,14 +136,14 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
 
     Widget horizontalProductListView() {
       return ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemBuilder: (_, index) {
           DTProductModel data = getProducts()[index];
 
           return Container(
             decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
             width: 220,
-            margin: EdgeInsets.only(right: 8),
+            margin: const EdgeInsets.only(right: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -160,7 +160,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                     Positioned(
                       right: 10,
                       top: 10,
-                      child: data.isLiked.validate() ? Icon(Icons.favorite, color: Colors.red, size: 16) : Icon(Icons.favorite_border, size: 16),
+                      child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
                     ),
                   ],
                 ).expand(),
@@ -225,7 +225,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
 
     Widget bannerWidget() {
       return Container(
-        margin: EdgeInsets.only(left: 8),
+        margin: const EdgeInsets.only(left: 8),
         child: Row(
           children: [
             Image.asset('images/defaultTheme/banner/dt_advertise1.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
@@ -241,224 +241,220 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     }
 
     Widget mobileWidget() {
-      return Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: appColorPrimary,
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 150,
+                  decoration: const BoxDecoration(
+                    color: appColorPrimary,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                  ),
+                ).visible(false),
+                Column(
+                  children: [
+                    10.height,
+                    searchTxt(),
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      height: 230,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          PageView(
+                            controller: pageController,
+                            scrollDirection: Axis.horizontal,
+                            children: pages,
+                            onPageChanged: (index) {
+                              selectedIndex = index;
+                              setState(() {});
+                            },
+                          ).cornerRadiusWithClipRRect(8),
+                          DotIndicator(
+                            pages: pages,
+                            indicatorColor: appColorPrimary,
+                            pageController: pageController,
+                          ),
+                        ],
+                      ),
                     ),
-                  ).visible(false),
-                  Column(
+                  ],
+                ),
+              ],
+            ),
+            10.height,
+            Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
+            horizontalList(),
+            20.height,
+            Text('ListView', style: boldTextStyle()).paddingAll(8),
+            ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemBuilder: (_, index) {
+                DTProductModel data = getProducts()[index];
+
+                return Container(
+                  decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
+                  margin: const EdgeInsets.all(8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      10.height,
-                      searchTxt(),
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        height: 230,
+                      SizedBox(
+                        height: 110,
+                        width: 126,
                         child: Stack(
-                          alignment: Alignment.bottomCenter,
                           children: [
-                            PageView(
-                              controller: pageController,
-                              scrollDirection: Axis.horizontal,
-                              children: pages,
-                              onPageChanged: (index) {
-                                selectedIndex = index;
-                                setState(() {});
-                              },
+                            Image.network(
+                              data.image!,
+                              fit: BoxFit.cover,
+                              height: 110,
+                              width: 126,
                             ).cornerRadiusWithClipRRect(8),
-                            DotIndicator(
-                              pages: pages,
-                              indicatorColor: appColorPrimary,
-                              pageController: pageController,
+                            Positioned(
+                              right: 10,
+                              top: 10,
+                              child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              10.height,
-              Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
-              horizontalList(),
-              20.height,
-              Text('ListView', style: boldTextStyle()).paddingAll(8),
-              ListView.builder(
-                padding: EdgeInsets.all(8),
-                itemBuilder: (_, index) {
-                  DTProductModel data = getProducts()[index];
-
-                  return Container(
-                    decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
-                    margin: EdgeInsets.all(8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 110,
-                          width: 126,
-                          child: Stack(
+                      8.width,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(data.name!, style: primaryTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
+                          4.height,
+                          Row(
                             children: [
-                              Image.network(
-                                data.image!,
-                                fit: BoxFit.cover,
-                                height: 110,
-                                width: 126,
-                              ).cornerRadiusWithClipRRect(8),
-                              Positioned(
-                                right: 10,
-                                top: 10,
-                                child: data.isLiked.validate() ? Icon(Icons.favorite, color: Colors.red, size: 16) : Icon(Icons.favorite_border, size: 16),
+                              IgnorePointer(
+                                child: RatingBar(
+                                  onRatingChanged: (r) {},
+                                  filledIcon: Icons.star,
+                                  emptyIcon: Icons.star_border,
+                                  initialRating: data.rating!,
+                                  maxRating: 5,
+                                  filledColor: Colors.yellow,
+                                  size: 14,
+                                ),
                               ),
+                              5.width,
+                              Text('${data.rating}', style: secondaryTextStyle(size: 12)),
                             ],
                           ),
-                        ),
-                        8.width,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(data.name!, style: primaryTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
-                            4.height,
-                            Row(
-                              children: [
-                                IgnorePointer(
-                                  child: RatingBar(
-                                    onRatingChanged: (r) {},
-                                    filledIcon: Icons.star,
-                                    emptyIcon: Icons.star_border,
-                                    initialRating: data.rating!,
-                                    maxRating: 5,
-                                    filledColor: Colors.yellow,
-                                    size: 14,
-                                  ),
-                                ),
-                                5.width,
-                                Text('${data.rating}', style: secondaryTextStyle(size: 12)),
-                              ],
-                            ),
-                            4.height,
-                            Row(
-                              children: [
-                                priceWidget(data.discountPrice),
-                                8.width,
-                                priceWidget(data.price, applyStrike: true),
-                              ],
-                            ),
-                          ],
-                        ).paddingAll(8).expand(),
-                      ],
-                    ),
-                  ).onTap(() async {
-                    int? index = await DTProductDetailScreen(productModel: data).launch(context);
-                    if (index != null) appStore.setDrawerItemIndex(index);
-                  });
-                },
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: getProducts().length,
-              ),
-            ],
-          ),
+                          4.height,
+                          Row(
+                            children: [
+                              priceWidget(data.discountPrice),
+                              8.width,
+                              priceWidget(data.price, applyStrike: true),
+                            ],
+                          ),
+                        ],
+                      ).paddingAll(8).expand(),
+                    ],
+                  ),
+                ).onTap(() async {
+                  int? index = await DTProductDetailScreen(productModel: data).launch(context);
+                  if (index != null) appStore.setDrawerItemIndex(index);
+                });
+              },
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: getProducts().length,
+            ),
+          ],
         ),
       );
     }
 
     Widget webWidget() {
       return SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 60),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.only(bottom: 60),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('images/app/app_icon.png', height: 100),
+                searchTxt().expand(),
+                25.width,
+                Container(
+                  padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+                  decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
+                  child: Text('Sign In', style: boldTextStyle(color: white, size: 18)),
+                ).onTap(() {
+                  DTSignInScreen().launch(context);
+                }),
+                16.width,
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Icon(Icons.shopping_cart, size: 30, color: appStore.iconColor),
+                ).onTap(() {
+                  DTCartScreen().launch(context);
+                }),
+                16.width
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.all(8),
+              width: context.width(),
+              decoration: boxDecoration(showShadow: true, radius: 10, bgColor: Colors.transparent),
+              height: 280,
+              child: Stack(
                 children: [
-                  Image.asset('images/app/app_icon.png', height: 100),
-                  searchTxt().expand(),
-                  25.width,
-                  Container(
-                    padding: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
-                    decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
-                    child: Text('Sign In', style: boldTextStyle(color: white, size: 18)),
-                  ).onTap(() {
-                    DTSignInScreen().launch(context);
-                  }),
-                  16.width,
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                    child: Icon(Icons.shopping_cart, size: 30, color: appStore.iconColor),
-                  ).onTap(() {
-                    DTCartScreen().launch(context);
-                  }),
-                  16.width
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.all(8),
-                width: context.width(),
-                decoration: boxDecoration(showShadow: true, radius: 10, bgColor: Colors.transparent),
-                height: 280,
-                child: Stack(
-                  children: [
-                    PageView(
-                      controller: pageController,
-                      scrollDirection: Axis.horizontal,
-                      children: pages,
-                      onPageChanged: (index) {
+                  PageView(
+                    controller: pageController,
+                    scrollDirection: Axis.horizontal,
+                    children: pages,
+                    onPageChanged: (index) {
+                      selectedIndex = index;
+                      setState(() {});
+                    },
+                  ).cornerRadiusWithClipRRect(8),
+                  AnimatedPositioned(
+                    duration: const Duration(seconds: 1),
+                    bottom: 20,
+                    left: 0,
+                    right: 0,
+                    child: DotIndicator(
+                      pageController: pageController,
+                      pages: pages,
+                      indicatorColor: appColorPrimary,
+                      onDotTap: (index) {
                         selectedIndex = index;
+
+                        pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear);
                         setState(() {});
                       },
-                    ).cornerRadiusWithClipRRect(8),
-                    AnimatedPositioned(
-                      duration: Duration(seconds: 1),
-                      bottom: 20,
-                      left: 0,
-                      right: 0,
-                      child: DotIndicator(
-                        pageController: pageController,
-                        pages: pages,
-                        indicatorColor: appColorPrimary,
-                        onDotTap: (index) {
-                          selectedIndex = index;
-
-                          pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.linear);
-                          setState(() {});
-                        },
-                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
-              8.height,
-              horizontalList(),
-              8.height,
-              Text('Top Picks For You', style: boldTextStyle()).paddingAll(8),
-              8.height,
-              Container(height: 300, child: horizontalProductListView()),
-              8.height,
-              Text('Latest Offers For You', style: boldTextStyle()).paddingAll(8),
-              8.height,
-              bannerWidget(),
-              8.height,
-              Text('Recommended For You', style: boldTextStyle()).paddingAll(8),
-              8.height,
-              Container(height: 300, child: horizontalProductListView()),
-              Text('Recommended Offers For You', style: boldTextStyle()).paddingAll(8),
-              8.height,
-              bannerWidget(),
-            ],
-          ),
+            ),
+            Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
+            8.height,
+            horizontalList(),
+            8.height,
+            Text('Top Picks For You', style: boldTextStyle()).paddingAll(8),
+            8.height,
+            SizedBox(height: 300, child: horizontalProductListView()),
+            8.height,
+            Text('Latest Offers For You', style: boldTextStyle()).paddingAll(8),
+            8.height,
+            bannerWidget(),
+            8.height,
+            Text('Recommended For You', style: boldTextStyle()).paddingAll(8),
+            8.height,
+            SizedBox(height: 300, child: horizontalProductListView()),
+            Text('Recommended Offers For You', style: boldTextStyle()).paddingAll(8),
+            8.height,
+            bannerWidget(),
+          ],
         ),
       );
     }

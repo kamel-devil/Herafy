@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTFilter.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTFilterOption.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 
 import '../../main.dart';
+import '../model/DTFilter.dart';
+import '../model/DTFilterOption.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
 
 int selectedIndex = 0;
 
 class DTFilterScreen extends StatefulWidget {
   static String tag = '/DTFilterScreen';
+
+  const DTFilterScreen({super.key});
 
   @override
   DTFilterScreenState createState() => DTFilterScreenState();
@@ -50,7 +53,7 @@ class DTFilterScreenState extends State<DTFilterScreen> {
           ),
           alignment: Alignment.bottomCenter,
           height: 80,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -68,7 +71,7 @@ class DTFilterScreenState extends State<DTFilterScreen> {
                 style: ElevatedButton.styleFrom(
                   primary: appColorPrimary,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                  padding: EdgeInsets.fromLTRB(50, 12, 50, 12),
+                  padding: const EdgeInsets.fromLTRB(50, 12, 50, 12),
                 ),
                 child: Text("Apply", style: primaryTextStyle(color: Colors.white)),
               )
@@ -87,7 +90,7 @@ class DTFilterScreenState extends State<DTFilterScreen> {
                   scrollDirection: Axis.vertical,
                   itemCount: dataList.length,
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(bottom: 16),
                   itemBuilder: (context, index) {
                     var selectedCount = 0;
 
@@ -98,7 +101,7 @@ class DTFilterScreenState extends State<DTFilterScreen> {
 
                     return Container(
                       color: selectedIndex == index ? appStore.appBarColor : Colors.transparent,
-                      padding: EdgeInsets.fromLTRB(16, 16, 10, 16),
+                      padding: const EdgeInsets.fromLTRB(16, 16, 10, 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
@@ -112,7 +115,7 @@ class DTFilterScreenState extends State<DTFilterScreen> {
                             ),
                           ),
                           selectedIndex == index
-                              ? Icon(Icons.check, color: appColorPrimary, size: 16)
+                              ? const Icon(Icons.check, color: appColorPrimary, size: 16)
                               : Text(dataList[index].total.validate().toString(), style: primaryTextStyle(color: appColorPrimary), maxLines: 1)
                         ],
                       ),
@@ -127,8 +130,8 @@ class DTFilterScreenState extends State<DTFilterScreen> {
                 ),
               ),
             ),
-            VerticalDivider(width: 0),
-            Expanded(flex: isMobile ? 5 : 7, child: Container(height: context.height(), child: data(selectedIndex))),
+            const VerticalDivider(width: 0),
+            Expanded(flex: isMobile ? 5 : 7, child: SizedBox(height: context.height(), child: data(selectedIndex))),
           ],
         ),
       ),
@@ -154,7 +157,7 @@ Widget data(int pos, {int? selectedItemCount}) {
   if (pos == 3) return mOption(mOffers);
   if (pos == 4) return mOption(mDiscount);
   if (pos == 5) return mOption(mAvailability);
-  return SizedBox();
+  return const SizedBox();
 }
 
 Widget mOption(List<DTFilterOptionModel> mList) {
@@ -162,7 +165,7 @@ Widget mOption(List<DTFilterOptionModel> mList) {
     scrollDirection: Axis.vertical,
     itemCount: mList.length,
     shrinkWrap: true,
-    padding: EdgeInsets.only(bottom: 16),
+    padding: const EdgeInsets.only(bottom: 16),
     itemBuilder: (context, index) {
       return Option(mList[index]);
     },
@@ -173,7 +176,7 @@ Widget mOption(List<DTFilterOptionModel> mList) {
 class Option extends StatefulWidget {
   DTFilterOptionModel model;
 
-  Option(this.model);
+  Option(this.model, {super.key});
 
   @override
   _OptionState createState() => _OptionState();
@@ -183,7 +186,7 @@ class _OptionState extends State<Option> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 16, 20, 16),
+      margin: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
         children: <Widget>[
           Container(

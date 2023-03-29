@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/model/ListModels.dart';
 
+
+import '../../main.dart';
+import '../screen/main/utils/clusteringGoogleMaps/lat_lang_geohash.dart';
+import '../store/ListModels.dart';
 import 'AppColors.dart';
 import 'AppConstant.dart';
-import 'clusteringGoogleMaps/lat_lang_geohash.dart';
+import 'common.dart';
 
 Widget text(
   String? text, {
@@ -32,7 +33,7 @@ Widget text(
     maxLines: isLongText ? null : maxLine,
     overflow: TextOverflow.ellipsis,
     style: TextStyle(
-      fontFamily: fontFamily ?? null,
+      fontFamily: fontFamily,
       fontSize: fontSize,
       color: textColor ?? appStore.textSecondaryColor,
       height: 1.5,
@@ -45,7 +46,7 @@ Widget text(
 BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color? bgColor, var showShadow = false}) {
   return BoxDecoration(
     color: bgColor ?? appStore.scaffoldBackground,
-    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [BoxShadow(color: Colors.transparent)],
+    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [const BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
@@ -58,11 +59,11 @@ Future<List<LatLngAndGeohash>> getListOfLatLngAndGeoHash(BuildContext context) a
     for (int i = 0; i < fakeList!.length; i++) {
       //TODO Without NullSafety Geo coder
       //final fakePoint = fakeList[i];
-      final p = LatLngAndGeohash(
-          //TODO Without NullSafety Geo coder
-          // LatLng(fakePoint["LATITUDE"], fakePoint["LONGITUDE"]),
-          );
-      myPoints.add(p);
+      // final p = LatLngAndGeohash(
+      //     //TODO Without NullSafety Geo coder
+      //      LatLng(fakePoint["LATITUDE"], fakePoint["LONGITUDE"]),
+      //     );
+      // myPoints.add(p);
     }
     return myPoints;
   } catch (e) {
@@ -106,8 +107,8 @@ Widget settingItem(context, String text, {Function? onTap, Widget? detail, Widge
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(child: leading ?? SizedBox(), width: 30, alignment: Alignment.center),
-              leading != null ? 10.width : SizedBox(),
+              Container(width: 30, alignment: Alignment.center, child: leading ?? const SizedBox()),
+              leading != null ? 10.width : const SizedBox(),
               Text(text, style: primaryTextStyle(size: textSize ?? 18, color: textColor ?? appStore.textPrimaryColor)).expand(),
             ],
           ).expand(),
@@ -157,13 +158,13 @@ class ExampleItemWidget extends StatelessWidget {
   final Function onTap;
   final bool showTrailing;
 
-  ExampleItemWidget(this.tabBarType, {required this.onTap, this.showTrailing = false});
+  const ExampleItemWidget(this.tabBarType, {super.key, required this.onTap, this.showTrailing = false});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: appStore.appBarColor,
-      margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
+      margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
       elevation: 2.0,
       shadowColor: Colors.black,
       child: ListTile(
@@ -187,7 +188,7 @@ String convertDate(date) {
 class CustomTheme extends StatelessWidget {
   final Widget? child;
 
-  CustomTheme({required this.child});
+  const CustomTheme({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -280,20 +281,20 @@ class ContainerX extends StatelessWidget {
   final Widget? web;
   final bool? useFullWidth;
 
-  ContainerX({this.mobile, this.web, this.useFullWidth});
+  const ContainerX({super.key, this.mobile, this.web, this.useFullWidth});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (_, constraints) {
         if (constraints.device == DeviceSize.mobile) {
-          return mobile ?? SizedBox();
+          return mobile ?? const SizedBox();
         } else {
           return Container(
             alignment: Alignment.topCenter,
             child: Container(
               constraints: useFullWidth.validate() ? null : dynamicBoxConstraints(maxWidth: context.width() * 0.9),
-              child: web ?? SizedBox(),
+              child: web ?? const SizedBox(),
             ),
           );
         }

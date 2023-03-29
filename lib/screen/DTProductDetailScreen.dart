@@ -3,19 +3,19 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTAddressListModel.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTProductModel.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTCartScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTReviewScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../../main.dart';
+import '../model/DTAddressListModel.dart';
+import '../model/DTProductModel.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppConstant.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTDataProvider.dart';
+import '../utils/DTWidgets.dart';
 import 'DTAddressScreen.dart';
+import 'DTCartScreen.dart';
 import 'DTDrawerWidget.dart';
+import 'DTReviewScreen.dart';
 import 'ReviewWidget.dart';
 
 // ignore: must_be_immutable
@@ -65,7 +65,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
       return Container(
         height: 50,
         width: context.width() / 2,
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(color: appStore.scaffoldBackground, boxShadow: defaultBoxShadow(spreadRadius: 3.0)),
         child: Text('Add to Cart', style: boldTextStyle()),
@@ -78,7 +78,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
     Widget buyNowBtn() {
       return Container(
         height: 50,
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         alignment: Alignment.center,
         width: context.width() / 2,
         decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow()),
@@ -122,10 +122,10 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(16)),
-                    padding: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
                     child: Row(
                       children: [
-                        Icon(Icons.star_border, color: Colors.white, size: 14),
+                        const Icon(Icons.star_border, color: Colors.white, size: 14),
                         8.width,
                         Text(widget.productModel!.rating.toString(), style: primaryTextStyle(color: white)),
                       ],
@@ -141,7 +141,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
               ),
             ],
           ).paddingAll(16),
-          Divider(height: 20),
+          const Divider(height: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -157,7 +157,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                     ],
                   ).expand(),
                   Container(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(border: Border.all(color: appColorPrimary), borderRadius: BorderRadius.circular(3)),
                     child: Text('Change', style: primaryTextStyle()),
                   ).onTap(() async {
@@ -175,16 +175,16 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
               4.height,
               Text(mSelectedAddress != null ? mSelectedAddress!.addressLine1.validate() : '4683 Stadium Drive, Cambridge, MA', style: secondaryTextStyle()),
               16.height,
-              Divider(height: 0),
+              const Divider(height: 0),
             ],
           ).paddingAll(16),
-          settingItem(context, '\$10 Delivery in 2 days, Monday', leading: Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
+          settingItem(context, '\$10 Delivery in 2 days, Monday', leading: const Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
             mMoreOfferBottomSheet(context);
           }),
-          settingItem(context, '7 Days return policy', leading: Icon(FontAwesome.exchange, color: appColorPrimary, size: 18), textSize: 15, padding: 0.0, onTap: () {
+          settingItem(context, '7 Days return policy', leading: const Icon(FontAwesome.exchange, color: appColorPrimary, size: 18), textSize: 15, padding: 0.0, onTap: () {
             mMoreOfferBottomSheet(context);
           }),
-          settingItem(context, 'Cash on Delivery', leading: Icon(MaterialIcons.attach_money, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
+          settingItem(context, 'Cash on Delivery', leading: const Icon(MaterialIcons.attach_money, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
             mMoreOfferBottomSheet(context);
           }),
         ],
@@ -195,11 +195,11 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
       return Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 70),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: context.height() * 0.45,
                   child: Image.network(
                     widget.productModel!.image!,
@@ -225,31 +225,29 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: Column(
-                  children: [
-                    16.height,
-                    Container(
-                      height: context.height() * 0.45,
-                      margin: EdgeInsets.all(8),
-                      child: Image.network(
-                        widget.productModel!.image!,
-                        width: context.width(),
-                        fit: BoxFit.fitHeight,
-                      ),
+              Column(
+                children: [
+                  16.height,
+                  Container(
+                    height: context.height() * 0.45,
+                    margin: const EdgeInsets.all(8),
+                    child: Image.network(
+                      widget.productModel!.image!,
+                      width: context.width(),
+                      fit: BoxFit.fitHeight,
                     ),
-                    20.height,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        addToCartBtn().expand(flex: 20),
-                        buyNowBtn().expand(flex: 20),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  20.height,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      addToCartBtn().expand(flex: 20),
+                      buyNowBtn().expand(flex: 20),
+                    ],
+                  ),
+                ],
               ).expand(flex: 40),
-              VerticalDivider(width: 0),
+              const VerticalDivider(width: 0),
               Container(
                 decoration: boxDecoration(bgColor: appStore.scaffoldBackground),
                 child: SingleChildScrollView(
@@ -259,7 +257,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
             ],
           ),
           16.height,
-          widget.productModel != null ? Text('${widget.productModel!.name.validate()} Reviews', style: boldTextStyle()).paddingAll(16) : SizedBox(),
+          widget.productModel != null ? Text('${widget.productModel!.name.validate()} Reviews', style: boldTextStyle()).paddingAll(16) : const SizedBox(),
           ReviewWidget(list: getReviewList()),
         ],
       );
@@ -281,79 +279,77 @@ void mMoreOfferBottomSheet(BuildContext aContext) {
   showModalBottomSheet(
     context: aContext,
     backgroundColor: appStore.scaffoldBackground,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
     ),
     builder: (builder) {
       return SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              16.height,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary),
-                  10.width,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("\$10 Delivery in 2 days, Monday", style: boldTextStyle()),
-                      4.height,
-                      Text(
-                        LoremText,
-                        style: secondaryTextStyle(size: 14),
-                        maxLines: 2,
-                      ),
-                    ],
-                  ).expand()
-                ],
-              ),
-              16.height,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(FontAwesome.exchange, color: appColorPrimary),
-                  10.width,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("7 Days return policy", style: boldTextStyle()),
-                      4.height,
-                      Text(
-                        LoremText,
-                        style: secondaryTextStyle(size: 14),
-                        maxLines: 2,
-                      ),
-                    ],
-                  ).expand()
-                ],
-              ),
-              16.height,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(MaterialIcons.attach_money, color: appColorPrimary),
-                  10.width,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Cash on Delivery", style: boldTextStyle()),
-                      4.height,
-                      Text(
-                        LoremText,
-                        style: secondaryTextStyle(size: 14),
-                        maxLines: 2,
-                      ),
-                    ],
-                  ).expand()
-                ],
-              ),
-              16.height,
-            ],
-          ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            16.height,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary),
+                10.width,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("\$10 Delivery in 2 days, Monday", style: boldTextStyle()),
+                    4.height,
+                    Text(
+                      LoremText,
+                      style: secondaryTextStyle(size: 14),
+                      maxLines: 2,
+                    ),
+                  ],
+                ).expand()
+              ],
+            ),
+            16.height,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(FontAwesome.exchange, color: appColorPrimary),
+                10.width,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("7 Days return policy", style: boldTextStyle()),
+                    4.height,
+                    Text(
+                      LoremText,
+                      style: secondaryTextStyle(size: 14),
+                      maxLines: 2,
+                    ),
+                  ],
+                ).expand()
+              ],
+            ),
+            16.height,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(MaterialIcons.attach_money, color: appColorPrimary),
+                10.width,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Cash on Delivery", style: boldTextStyle()),
+                    4.height,
+                    Text(
+                      LoremText,
+                      style: secondaryTextStyle(size: 14),
+                      maxLines: 2,
+                    ),
+                  ],
+                ).expand()
+              ],
+            ),
+            16.height,
+          ],
         ),
       );
     },

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info/package_info.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+
+import '../utils/AppConstant.dart';
+import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
 
 class DTAboutScreen extends StatefulWidget {

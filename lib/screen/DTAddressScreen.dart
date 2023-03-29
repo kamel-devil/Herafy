@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTAddressListModel.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
+import '../main.dart';
+import '../model/DTAddressListModel.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTDataProvider.dart';
 import 'DTDrawerWidget.dart';
 
 class DTAddressScreen extends StatefulWidget {
@@ -40,18 +41,18 @@ class DTAddressScreenState extends State<DTAddressScreen> {
       appBar: appBar(context, 'Address Manager'),
       drawer: DTDrawerWidget(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             8.height,
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
-              margin: EdgeInsets.all(8),
+              padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+              margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(8)),
               child: Text('Add New Address', style: boldTextStyle(color: appColorPrimary)),
             ).onTap(() async {
-              DTAddressListModel? model = await showInDialog(context, child: AddAddressDialog(), backgroundColor: Colors.transparent, contentPadding: EdgeInsets.all(0));
+              DTAddressListModel? model = await showInDialog(context, child: AddAddressDialog(), backgroundColor: Colors.transparent, contentPadding: const EdgeInsets.all(0));
 
               if (model != null) {
                 list.add(model);
@@ -65,8 +66,8 @@ class DTAddressScreenState extends State<DTAddressScreen> {
                 DTAddressListModel data = list[index];
 
                 return Container(
-                  padding: EdgeInsets.all(16),
-                  margin: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(8),
                   decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +82,7 @@ class DTAddressScreenState extends State<DTAddressScreen> {
                               10.width,
                               Container(
                                 child: Text(data.type.validate(), style: secondaryTextStyle(size: 10, color: appColorPrimary)),
-                                padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                                padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
                                 decoration: BoxDecoration(color: appColorPrimary.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
                               ),
                             ],
@@ -100,7 +101,7 @@ class DTAddressScreenState extends State<DTAddressScreen> {
                   finish(context, data);
                 });
               },
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
             ),
           ],
@@ -154,13 +155,13 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
     return ConstrainedBox(
       constraints: dynamicBoxConstraints(),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: appStore.scaffoldBackground,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Colors.black26,
               blurRadius: 10.0,
               offset: Offset(0.0, 10.0),
@@ -193,9 +194,9 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Name',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                   ),
@@ -214,9 +215,9 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Mobile No',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                   ),
@@ -236,9 +237,9 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Address line 1',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                   ),
@@ -259,9 +260,9 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
                   style: primaryTextStyle(),
                   decoration: InputDecoration(
                     labelText: 'Address line 2',
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                   ),
@@ -282,8 +283,8 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.all(Radius.circular(5))),
-                    padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    decoration: BoxDecoration(color: appColorPrimary, borderRadius: const BorderRadius.all(Radius.circular(5))),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                     child: Center(
                       child: Text("Submit", style: boldTextStyle(color: white)),
                     ),

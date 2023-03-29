@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 
 import '../../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
 
 class DTSignUpScreen extends StatefulWidget {
@@ -47,13 +48,13 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       appBar: appBar(context, 'Sign Up'),
       drawer: DTDrawerWidget(),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: dynamicWidth(context),
           child: Form(
             key: formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -65,10 +66,10 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'Name',
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       labelStyle: secondaryTextStyle(),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     ),
                     keyboardType: TextInputType.text,
@@ -87,9 +88,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                       labelStyle: secondaryTextStyle(),
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      contentPadding: const EdgeInsets.all(16),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -109,10 +110,10 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       labelStyle: secondaryTextStyle(),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appColorPrimary)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
                       suffix: Icon(!obscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
                         obscureText = !obscureText;
@@ -127,7 +128,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                   20.height,
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                     child: Text('Sign Up', style: boldTextStyle(color: white, size: 18)),
                   ).onTap(() {

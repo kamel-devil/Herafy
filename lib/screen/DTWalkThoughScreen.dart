@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
+import 'package:herafy/screen/main/utils/AppColors.dart';
+import 'package:herafy/screen/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
 import 'DTSignInScreen.dart';
 
@@ -88,42 +88,42 @@ class DTWalkThoughScreenState extends State<DTWalkThoughScreen> {
               },
             ),
             AnimatedPositioned(
-              duration: Duration(seconds: 1),
+              duration: const Duration(seconds: 1),
               bottom: 20,
               left: 0,
               right: 0,
               child: DotIndicator(pageController: pageController, pages: pages, indicatorColor: appColorPrimary),
             ),
             Positioned(
+              bottom: 20,
+              right: 20,
               child: AnimatedCrossFade(
                 firstChild: Container(
                   child: Text('Get Started', style: boldTextStyle(color: white)),
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
                 ).onTap(() {
                   DTSignInScreen().launch(context);
                 }),
-                secondChild: SizedBox(),
-                duration: Duration(milliseconds: 300),
+                secondChild: const SizedBox(),
+                duration: const Duration(milliseconds: 300),
                 firstCurve: Curves.easeIn,
                 secondCurve: Curves.easeOut,
                 crossFadeState: selectedIndex == (pages.length - 1) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               ),
-              bottom: 20,
-              right: 20,
             ),
             Positioned(
+              left: 20,
+              bottom: 20,
               child: AnimatedContainer(
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: Text('Skip', style: boldTextStyle(color: white)),
-                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
               ).onTap(() {
                 finish(context);
                 DTSignInScreen().launch(context);
               }),
-              left: 20,
-              bottom: 20,
             ),
           ],
         ),

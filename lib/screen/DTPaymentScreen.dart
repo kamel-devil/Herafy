@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTPaymentProcessScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/ExpirationTextField.dart';
-import 'package:prokit_flutter/defaultTheme/utils/FlipCard.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 
 import '../../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import '../utils/ExpirationTextField.dart';
+import '../utils/FlipCard.dart';
 import 'DTDrawerWidget.dart';
+import 'DTPaymentProcessScreen.dart';
 
 class DTPaymentScreen extends StatefulWidget {
   static String tag = '/DTPaymentScreen';
@@ -64,13 +65,13 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
         drawer: DTDrawerWidget(),
         body: Align(
           alignment: Alignment.topCenter,
-          child: Container(
+          child: SizedBox(
             width: dynamicWidth(context),
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 200,
                     child: FlipCard(
                       key: cardKey,
@@ -79,10 +80,10 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                         child: Stack(
                           children: [
                             Positioned(
-                              child: Image.asset('images/defaultTheme/ic_mastercard.png'),
                               height: 40,
                               right: 8,
                               top: 8,
+                              child: Image.asset('images/defaultTheme/ic_mastercard.png'),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,9 +150,9 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                     decoration: InputDecoration(
                       labelText: 'card Number',
                       counterText: '',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
+                      focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
                       labelStyle: secondaryTextStyle(),
                     ),
                     maxLength: 16,
@@ -173,9 +174,9 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: 'Expiry Date',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
+                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
                           labelStyle: secondaryTextStyle(),
                           counterText: '',
                         ),
@@ -211,9 +212,9 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: 'Security Code',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
+                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
                           labelStyle: secondaryTextStyle(),
                           counterText: '',
                         ),
@@ -235,9 +236,9 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                     style: primaryTextStyle(),
                     decoration: InputDecoration(
                       labelText: 'card Holder',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
+                      focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: appColorPrimary)),
                       labelStyle: secondaryTextStyle(),
                     ),
                     onChanged: (s) {
@@ -247,7 +248,7 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                   20.height,
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appColorPrimary),
                     child: Text('Proceed to Pay', style: boldTextStyle(color: white)),
                   ).onTap(() {
@@ -257,7 +258,7 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                       context: context,
                       builder: (context) {
                         return Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           height: 150,
                           constraints: dynamicBoxConstraints(),
                           child: Column(

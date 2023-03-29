@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTAddressListModel.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTProductModel.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTAddressScreen.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTPaymentScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
+import '../model/DTAddressListModel.dart';
+import '../model/DTProductModel.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTDataProvider.dart';
+import '../utils/DTWidgets.dart';
 import 'CartListView.dart';
+import 'DTAddressScreen.dart';
 import 'DTDrawerWidget.dart';
+import 'DTPaymentScreen.dart';
 
 // ignore: must_be_immutable
 class DTOrderSummaryScreen extends StatefulWidget {
@@ -78,7 +78,7 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
   Widget build(BuildContext context) {
     Widget addressView() {
       return Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,13 +92,13 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
                     Text(name!, style: boldTextStyle(size: 18)),
                     10.width,
                     Container(
-                      child: Text('Home', style: secondaryTextStyle()),
-                      padding: EdgeInsets.only(left: 8, right: 8),
+                      padding: const EdgeInsets.only(left: 8, right: 8),
                       decoration: BoxDecoration(color: Theme.of(context).dividerColor.withOpacity(0.5), borderRadius: BorderRadius.circular(8)),
+                      child: Text('Home', style: secondaryTextStyle()),
                     ),
                   ],
                 ),
-                Icon(Icons.phone, color: appColorPrimary).onTap(() {
+                const Icon(Icons.phone, color: appColorPrimary).onTap(() {
                   launch('tel:+913972847376');
                 }),
               ],
@@ -125,11 +125,11 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
     Widget itemTitle() {
       return Row(
         children: [
-          Divider().expand(),
+          const Divider().expand(),
           10.width,
           Text('Items', style: boldTextStyle(), maxLines: 1).center(),
           10.width,
-          Divider().expand(),
+          const Divider().expand(),
         ],
       );
     }
@@ -139,7 +139,7 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
         children: [
           Row(
             children: [
-              Icon(Feather.truck, size: 26, color: appColorPrimary),
+              const Icon(Feather.truck, size: 26, color: appColorPrimary),
               10.width,
               Text('Expected Delivery - $expectedDelivery', style: boldTextStyle(), maxLines: 1).expand(),
             ],
@@ -147,7 +147,7 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
           20.height,
           Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appColorPrimary),
             child: Text('Continue to Pay', style: boldTextStyle(color: white)),
           ).onTap(() {
@@ -159,7 +159,7 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
 
     Widget mobileWidget() {
       return SingleChildScrollView(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -173,7 +173,7 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
               ],
             ).paddingAll(8),
             CartListView(mIsEditable: false, isOrderSummary: true),
-            Divider(height: 20),
+            const Divider(height: 20),
             deliveryDateAndPayBtn(),
           ],
         ),
@@ -185,9 +185,9 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
                   16.height,
@@ -200,14 +200,14 @@ class DTOrderSummaryScreenState extends State<DTOrderSummaryScreen> {
               ),
             ),
           ).expand(flex: 60),
-          VerticalDivider(width: 0),
+          const VerticalDivider(width: 0),
           Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             child: Column(
               children: [
                 20.height,
                 totalAmountWidget(subTotal, shippingCharges, totalAmount),
-                Divider(height: 20),
+                const Divider(height: 20),
                 deliveryDateAndPayBtn(),
               ],
             ),

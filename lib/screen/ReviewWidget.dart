@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/main/utils/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/model/DTReviewModel.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
+
 
 import '../../main.dart';
+import '../model/DTReviewModel.dart';
+import '../utils/AppColors.dart';
 
 class ReviewWidget extends StatefulWidget {
   static String tag = '/ReviewWidget';
@@ -36,22 +37,22 @@ class ReviewWidgetState extends State<ReviewWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.only(bottom: 8, top: 16),
+      padding: const EdgeInsets.only(bottom: 8, top: 16),
       itemCount: widget.list!.length,
       itemBuilder: (_, index) {
         DTReviewModel data = widget.list![index];
 
         return Container(
-          margin: EdgeInsets.all(8),
-          padding: EdgeInsets.all(16),
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(16),
           decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                child: Icon(Icons.person_outline, color: white),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: appColorPrimary),
-                padding: EdgeInsets.all(4),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: appColorPrimary),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(Icons.person_outline, color: white),
               ),
               16.width,
               Column(
@@ -64,7 +65,7 @@ class ReviewWidgetState extends State<ReviewWidget> {
                         child: RatingBar(
                           onRatingUpdate: (r) {},
                           itemSize: 14.0,
-                          itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+                          itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
                           initialRating: data.ratting,
                         ),
                       ),
@@ -79,7 +80,7 @@ class ReviewWidgetState extends State<ReviewWidget> {
           ),
         );
       },
-      physics: widget.enableScrollPhysics.validate(value: true) ? ScrollPhysics() : NeverScrollableScrollPhysics(),
+      physics: widget.enableScrollPhysics.validate(value: true) ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
     );
   }

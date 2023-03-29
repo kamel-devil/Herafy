@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTDashboardScreen.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTDataProvider.dart';
-import 'package:prokit_flutter/main/model/ListModels.dart';
-import 'package:prokit_flutter/main/screens/ProKitLauncher.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/widgets/materialWidgets/mwAppStrucutreWidgets/MWDrawerWidgets/MWDrawerScreen2.dart';
 
 import '../../main.dart';
+import '../MWDrawerScreen2.dart';
+import '../store/ListModels.dart';
+import '../utils/AppColors.dart';
+import '../utils/DTDataProvider.dart';
+import 'DTDashboardScreen.dart';
 
 class DTDrawerWidget extends StatefulWidget {
   static String tag = '/DTDrawerWidget';
@@ -28,7 +27,7 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
 
   init() async {
     if (appStore.selectedDrawerItem > 7) {
-      await Future.delayed(Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 300));
       scrollController.jumpTo(appStore.selectedDrawerItem * 27.0);
 
       setState(() {});
@@ -58,22 +57,22 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
                   Text('Screens', style: secondaryTextStyle(size: 12)).paddingOnly(left: 16),
                   4.height,
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Text('Home', style: boldTextStyle(color: appColorPrimary)),
                   ).onTap(() {
                     appStore.setDrawerItemIndex(-1);
 
                     if (isMobile) {
-                      ProKitLauncher().launch(context, isNewTask: true);
+                      DTDashboardScreen().launch(context, isNewTask: true);
                     } else {
                       DTDashboardScreen().launch(context, isNewTask: true);
                     }
                   }),
-                  Divider(height: 16, color: viewLineColor),
+                  const Divider(height: 16, color: viewLineColor),
                   ListView.builder(
                     itemBuilder: (context, index) {
                       return Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: appStore.selectedDrawerItem == index ? appColorPrimary.withOpacity(0.3) : appStore.scaffoldBackground,
                         ),
@@ -88,8 +87,8 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
                         drawerItems[index].widget.launch(context);
                       });
                     },
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
                     itemCount: drawerItems.length,
                     shrinkWrap: true,
                   ),

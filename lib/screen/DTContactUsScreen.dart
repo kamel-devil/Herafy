@@ -3,11 +3,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/utils/DTWidgets.dart';
-import 'package:prokit_flutter/main.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+
+import '../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import '../utils/DTWidgets.dart';
 import 'DTDrawerWidget.dart';
 
 class DTContactUsScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     height: context.height(),
                     width: context.width(),
                     color: white,
-                    child: GoogleMap(
+                    child: const GoogleMap(
                       initialCameraPosition: CameraPosition(target: LatLng(43.7262115, 12.636526499999945), zoom: 5),
                     ),
                   )
@@ -60,7 +61,7 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     child: Text('Google Maps support is coming soon', style: primaryTextStyle(size: 18)),
                   ),
             Container(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               height: 50,
               decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.scaffoldBackground!),
               child: TextFormField(
@@ -69,9 +70,9 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                 decoration: InputDecoration(
                   hintText: 'Find our office',
                   hintStyle: primaryTextStyle(),
-                  contentPadding: EdgeInsets.all(16),
+                  contentPadding: const EdgeInsets.all(16),
                   labelStyle: secondaryTextStyle(),
-                  suffixIcon: Icon(Icons.near_me, color: appColorPrimary),
+                  suffixIcon: const Icon(Icons.near_me, color: appColorPrimary),
                   prefixIcon: Icon(Icons.search, color: appStore.iconColor),
                   border: InputBorder.none,
                 ),
@@ -88,15 +89,18 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
               bottom: 12,
               right: 0,
               left: 0,
-              child: Container(
+              child: SizedBox(
                 height: 225,
                 child: Stack(
                   children: [
                     Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
                       child: Container(
-                        margin: EdgeInsets.all(16),
+                        margin: const EdgeInsets.all(16),
                         height: 180,
-                        decoration: BoxDecoration(color: appStore.scaffoldBackground, borderRadius: BorderRadius.all(Radius.circular(8))),
+                        decoration: BoxDecoration(color: appStore.scaffoldBackground, borderRadius: const BorderRadius.all(Radius.circular(8))),
                         child: Column(
                           children: [
                             24.height,
@@ -133,9 +137,6 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                           ],
                         ),
                       ),
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
                     ),
                     Positioned(
                       right: 50,
@@ -143,7 +144,7 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(shape: BoxShape.circle, gradient: defaultThemeGradient(), boxShadow: defaultBoxShadow()),
-                        child: Icon(EvilIcons.sc_telegram, color: white, size: 45).paddingOnly(bottom: 4, right: 4),
+                        child: const Icon(EvilIcons.sc_telegram, color: white, size: 45).paddingOnly(bottom: 4, right: 4),
                       ),
                     ),
                   ],

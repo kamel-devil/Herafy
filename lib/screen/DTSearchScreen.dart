@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/defaultTheme/screen/DTCategoryDetailScreen.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../../main.dart';
+import '../utils/AppColors.dart';
+import '../utils/AppWidget.dart';
+import 'DTCategoryDetailScreen.dart';
 import 'DTDrawerWidget.dart';
 
 class DTSearchScreen extends StatefulWidget {
@@ -52,7 +52,7 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
       appBar: appBar(context, 'Search'),
       drawer: DTDrawerWidget(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
@@ -61,11 +61,11 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
               decoration: InputDecoration(
                 hintText: 'Search',
                 hintStyle: primaryTextStyle(color: appStore.textSecondaryColor),
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: const EdgeInsets.all(16),
                 prefixIcon: Icon(AntDesign.search1, color: appStore.textSecondaryColor),
                 labelStyle: secondaryTextStyle(),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide(color: appColorPrimary)),
+                border: const OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: const BorderSide(color: appColorPrimary)),
                 enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
               ),
               keyboardType: TextInputType.name,
@@ -91,8 +91,8 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                       children: [
                         Text('Recent Searches', style: primaryTextStyle()).expand(),
                         Container(
-                          padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
-                          decoration: BoxDecoration(color: appColorPrimary, shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                          padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                          decoration: const BoxDecoration(color: appColorPrimary, shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(5.0))),
                           child: Text(
                             'View All',
                             style: secondaryTextStyle(color: white),
@@ -106,21 +106,21 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                     ListView.builder(
                       itemCount: recentSearch.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, i) {
                         return GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             width: context.width(),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  decoration: BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
-                                  padding: EdgeInsets.all(4),
-                                  child: Icon(Icons.search, color: white, size: 20),
+                                  decoration: const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+                                  padding: const EdgeInsets.all(4),
+                                  child: const Icon(Icons.search, color: white, size: 20),
                                 ),
                                 Flexible(
                                   child: Text(recentSearch[i], style: primaryTextStyle(size: 14), maxLines: 2).paddingOnly(left: 8, right: 8),
@@ -140,21 +140,21 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                     ListView.builder(
                       itemCount: trending.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, i) {
                         return GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             width: context.width(),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  decoration: BoxDecoration(color: appColorPrimary, shape: BoxShape.circle),
-                                  padding: EdgeInsets.all(4),
-                                  child: Icon(Icons.trending_up, color: white, size: 20),
+                                  decoration: const BoxDecoration(color: appColorPrimary, shape: BoxShape.circle),
+                                  padding: const EdgeInsets.all(4),
+                                  child: const Icon(Icons.trending_up, color: white, size: 20),
                                 ),
                                 Flexible(
                                   child: Text(trending[i], style: primaryTextStyle(size: 14), maxLines: 2).paddingOnly(left: 8, right: 8),
@@ -167,7 +167,7 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                     )
                   ],
                 ).visible(searchText == ''),
-                Center(
+                const Center(
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
                     child: CircularProgressIndicator(
