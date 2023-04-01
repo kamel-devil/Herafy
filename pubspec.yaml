@@ -45,7 +45,7 @@ dependencies:
   firebase_crashlytics: ^3.0.16
   cloud_firestore: ^4.4.4
   firebase_core: ^2.7.1
-
+  firebase_auth:
 
   # Common
   share: ^2.0.4
@@ -98,8 +98,7 @@ dependencies:
   clippy_flutter: ^2.0.0-nullsafety.1
   flutter_reaction_button: ^1.0.8
   showcaseview: ^1.0.0
-  fl_chart: ^0.36.1
-  syncfusion_flutter_charts: ^19.1.67
+  awesome_dialog:
 
   # VIDEOS
   video_player: ^2.1.4
@@ -159,6 +158,7 @@ flutter:
   assets:
     - assets/defaultTheme/
     - images/defaultTheme/
+    - images/
     - assets/images/defaultTheme/
 
   # An image asset can refer to one or more resolution-specific "variants", see

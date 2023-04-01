@@ -3,7 +3,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:herafy/screen/DTWalkThoughScreen.dart';
 import 'package:herafy/screen/main/screens/AppSplashScreen.dart';
 import 'package:herafy/screen/main/utils/AppConstant.dart';
 import 'package:herafy/screen/main/utils/AppTheme.dart';
@@ -19,7 +18,7 @@ AppStore appStore = AppStore();
 void main() async {
   //region Entry Point
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   await initialize();
 
   appStore.toggleDarkMode(value: getBoolAsync(isDarkModeOnPref));

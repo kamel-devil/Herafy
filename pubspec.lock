@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  awesome_dialog:
+    dependency: "direct main"
+    description:
+      name: awesome_dialog
+      sha256: ac08268b991f228fc6b8880b68ec030d2941bcc8df8b6a6551fb79f2bd36b7da
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -249,14 +257,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
   eventify:
     dependency: transitive
     description:
@@ -305,6 +305,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.4"
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      sha256: "94c229e296a5b9ee5c8cda918e0b320e3a0cc4f6a349cd410c427da347f2a244"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.0"
+  firebase_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_auth_platform_interface
+      sha256: "1217d8aa313b49d58b489aa8879544563abc8793d9612ff20d8df193f202aedc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.12.0"
+  firebase_auth_web:
+    dependency: transitive
+    description:
+      name: firebase_auth_web
+      sha256: bf7f1a87995a58b0f07dc617806dabd7ff25c64be7fa47b41ab1bb9a485b0062
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.10"
   firebase_core:
     dependency: "direct main"
     description:
@@ -369,14 +393,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.17"
-  fl_chart:
-    dependency: "direct main"
-    description:
-      name: fl_chart
-      sha256: "0c8baa9d4db70817d27099efb99e40e4164448bb86f73217216ef65b3976bc4f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.36.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -680,6 +696,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.2+1"
+  graphs:
+    dependency: transitive
+    description:
+      name: graphs
+      sha256: f9e130f3259f52d26f0cfc0e964513796dafed572fa52e45d2f8d6ca14db39b2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   html:
     dependency: "direct main"
     description:
@@ -1120,6 +1144,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.4"
+  rive:
+    dependency: transitive
+    description:
+      name: rive
+      sha256: "22e3755b75f4ea4492d2fecf4fc2acf1c8d0073df39781d290a20cbfe74c3760"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.1"
   rxdart:
     dependency: transitive
     description:
@@ -1309,22 +1341,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  syncfusion_flutter_charts:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_charts
-      sha256: "0fba2a6a949308f6c2779195e8439f2c60064ad1b022abe8997f47b09e09fb6b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "19.4.56"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      sha256: "9be1bb9bbdb42823439a18da71484f1964c14dbe1c255ab1b931932b12fa96e8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "19.4.56"
   synchronized:
     dependency: transitive
     description:

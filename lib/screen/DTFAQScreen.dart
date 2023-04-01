@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 
-import '../../main.dart';
+import '../main.dart';
 import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';

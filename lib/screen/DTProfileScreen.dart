@@ -5,7 +5,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../main.dart';
+import '../main.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';

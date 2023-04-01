@@ -1,0 +1,24 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'component/body.dart';
+import 'component/menu.dart';
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFf5f5f5),
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 8),
+        children: [
+          MediaQuery.of(context).size.width >= 980
+              ? Menu()
+              : const SizedBox(), // Responsive
+          Body()
+        ],
+      ),
+    );
+  }
+}

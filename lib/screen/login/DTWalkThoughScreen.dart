@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/login/login.dart';
 import 'package:herafy/screen/main/utils/AppColors.dart';
 import 'package:herafy/screen/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/AppWidget.dart';
-import 'DTDrawerWidget.dart';
+import '../../utils/AppWidget.dart';
+import '../DTDrawerWidget.dart';
 import 'DTSignInScreen.dart';
 
 class DTWalkThoughScreen extends StatefulWidget {
@@ -99,11 +100,11 @@ class DTWalkThoughScreenState extends State<DTWalkThoughScreen> {
               right: 20,
               child: AnimatedCrossFade(
                 firstChild: Container(
-                  child: Text('Get Started', style: boldTextStyle(color: white)),
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
+                  child: Text('Get Started', style: boldTextStyle(color: white)),
                 ).onTap(() {
-                  DTSignInScreen().launch(context);
+                  LoginPage().launch(context);
                 }),
                 secondChild: const SizedBox(),
                 duration: const Duration(milliseconds: 300),
@@ -117,12 +118,12 @@ class DTWalkThoughScreenState extends State<DTWalkThoughScreen> {
               bottom: 20,
               child: AnimatedContainer(
                 duration: const Duration(seconds: 1),
-                child: Text('Skip', style: boldTextStyle(color: white)),
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
+                child: Text('Skip', style: boldTextStyle(color: white)),
               ).onTap(() {
                 finish(context);
-                DTSignInScreen().launch(context);
+                LoginPage().launch(context);
               }),
             ),
           ],

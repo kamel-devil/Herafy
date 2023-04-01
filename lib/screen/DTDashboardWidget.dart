@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
@@ -16,7 +17,7 @@ import 'DTCartScreen.dart';
 import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
 import 'DTSearchScreen.dart';
-import 'DTSignInScreen.dart';
+import 'login/DTSignInScreen.dart';
 
 class DTDashboardWidget extends StatefulWidget {
   static String tag = '/DTDashboardWidget';
@@ -40,30 +41,11 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
   }
 
   init() async {
-    categories.add(CategoryModel(name: 'Electronics', icon: 'images/defaultTheme/category/electronics.png'));
-    categories.add(CategoryModel(name: 'TV & Appliances', icon: 'images/defaultTheme/category/Tv.png'));
+    categories.add(CategoryModel(name: 'Carpentry', icon: 'images/defaultTheme/category/furniture.png'));
+    categories.add(CategoryModel(name: 'Event planning', icon: 'images/defaultTheme/category/Man.png'));
+    categories.add(CategoryModel(name: 'Cooking', icon: 'images/defaultTheme/category/Food.png'));
     categories.add(CategoryModel(name: 'Men', icon: 'images/defaultTheme/category/Man.png'));
-    categories.add(CategoryModel(name: 'Women', icon: 'images/defaultTheme/category/women.png'));
-    categories.add(CategoryModel(name: 'Baby & Kids', icon: 'images/defaultTheme/category/kids.png'));
-    categories.add(CategoryModel(name: 'Home & Furniture', icon: 'images/defaultTheme/category/furniture.png'));
-    categories.add(CategoryModel(name: 'Fashion', icon: 'images/defaultTheme/category/fashion.png'));
-    categories.add(CategoryModel(name: 'Sports', icon: 'images/defaultTheme/category/sports.png'));
-    categories.add(CategoryModel(name: 'Jewellery', icon: 'images/defaultTheme/category/jewelry.png'));
-    categories.add(CategoryModel(name: 'Stationary', icon: 'images/defaultTheme/category/stationary.png'));
-    categories.add(CategoryModel(name: 'Shoes', icon: 'images/defaultTheme/category/Shoes.png'));
-    categories.add(CategoryModel(name: 'Watch', icon: 'images/defaultTheme/category/Watch.png'));
-    categories.add(CategoryModel(name: 'Electronics', icon: 'images/defaultTheme/category/electronics.png'));
-    categories.add(CategoryModel(name: 'TV & Appliances', icon: 'images/defaultTheme/category/Tv.png'));
-    categories.add(CategoryModel(name: 'Men', icon: 'images/defaultTheme/category/Man.png'));
-    categories.add(CategoryModel(name: 'Women', icon: 'images/defaultTheme/category/women.png'));
-    categories.add(CategoryModel(name: 'Baby & Kids', icon: 'images/defaultTheme/category/kids.png'));
-    categories.add(CategoryModel(name: 'Home & Furniture', icon: 'images/defaultTheme/category/furniture.png'));
-    categories.add(CategoryModel(name: 'Fashion', icon: 'images/defaultTheme/category/fashion.png'));
-    categories.add(CategoryModel(name: 'Sports', icon: 'images/defaultTheme/category/sports.png'));
-    categories.add(CategoryModel(name: 'Jewellery', icon: 'images/defaultTheme/category/jewelry.png'));
-    categories.add(CategoryModel(name: 'Stationary', icon: 'images/defaultTheme/category/stationary.png'));
-    categories.add(CategoryModel(name: 'Shoes', icon: 'images/defaultTheme/category/Shoes.png'));
-    categories.add(CategoryModel(name: 'Watch', icon: 'images/defaultTheme/category/Watch.png'));
+
 
     pages = [
       Container(child: Image.network(SampleImageUrl, height: isMobile ? 150 : 350, fit: BoxFit.cover)),
@@ -286,7 +268,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
               ],
             ),
             10.height,
-            Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
+            Text('Category', style: boldTextStyle()).paddingAll(8),
             horizontalList(),
             20.height,
             Text('ListView', style: boldTextStyle()).paddingAll(8),
@@ -379,15 +361,23 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset('images/app/app_icon.png', height: 100),
-                searchTxt().expand(),
+                Container(
+                  width: 100,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    image:const DecorationImage( image: AssetImage(
+                      "images/logo.jpg",
+                    ) ,fit: BoxFit.cover),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                )      ,          searchTxt().expand(),
                 25.width,
                 Container(
                   padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
                   decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
                   child: Text('Sign In', style: boldTextStyle(color: white, size: 18)),
                 ).onTap(() {
-                  DTSignInScreen().launch(context);
+                  LoginPage().launch(context);
                 }),
                 16.width,
                 Container(
@@ -436,7 +426,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 ],
               ),
             ),
-            Text('Horizontal ListView', style: boldTextStyle()).paddingAll(8),
+            Text('Category ', style: boldTextStyle()).paddingAll(8),
             8.height,
             horizontalList(),
             8.height,

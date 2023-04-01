@@ -7,7 +7,6 @@ import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:herafy/screen/main/utils/AppConstant.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-
 class AppSplashScreen extends StatefulWidget {
   static String tag = '/ProkitSplashScreen';
 
@@ -15,7 +14,8 @@ class AppSplashScreen extends StatefulWidget {
   _AppSplashScreenState createState() => _AppSplashScreenState();
 }
 
-class _AppSplashScreenState extends State<AppSplashScreen> with SingleTickerProviderStateMixin {
+class _AppSplashScreenState extends State<AppSplashScreen>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _AppSplashScreenState extends State<AppSplashScreen> with SingleTickerProv
       toastLong(errorInternetNotAvailable);
     }
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     if (isWeb) {
       DTDashboardScreen().launch(context, isNewTask: true);
     } else {
@@ -42,7 +42,16 @@ class _AppSplashScreenState extends State<AppSplashScreen> with SingleTickerProv
       backgroundColor: getColorFromHex('#FFFDF1'),
       body: Container(
         alignment: Alignment.center,
-        child: Image.asset('images/app/app_icon.png', height: 200, fit: BoxFit.fitHeight),
+        child: Container(
+          width: 300,
+          height: 200,
+          decoration: BoxDecoration(
+            image:const DecorationImage( image: AssetImage(
+              "images/logo.jpg",
+            ) ,fit: BoxFit.cover),
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
       ),
     );
   }

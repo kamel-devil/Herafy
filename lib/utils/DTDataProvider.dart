@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 
@@ -18,7 +19,6 @@ import '../screen/DTContactUsScreen.dart';
 import '../screen/DTDashboardScreen.dart';
 import '../screen/DTErrorScreen.dart';
 import '../screen/DTFAQScreen.dart';
-import '../screen/DTFilterScreen.dart';
 import '../screen/DTForgotPwdScreen.dart';
 import '../screen/DTMaintenanceScreen.dart';
 import '../screen/DTNoDataScreen.dart';
@@ -29,9 +29,9 @@ import '../screen/DTProductDetailScreen.dart';
 import '../screen/DTProfileScreen.dart';
 import '../screen/DTReviewScreen.dart';
 import '../screen/DTSearchScreen.dart';
-import '../screen/DTSignInScreen.dart';
-import '../screen/DTSignUpScreen.dart';
-import '../screen/DTWalkThoughScreen.dart';
+import '../screen/login/DTSignInScreen.dart';
+import '../screen/login/DTSignUpScreen.dart';
+import '../screen/login/DTWalkThoughScreen.dart';
 import '../store/ListModels.dart';
 import 'AppConstant.dart';
 
@@ -157,31 +157,24 @@ List<ListModel> getDrawerItems() {
   List<ListModel> drawerItems = [];
 
   drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
-  drawerItems.add(ListModel(name: 'Sign In', widget: DTSignInScreen()));
+  drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()));
   drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
   drawerItems.add(ListModel(name: 'Sign Up', widget: DTSignUpScreen()));
   drawerItems.add(ListModel(name: 'Dashboard', widget: DTDashboardScreen()));
-  drawerItems.add(ListModel(name: 'Detail', widget: DTProductDetailScreen()));
   drawerItems.add(ListModel(name: 'Profile', widget: DTProfileScreen()));
-  drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
+  // drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
   drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));
-  drawerItems.add(ListModel(name: 'Filter', widget: DTFilterScreen()));
   drawerItems.add(ListModel(name: 'About', widget: DTAboutScreen()));
   drawerItems.add(ListModel(name: 'Chat', widget: DTChatScreen()));
 
-  if (isMobile) drawerItems.add(ListModel(name: 'Contact Us', widget: DTContactUsScreen()));
+  drawerItems.add(ListModel(name: 'Contact Us', widget: DTContactUsScreen()));
 
   drawerItems.add(ListModel(name: 'Review & Rating', widget: DTReviewScreen()));
   drawerItems.add(ListModel(name: 'FAQ', widget: DTFAQScreen()));
   //drawerItems.add(ListModel(name: 'No Internet', widget: DTNoInternetScreen()));
-  drawerItems.add(ListModel(name: 'No Data', widget: DTNoDataScreen()));
-  drawerItems.add(ListModel(name: 'Error', widget: DTErrorScreen()));
-  drawerItems.add(ListModel(name: 'Maintenance', widget: DTMaintenanceScreen()));
-  drawerItems.add(ListModel(name: 'Grid View', widget: DTCategoryDetailScreen()));
   drawerItems.add(ListModel(name: 'Order Summary', widget: DTOrderSummaryScreen(getCartProducts())));
   drawerItems.add(ListModel(name: 'Address Manager', widget: DTAddressScreen()));
   drawerItems.add(ListModel(name: 'Search', widget: DTSearchScreen()));
-  drawerItems.add(ListModel(name: 'No Result', widget: DTNoResultScreen()));
   return drawerItems;
 }
 

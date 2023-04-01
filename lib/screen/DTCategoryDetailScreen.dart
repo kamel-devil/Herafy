@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../main.dart';
+import '../main.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
@@ -45,14 +45,14 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
           children: getProducts().map((data) {
             return Container(
               decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
-              margin: EdgeInsets.all(8),
+              margin: const EdgeInsets.all(8),
               //height: 200,
               width: 200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 110,
                     child: Stack(
                       children: [
@@ -65,7 +65,7 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                         Positioned(
                           right: 10,
                           top: 10,
-                          child: data.isLiked.validate() ? Icon(Icons.favorite, color: Colors.red, size: 16) : Icon(Icons.favorite_border, size: 16),
+                          child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
                         ),
                       ],
                     ),
