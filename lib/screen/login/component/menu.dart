@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/login/DTSignUpScreen.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class Menu extends StatelessWidget {
   @override
@@ -13,7 +15,12 @@ class Menu extends StatelessWidget {
             children: [
               _menuItem(title: 'Sign In', isActive: true),
               SizedBox(width: 40,),
-              _registerButton()
+              InkWell(
+                  onTap: (){
+                    DTSignUpScreen().launch(context);
+
+                  },
+                  child: _registerButton())
             ],
           ),
         ],

@@ -17,7 +17,6 @@ import 'DTCartScreen.dart';
 import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
 import 'DTSearchScreen.dart';
-import 'login/DTSignInScreen.dart';
 
 class DTDashboardWidget extends StatefulWidget {
   static String tag = '/DTDashboardWidget';
@@ -91,21 +90,23 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.only(right: 8, top: 8),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.min,
           children: categories.map((e) {
             return Container(
-              width: isMobile ? 100 : 120,
+              width: isMobile ? 100 : 150,
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(shape: BoxShape.circle, color: appColorPrimary),
-                    child: Image.asset(e.icon!, height: 30, width: 30, color: white),
+                    decoration: const BoxDecoration(shape: BoxShape.rectangle, color: appColorPrimary),
+                    child: Image.asset(e.icon!, height: 60, width: 60, color: white),
                   ),
                   4.height,
-                  Text(e.name!, style: primaryTextStyle(size: 12), maxLines: 1, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis),
+                  Text(e.name!, style: primaryTextStyle(size: 18), maxLines: 1, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis),
                 ],
               ),
             ).onTap(() {
@@ -205,22 +206,22 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
       );
     }
 
-    Widget bannerWidget() {
-      return Container(
-        margin: const EdgeInsets.only(left: 8),
-        child: Row(
-          children: [
-            Image.asset('images/defaultTheme/banner/dt_advertise1.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-            8.width,
-            Image.asset('images/defaultTheme/banner/dt_advertise2.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-            8.width,
-            Image.asset('images/defaultTheme/banner/dt_advertise4.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-            8.width,
-            Image.asset('images/defaultTheme/banner/dt_advertise3.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-          ],
-        ),
-      );
-    }
+    // Widget bannerWidget() {
+    //   return Container(
+    //     margin: const EdgeInsets.only(left: 8),
+    //     child: Row(
+    //       children: [
+    //         Image.asset('images/defaultTheme/banner/dt_advertise1.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
+    //         8.width,
+    //         Image.asset('images/defaultTheme/banner/dt_advertise2.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
+    //         8.width,
+    //         Image.asset('images/defaultTheme/banner/dt_advertise4.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
+    //         8.width,
+    //         Image.asset('images/defaultTheme/banner/dt_advertise3.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     Widget mobileWidget() {
       return SingleChildScrollView(
@@ -269,7 +270,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             ),
             10.height,
             Text('Category', style: boldTextStyle()).paddingAll(8),
-            horizontalList(),
+            Center(child: horizontalList()),
             20.height,
             Text('ListView', style: boldTextStyle()).paddingAll(8),
             ListView.builder(
@@ -390,42 +391,42 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 16.width
               ],
             ),
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: context.width(),
-              decoration: boxDecoration(showShadow: true, radius: 10, bgColor: Colors.transparent),
-              height: 280,
-              child: Stack(
-                children: [
-                  PageView(
-                    controller: pageController,
-                    scrollDirection: Axis.horizontal,
-                    children: pages,
-                    onPageChanged: (index) {
-                      selectedIndex = index;
-                      setState(() {});
-                    },
-                  ).cornerRadiusWithClipRRect(8),
-                  AnimatedPositioned(
-                    duration: const Duration(seconds: 1),
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    child: DotIndicator(
-                      pageController: pageController,
-                      pages: pages,
-                      indicatorColor: appColorPrimary,
-                      onDotTap: (index) {
-                        selectedIndex = index;
-
-                        pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear);
-                        setState(() {});
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: const EdgeInsets.all(8),
+            //   width: context.width(),
+            //   decoration: boxDecoration(showShadow: true, radius: 10, bgColor: Colors.transparent),
+            //   height: 280,
+            //   child: Stack(
+            //     children: [
+            //       PageView(
+            //         controller: pageController,
+            //         scrollDirection: Axis.horizontal,
+            //         children: pages,
+            //         onPageChanged: (index) {
+            //           selectedIndex = index;
+            //           setState(() {});
+            //         },
+            //       ).cornerRadiusWithClipRRect(8),
+            //       AnimatedPositioned(
+            //         duration: const Duration(seconds: 1),
+            //         bottom: 20,
+            //         left: 0,
+            //         right: 0,
+            //         child: DotIndicator(
+            //           pageController: pageController,
+            //           pages: pages,
+            //           indicatorColor: appColorPrimary,
+            //           onDotTap: (index) {
+            //             selectedIndex = index;
+            //
+            //             pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear);
+            //             setState(() {});
+            //           },
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Text('Category ', style: boldTextStyle()).paddingAll(8),
             8.height,
             horizontalList(),
@@ -434,16 +435,16 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             8.height,
             SizedBox(height: 300, child: horizontalProductListView()),
             8.height,
-            Text('Latest Offers For You', style: boldTextStyle()).paddingAll(8),
-            8.height,
-            bannerWidget(),
+            // Text('Latest Offers For You', style: boldTextStyle()).paddingAll(8),
+            // 8.height,
+            // // bannerWidget(),
             8.height,
             Text('Recommended For You', style: boldTextStyle()).paddingAll(8),
             8.height,
             SizedBox(height: 300, child: horizontalProductListView()),
-            Text('Recommended Offers For You', style: boldTextStyle()).paddingAll(8),
-            8.height,
-            bannerWidget(),
+            // Text('Recommended Offers For You', style: boldTextStyle()).paddingAll(8),
+            // 8.height,
+            // bannerWidget(),
           ],
         ),
       );

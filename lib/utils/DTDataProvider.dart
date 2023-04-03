@@ -156,7 +156,7 @@ int getDTWidgetIndex(Widget widget) {
 List<ListModel> getDrawerItems() {
   List<ListModel> drawerItems = [];
 
-  drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
+  // drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
   drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()));
   drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
   drawerItems.add(ListModel(name: 'Sign Up', widget: DTSignUpScreen()));
@@ -173,7 +173,7 @@ List<ListModel> getDrawerItems() {
   drawerItems.add(ListModel(name: 'FAQ', widget: DTFAQScreen()));
   //drawerItems.add(ListModel(name: 'No Internet', widget: DTNoInternetScreen()));
   drawerItems.add(ListModel(name: 'Order Summary', widget: DTOrderSummaryScreen(getCartProducts())));
-  drawerItems.add(ListModel(name: 'Address Manager', widget: DTAddressScreen()));
+  // drawerItems.add(ListModel(name: 'Address Manager', widget: DTAddressScreen()));
   drawerItems.add(ListModel(name: 'Search', widget: DTSearchScreen()));
   return drawerItems;
 }
@@ -182,7 +182,7 @@ List<DTChatModel> getChatData() {
   List<DTChatModel> list = [];
 
   DTChatModel c1 = DTChatModel();
-  c1.name = 'William';
+  c1.name = 'eman';
   c1.img = SampleImageUrl;
   c1.time = '1:43 AM';
   c1.lastMsg = LoremText;
@@ -190,7 +190,7 @@ List<DTChatModel> getChatData() {
   list.add(c1);
 
   DTChatModel c2 = DTChatModel();
-  c2.name = 'Benjamin';
+  c2.name = 'rama';
   c2.img = SampleImageUrl2;
   c2.time = '4:43 AM';
   c2.lastMsg = LoremText;
@@ -198,7 +198,7 @@ List<DTChatModel> getChatData() {
   list.add(c2);
 
   DTChatModel c3 = DTChatModel();
-  c3.name = 'Emma';
+  c3.name = 'esraa';
   c3.img = SampleImageUrl4;
   c3.time = '7:03 PM';
   c3.lastMsg = LoremText;
@@ -206,7 +206,7 @@ List<DTChatModel> getChatData() {
   list.add(c3);
 
   DTChatModel c4 = DTChatModel();
-  c4.name = 'Isabella';
+  c4.name = 'marina';
   c4.img = SampleImageUrl2;
   c4.time = '2:43 PM';
   c4.lastMsg = LoremText;
