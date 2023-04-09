@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:herafy/screen/login/DTSignUpScreen.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -40,17 +43,28 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
   }
 
   init() async {
-    categories.add(CategoryModel(name: 'Carpentry', icon: 'images/defaultTheme/category/furniture.png'));
-    categories.add(CategoryModel(name: 'Event planning', icon: 'images/defaultTheme/category/Man.png'));
-    categories.add(CategoryModel(name: 'Cooking', icon: 'images/defaultTheme/category/Food.png'));
-    categories.add(CategoryModel(name: 'Men', icon: 'images/defaultTheme/category/Man.png'));
-
+    categories.add(CategoryModel(
+        name: 'Carpentry', icon: 'images/defaultTheme/category/furniture.png'));
+    categories.add(CategoryModel(
+        name: 'Event planning', icon: 'images/defaultTheme/category/Man.png'));
+    categories.add(CategoryModel(
+        name: 'Cooking', icon: 'images/defaultTheme/category/Food.png'));
+    categories.add(CategoryModel(
+        name: 'Men', icon: 'images/defaultTheme/category/Man.png'));
 
     pages = [
-      Container(child: Image.network(SampleImageUrl, height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(child: Image.network(SampleImageUrl2, height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(child: Image.network(SampleImageUrl3, height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(child: Image.network(SampleImageUrl4, height: isMobile ? 150 : 350, fit: BoxFit.cover)),
+      Container(
+          child: Image.network(SampleImageUrl,
+              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
+      Container(
+          child: Image.network(SampleImageUrl2,
+              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
+      Container(
+          child: Image.network(SampleImageUrl3,
+              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
+      Container(
+          child: Image.network(SampleImageUrl4,
+              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
     ];
 
     setState(() {});
@@ -77,7 +91,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
           children: [
             Icon(AntDesign.search1, color: appStore.textSecondaryColor),
             10.width,
-            Text('Search', style: boldTextStyle(color: appStore.textSecondaryColor)),
+            Text('Search',
+                style: boldTextStyle(color: appStore.textSecondaryColor)),
           ],
         ),
       ).onTap(() {
@@ -86,123 +101,161 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     }
 
     Widget horizontalList() {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.only(right: 8, top: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.min,
-          children: categories.map((e) {
-            return Container(
-              width: isMobile ? 100 : 150,
-              alignment: Alignment.center,
-              child: Column(
+      return FutureBuilder(
+        future: getCategory(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List cat = snapshot.data as List;
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(shape: BoxShape.rectangle, color: appColorPrimary),
-                    child: Image.asset(e.icon!, height: 60, width: 60, color: white),
-                  ),
-                  4.height,
-                  Text(e.name!, style: primaryTextStyle(size: 18), maxLines: 1, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis),
-                ],
+                children: cat.map((e) {
+                  return Container(
+                    width: isMobile ? 100 : 300,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Image.network(e['image'],
+                              height: 200, width: 300, fit: BoxFit.fill),
+                        ),
+                        4.height,
+                        Text(e['name'],
+                            style: primaryTextStyle(
+                                size: 18, weight: FontWeight.w900),
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                  ).onTap(() {
+                    DTCategoryDetailScreen().launch(context);
+                  });
+                }).toList(),
               ),
-            ).onTap(() {
-              DTCategoryDetailScreen().launch(context);
-            });
-          }).toList(),
-        ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       );
     }
 
     Widget horizontalProductListView() {
-      return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemBuilder: (_, index) {
-          DTProductModel data = getProducts()[index];
-
-          return Container(
-            decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
-            width: 220,
-            margin: const EdgeInsets.only(right: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                10.height,
-                Stack(
-                  children: [
-                    Image.network(
-                      data.image!,
-                      fit: BoxFit.fitHeight,
-                      height: 180,
-                      width: context.width(),
-                    ).cornerRadiusWithClipRRect(8),
-                    Positioned(
-                      right: 10,
-                      top: 10,
-                      child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
-                    ),
-                  ],
-                ).expand(),
-                8.width,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(data.name!, style: primaryTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
-                    4.height,
-                    Row(
-                      children: [
-                        IgnorePointer(
-                          child: RatingBar(
-                            onRatingChanged: (r) {},
-                            filledIcon: Icons.star,
-                            emptyIcon: Icons.star_border,
-                            initialRating: data.rating!,
-                            maxRating: 5,
-                            filledColor: Colors.yellow,
-                            size: 14,
+      return FutureBuilder(
+        future: getAllServices(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print('444444444444444444444444444444444444444444');
+            List ser = snapshot.data as List;
+            return ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemBuilder: (_, index) {
+                DTProductModel data = getProducts()[index];
+                return Container(
+                  decoration: boxDecorationRoundedWithShadow(8,
+                      backgroundColor: appStore.appBarColor!),
+                  width: 220,
+                  margin: const EdgeInsets.only(right: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      10.height,
+                      Stack(
+                        children: [
+                          Image.network(
+                            ser[index]['image'],
+                            fit: BoxFit.fitHeight,
+                            height: 180,
+                            width: context.width(),
+                          ).cornerRadiusWithClipRRect(8),
+                          Positioned(
+                            right: 10,
+                            top: 10,
+                            child: data.isLiked.validate()
+                                ? const Icon(Icons.favorite,
+                                    color: Colors.red, size: 16)
+                                : const Icon(Icons.favorite_border, size: 16),
                           ),
-                        ),
-                        5.width,
-                        Text('${data.rating}', style: secondaryTextStyle(size: 12)),
-                      ],
-                    ),
-                    4.height,
-                    Row(
-                      children: [
-                        priceWidget(data.discountPrice),
-                        8.width,
-                        priceWidget(data.price, applyStrike: true),
-                      ],
-                    ),
-                  ],
-                ).paddingAll(8),
-                10.height,
-              ],
-            ),
-          ).onTap(() async {
-            int? index = await DTProductDetailScreen(productModel: data).launch(context);
-            if (index != null) appStore.setDrawerItemIndex(index);
-          });
+                        ],
+                      ).expand(),
+                      8.width,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(ser[index]['name'],
+                              style: primaryTextStyle(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                          4.height,
+                          Row(
+                            children: [
+                              IgnorePointer(
+                                child: RatingBar(
+                                  onRatingChanged: (r) {},
+                                  filledIcon: Icons.star,
+                                  emptyIcon: Icons.star_border,
+                                  initialRating: data.rating!,
+                                  maxRating: 5,
+                                  filledColor: Colors.yellow,
+                                  size: 14,
+                                ),
+                              ),
+                              5.width,
+                              Text('${data.rating}',
+                                  style: secondaryTextStyle(size: 12)),
+                            ],
+                          ),
+                          4.height,
+                          Row(
+                            children: [
+                              priceWidget(data.discountPrice),
+                              8.width,
+                              priceWidget(int.parse(ser[index]['price']),
+                                  applyStrike: true),
+                            ],
+                          ),
+                        ],
+                      ).paddingAll(8),
+                      10.height,
+                    ],
+                  ),
+                ).onTap(() async {
+                  int? index = await DTProductDetailScreen(productModel: data)
+                      .launch(context);
+                  if (index != null) appStore.setDrawerItemIndex(index);
+                });
+              },
+              /*gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.width() > 1550
+                            ? 4
+                            : context.width() > 1080
+                                ? 3
+                                : 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: cardWidth / cardHeight,
+                      ),*/
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: ser.length,
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
         },
-        /*gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: context.width() > 1550
-                        ? 4
-                        : context.width() > 1080
-                            ? 3
-                            : 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: cardWidth / cardHeight,
-                  ),*/
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: getProducts().length,
       );
     }
 
@@ -234,7 +287,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                   height: 150,
                   decoration: const BoxDecoration(
                     color: appColorPrimary,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                        bottomRight: Radius.circular(8)),
                   ),
                 ).visible(false),
                 Column(
@@ -279,7 +334,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 DTProductModel data = getProducts()[index];
 
                 return Container(
-                  decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
+                  decoration: boxDecorationRoundedWithShadow(8,
+                      backgroundColor: appStore.appBarColor!),
                   margin: const EdgeInsets.all(8),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,7 +354,10 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                             Positioned(
                               right: 10,
                               top: 10,
-                              child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
+                              child: data.isLiked.validate()
+                                  ? const Icon(Icons.favorite,
+                                      color: Colors.red, size: 16)
+                                  : const Icon(Icons.favorite_border, size: 16),
                             ),
                           ],
                         ),
@@ -308,7 +367,10 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(data.name!, style: primaryTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
+                          Text(data.name!,
+                              style: primaryTextStyle(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
                           4.height,
                           Row(
                             children: [
@@ -324,7 +386,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                                 ),
                               ),
                               5.width,
-                              Text('${data.rating}', style: secondaryTextStyle(size: 12)),
+                              Text('${data.rating}',
+                                  style: secondaryTextStyle(size: 12)),
                             ],
                           ),
                           4.height,
@@ -340,7 +403,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                     ],
                   ),
                 ).onTap(() async {
-                  int? index = await DTProductDetailScreen(productModel: data).launch(context);
+                  int? index = await DTProductDetailScreen(productModel: data)
+                      .launch(context);
                   if (index != null) appStore.setDrawerItemIndex(index);
                 });
               },
@@ -364,69 +428,53 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
               children: [
                 Container(
                   width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    image:const DecorationImage( image: AssetImage(
-                      "images/logo.jpg",
-                    ) ,fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(50),
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          "images/logo.png",
+                        ),
+                        fit: BoxFit.cover),
                   ),
-                )      ,          searchTxt().expand(),
+                ),
+                searchTxt().expand(),
                 25.width,
                 Container(
-                  padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
-                  decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8)),
-                  child: Text('Sign In', style: boldTextStyle(color: white, size: 18)),
+                  padding: const EdgeInsets.only(
+                      top: 8, left: 16, right: 16, bottom: 8),
+                  decoration: BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text('Sign In',
+                      style: boldTextStyle(color: white, size: 18)),
                 ).onTap(() {
                   LoginPage().launch(context);
                 }),
                 16.width,
                 Container(
+                  padding: const EdgeInsets.only(
+                      top: 8, left: 16, right: 16, bottom: 8),
+                  decoration: BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text('Register',
+                      style: boldTextStyle(color: white, size: 18)),
+                ).onTap(() {
+                  DTSignUpScreen().launch(context);
+                }),
+                16.width,
+                Container(
                   padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                  child: Icon(Icons.shopping_cart, size: 30, color: appStore.iconColor),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Icon(Icons.shopping_cart,
+                      size: 30, color: appStore.iconColor),
                 ).onTap(() {
                   DTCartScreen().launch(context);
                 }),
                 16.width
               ],
             ),
-            // Container(
-            //   margin: const EdgeInsets.all(8),
-            //   width: context.width(),
-            //   decoration: boxDecoration(showShadow: true, radius: 10, bgColor: Colors.transparent),
-            //   height: 280,
-            //   child: Stack(
-            //     children: [
-            //       PageView(
-            //         controller: pageController,
-            //         scrollDirection: Axis.horizontal,
-            //         children: pages,
-            //         onPageChanged: (index) {
-            //           selectedIndex = index;
-            //           setState(() {});
-            //         },
-            //       ).cornerRadiusWithClipRRect(8),
-            //       AnimatedPositioned(
-            //         duration: const Duration(seconds: 1),
-            //         bottom: 20,
-            //         left: 0,
-            //         right: 0,
-            //         child: DotIndicator(
-            //           pageController: pageController,
-            //           pages: pages,
-            //           indicatorColor: appColorPrimary,
-            //           onDotTap: (index) {
-            //             selectedIndex = index;
-            //
-            //             pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear);
-            //             setState(() {});
-            //           },
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Text('Category ', style: boldTextStyle()).paddingAll(8),
             8.height,
             horizontalList(),
@@ -456,5 +504,19 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         web: webWidget(),
       ),
     );
+  }
+
+  Future getCategory() async {
+    var firestore = FirebaseFirestore.instance;
+    QuerySnapshot qn = await firestore.collection("category").get();
+
+    return qn.docs;
+  }
+
+  Future getAllServices() async {
+    var firestore = FirebaseFirestore.instance;
+    QuerySnapshot qn = await firestore.collection("allService").get();
+
+    return qn.docs;
   }
 }

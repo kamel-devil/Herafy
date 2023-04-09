@@ -19,69 +19,17 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SizedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Sign In to \nMy Application',
-                style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text(
-                "If you don't have an account",
-                style: TextStyle(
-                    color: Colors.black54, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "You can",
-                    style: TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(width: 15),
-                  GestureDetector(
-                    onTap: () {
-                      print(MediaQuery.of(context).size.width);
-                    },
-                    child: const Text(
-                      "Register here!",
-                      style: TextStyle(
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              Image.asset(
-                'images/illustration-2.png',
-                width: 300,
-              ),
-            ],
-          ),
-        ),
-
-        // Image.asset(
-        //   'images/illustration-1.png',
-        //   width: 300,
-        // ),
         MediaQuery.of(context).size.width >= 1300 //Responsive
             ? Image.asset(
-                'images/illustration-1.png',
-                width: 300,
+                'images/login.jpg',
+                width: 500,
+          height: 500,
               )
-            : SizedBox(),
+            : const SizedBox(),
+
+        const SizedBox(width: 40,),
         Padding(
           padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / 6),
@@ -100,7 +48,7 @@ class _BodyState extends State<Body> {
         TextField(
           controller: email,
           decoration: InputDecoration(
-            hintText: 'Enter email or Phone number',
+            hintText: 'Enter email',
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: const TextStyle(fontSize: 12),
@@ -132,25 +80,6 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(
                 color: Colors.blueGrey.shade50,
               ),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: naID,
-          decoration: InputDecoration(
-            hintText: 'National ID',
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
               borderRadius: BorderRadius.circular(15),
             ),
             focusedBorder: OutlineInputBorder(
@@ -219,10 +148,9 @@ class _BodyState extends State<Body> {
         ]),
         const SizedBox(height: 40),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _loginWithButton(image: 'images/google.png'),
-            _loginWithButton(image: 'images/github.png', isActive: true),
+            _loginWithButton(image: 'images/google.png', isActive: true),
             _loginWithButton(image: 'images/facebook.png'),
           ],
         ),

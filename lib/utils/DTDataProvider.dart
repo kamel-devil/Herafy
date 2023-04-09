@@ -158,23 +158,23 @@ List<ListModel> getDrawerItems() {
 
   // drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
   drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()));
-  drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
-  drawerItems.add(ListModel(name: 'Sign Up', widget: DTSignUpScreen()));
-  drawerItems.add(ListModel(name: 'Dashboard', widget: DTDashboardScreen()));
+  // drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
+  // drawerItems.add(ListModel(name: 'Sign Up', widget: DTSignUpScreen()));
+  // drawerItems.add(ListModel(name: 'HomePage', widget: DTDashboardScreen()));
   drawerItems.add(ListModel(name: 'Profile', widget: DTProfileScreen()));
   // drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
-  drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));
+  // drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));
   drawerItems.add(ListModel(name: 'About', widget: DTAboutScreen()));
-  drawerItems.add(ListModel(name: 'Chat', widget: DTChatScreen()));
+  // drawerItems.add(ListModel(name: 'Chat', widget: DTChatScreen()));
 
   drawerItems.add(ListModel(name: 'Contact Us', widget: DTContactUsScreen()));
 
-  drawerItems.add(ListModel(name: 'Review & Rating', widget: DTReviewScreen()));
+  // drawerItems.add(ListModel(name: 'Review & Rating', widget: DTReviewScreen()));
   drawerItems.add(ListModel(name: 'FAQ', widget: DTFAQScreen()));
   //drawerItems.add(ListModel(name: 'No Internet', widget: DTNoInternetScreen()));
-  drawerItems.add(ListModel(name: 'Order Summary', widget: DTOrderSummaryScreen(getCartProducts())));
+  // drawerItems.add(ListModel(name: 'Order Summary', widget: DTOrderSummaryScreen(getCartProducts())));
   // drawerItems.add(ListModel(name: 'Address Manager', widget: DTAddressScreen()));
-  drawerItems.add(ListModel(name: 'Search', widget: DTSearchScreen()));
+  // drawerItems.add(ListModel(name: 'Search', widget: DTSearchScreen()));
   return drawerItems;
 }
 

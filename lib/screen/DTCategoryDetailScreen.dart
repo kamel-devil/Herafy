@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -37,81 +38,117 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
     return Scaffold(
       appBar: appBar(context, 'Grid View'),
       drawer: DTDrawerWidget(),
-      body: SingleChildScrollView(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.end,
-          runAlignment: WrapAlignment.center,
-          children: getProducts().map((data) {
-            return Container(
-              decoration: boxDecorationRoundedWithShadow(8, backgroundColor: appStore.appBarColor!),
-              margin: const EdgeInsets.all(8),
-              //height: 200,
-              width: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 110,
-                    child: Stack(
+      body: FutureBuilder(
+        future: getCategoryService('rgreggrg'),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List supSer = snapshot.data as List;
+            return SingleChildScrollView(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.end,
+                runAlignment: WrapAlignment.center,
+                children: supSer.map((data) {
+                  return Container(
+                    decoration: boxDecorationRoundedWithShadow(8,
+                        backgroundColor: appStore.appBarColor!),
+                    margin: const EdgeInsets.all(8),
+                    //height: 200,
+                    width: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.network(
-                          data.image!,
-                          fit: BoxFit.fitHeight,
-                          height: isMobile ? 110 : 180,
-                          width: context.width(),
-                        ).cornerRadiusWithClipRRect(8),
-                        Positioned(
-                          right: 10,
-                          top: 10,
-                          child: data.isLiked.validate() ? const Icon(Icons.favorite, color: Colors.red, size: 16) : const Icon(Icons.favorite_border, size: 16),
+                        SizedBox(
+                          height: 110,
+                          child: Stack(
+                            children: [
+                              Image.network(
+                                data['image'],
+                                fit: BoxFit.fitHeight,
+                                height: isMobile ? 110 : 180,
+                                width: context.width(),
+                              ).cornerRadiusWithClipRRect(8),
+                              const Positioned(
+                                right: 10,
+                                top: 10,
+                                child:
+                                // data.isLiked.validate()
+                                //     ? const Icon(Icons.favorite,
+                                //         color: Colors.red, size: 16)
+                                //     :
+                                Icon(Icons.favorite_border,
+                                        size: 16),
+                              ),
+                            ],
+                          ),
                         ),
+                        8.width,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(data['name'],
+                                style: primaryTextStyle(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                            4.height,
+                            Row(
+                              children: [
+                                RatingBar(
+                                  onRatingChanged: (r) {},
+                                  filledIcon: Icons.star,
+                                  emptyIcon: Icons.star_border,
+                                  initialRating: 3.5,
+                                  maxRating: 5,
+                                  filledColor: Colors.yellow,
+                                  size: 14,
+                                ),
+                                5.width,
+                                Text('3.5',
+                                    // '${data.rating}',
+                                    style: secondaryTextStyle(size: 12)),
+                              ],
+                            ),
+                            4.height,
+                            Row(
+                              children: [
+                                priceWidget(3000
+                                    // data.discountPrice
+                                ),
+                                8.width,
+                                priceWidget(int.parse(data['price']), applyStrike: true),
+                              ],
+                            ),
+                          ],
+                        ).paddingAll(8),
                       ],
                     ),
-                  ),
-                  8.width,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(data.name!, style: primaryTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
-                      4.height,
-                      Row(
-                        children: [
-                          RatingBar(
-                            onRatingChanged: (r) {},
-                            filledIcon: Icons.star,
-                            emptyIcon: Icons.star_border,
-                            initialRating: data.rating!,
-                            maxRating: 5,
-                            filledColor: Colors.yellow,
-                            size: 14,
-                          ),
-                          5.width,
-                          Text('${data.rating}', style: secondaryTextStyle(size: 12)),
-                        ],
-                      ),
-                      4.height,
-                      Row(
-                        children: [
-                          priceWidget(data.discountPrice),
-                          8.width,
-                          priceWidget(data.price, applyStrike: true),
-                        ],
-                      ),
-                    ],
-                  ).paddingAll(8),
-                ],
+                  ).onTap(() async {
+                    int? index = await DTProductDetailScreen(productModel: data)
+                        .launch(context);
+                    if (index != null) appStore.setDrawerItemIndex(index);
+                  });
+                }).toList(),
               ),
-            ).onTap(() async {
-              int? index = await DTProductDetailScreen(productModel: data).launch(context);
-              if (index != null) appStore.setDrawerItemIndex(index);
-            });
-          }).toList(),
-        ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
+  }
+
+  Future getCategoryService(String cat) async {
+    var firestore = FirebaseFirestore.instance;
+    QuerySnapshot qn = await firestore
+        .collection("category")
+        .doc(cat)
+        .collection('services')
+        .get();
+
+    return qn.docs;
   }
 }

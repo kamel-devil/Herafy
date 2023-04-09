@@ -25,7 +25,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
   TextEditingController nameCont = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
+  TextEditingController rePass = TextEditingController();
   TextEditingController naID = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   @override
   void initState() {
@@ -70,7 +72,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                         child: _menuItem(title: 'Sign IN', isActive: false)
 
                     ),
-                    SizedBox(width: 20,),
+                    const SizedBox(width: 20,),
                     _menuItem(title: 'Register', isActive: true),
                   ],
                 ),
@@ -79,48 +81,18 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           )
               : const SizedBox(), // Responsive
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MediaQuery.of(context).size.width >= 1300 //Responsive
-                        ? Text(
-                            'Sign UP to \nMy Application',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width / 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : const SizedBox(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    MediaQuery.of(context).size.width >= 1300 //Responsive
-                        ? Image.asset(
-                            'images/illustration-2.png',
-                            width: 300,
-                          )
-                        : const SizedBox(),
-                    // Image.asset(
-                    //   'images/illustration-2.png',
-                    //   width: 300,
-                    // ),
-                  ],
-                ),
+                child: MediaQuery.of(context).size.width >= 1300 //Responsive
+                    ? Image.asset(
+                        'images/login.jpg',
+                        width: 500,
+                  height: 500,
+                      )
+                    : const SizedBox(),
               ),
-
-              // Image.asset(
-              //   'images/illustration-1.png',
-              //   width: 300,
-              // ),
-              MediaQuery.of(context).size.width >= 1300 //Responsive
-                  ? Image.asset(
-                      'images/illustration-1.png',
-                      width: 300,
-                    )
-                  : const SizedBox(),
+              const SizedBox(width: 40,),
               Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height / 6),
@@ -161,7 +133,94 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
         TextField(
           controller: email,
           decoration: InputDecoration(
-            hintText: 'Enter email or Phone number',
+            hintText: 'Enter email',
+            filled: true,
+            fillColor: Colors.blueGrey[50],
+            labelStyle: const TextStyle(fontSize: 12),
+            contentPadding: const EdgeInsets.only(left: 30),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        ),
+        const SizedBox(height: 30),
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Row(
+              children: <Widget>[
+                const SizedBox(
+                  width: 50,
+                  child: Text(
+                    "Gender",
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.blue[50],
+                  child: const Icon(Icons.face, color: Colors.grey),
+                ),
+                const SizedBox(
+                  width: 30.0,
+                ),
+                const SizedBox(
+                  width: 50.0,
+                  child: Text(
+                    "Male",
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.blue[50],
+                  child: const Icon(
+                    Icons.face,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(
+                  width: 30.0,
+                ),
+                const SizedBox(
+                  width: 100.0,
+                  child: Text(
+                    "Female",
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),        const SizedBox(height: 30),
+        TextField(
+          controller: naID,
+          decoration: InputDecoration(
+            hintText: 'National ID',
+            filled: true,
+            fillColor: Colors.blueGrey[50],
+            labelStyle: const TextStyle(fontSize: 12),
+            contentPadding: const EdgeInsets.only(left: 30),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        ),
+        const SizedBox(height: 30),
+        TextField(
+          controller: phone,
+          decoration: InputDecoration(
+            hintText: 'Phone',
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: const TextStyle(fontSize: 12),
@@ -203,15 +262,21 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
         ),
         const SizedBox(height: 30),
         TextField(
-          controller: naID,
+          controller: rePass,
           decoration: InputDecoration(
-            hintText: 'National ID',
+            hintText: 'Re-enter Password',
+            suffixIcon: const Icon(
+              Icons.visibility_off_outlined,
+              color: Colors.grey,
+            ),
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: const TextStyle(fontSize: 12),
             contentPadding: const EdgeInsets.only(left: 30),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderSide: BorderSide(
+                color: Colors.blueGrey.shade50,
+              ),
               borderRadius: BorderRadius.circular(15),
             ),
             focusedBorder: OutlineInputBorder(
@@ -220,6 +285,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             ),
           ),
         ),
+
         const SizedBox(height: 40),
         Container(
           decoration: BoxDecoration(
@@ -250,8 +316,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
               // }
             },
             style: ElevatedButton.styleFrom(
-              primary: Colors.deepPurple,
-              onPrimary: Colors.white,
+              foregroundColor: Colors.white, backgroundColor: Colors.deepPurple,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -283,10 +348,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
         ]),
         const SizedBox(height: 40),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _loginWithButton(image: 'images/google.png'),
-            _loginWithButton(image: 'images/github.png', isActive: true),
+            _loginWithButton(image: 'images/google.png', isActive: true),
             _loginWithButton(image: 'images/facebook.png'),
           ],
         ),
@@ -352,8 +416,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       if (e.code == 'weak-password') {
         dialog.AwesomeDialog(
           context: context,
-          dialogType: dialog.DialogType.INFO,
-          animType: dialog.AnimType.BOTTOMSLIDE,
+          dialogType: dialog.DialogType.info,
+          animType: dialog.AnimType.bottomSlide,
           title: 'Attend  !',
           desc: 'The password is weak',
           btnCancelOnPress: () {},
@@ -362,8 +426,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       } else if (e.code == 'email-already-in-use') {
         dialog.AwesomeDialog(
           context: context,
-          dialogType: dialog.DialogType.INFO,
-          animType: dialog.AnimType.BOTTOMSLIDE,
+          dialogType: dialog.DialogType.info,
+          animType: dialog.AnimType.bottomSlide,
           title: 'Attend  !',
           desc: 'This Account is Already Exist',
           btnOkOnPress: () {},
@@ -392,6 +456,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'about': 'Hallo'
     });
   }
+
+
+
   Widget _menuItem({String title = 'Title Menu', isActive = false}) {
     return Padding(
       padding: const EdgeInsets.only(right: 75),
@@ -400,7 +467,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
         child: Column(
           children: [
             Text(
-              '$title',
+              title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: isActive ? Colors.deepPurple : Colors.grey,
@@ -424,33 +491,32 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
     );
   }
 
-  Widget _registerButton() {
-    return GestureDetector(
-      onTap: (){
-        // Navigator.push(context, route)
-        LoginPage().launch(context);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade200,
-              spreadRadius: 10,
-              blurRadius: 12,
-            ),
-          ],
-        ),
-        child: const Text(
-          'Sign IN',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black54,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _registerButton() {
+  //   return GestureDetector(
+  //     onTap: (){
+  //       LoginPage().launch(context);
+  //     },
+  //     child: Container(
+  //       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: BorderRadius.circular(15),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.grey.shade200,
+  //             spreadRadius: 10,
+  //             blurRadius: 12,
+  //           ),
+  //         ],
+  //       ),
+  //       child: const Text(
+  //         'Sign IN',
+  //         style: TextStyle(
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.black54,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }
