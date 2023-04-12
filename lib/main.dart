@@ -1,17 +1,12 @@
+import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:herafy/screen/main/screens/AppSplashScreen.dart';
 import 'package:herafy/screen/main/utils/AppConstant.dart';
 import 'package:herafy/screen/main/utils/AppTheme.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-
-import 'screen/DTDashboardScreen.dart';
 import 'store/AppStore.dart';
-
 
 AppStore appStore = AppStore();
 
@@ -38,8 +33,16 @@ class MyApp extends StatelessWidget {
         title: '$mainAppName${!isMobile ? ' ${platformName()}' : ''}',
         home: AppSplashScreen(),
         theme: !appStore.isDarkModeOn ? AppThemeData.lightTheme : AppThemeData.darkTheme,
-        scrollBehavior: SBehavior(),
+          scrollBehavior: CustomScrollBehaviour(),
       ),
     );
   }
+}
+class CustomScrollBehaviour extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices =>
+      {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

@@ -100,6 +100,17 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
       });
     }
 
+    void addFavServices(data) async {
+      FirebaseFirestore.instance.collection('favServices').add({
+        'image': data['image'],
+        "name": data['name'],
+        "des": data['des'],
+        'type': data['type'],
+        'price': data['price'],
+        "time": data['time'],
+      });
+    }
+
     Widget horizontalList() {
       return FutureBuilder(
         future: getCategory(),
@@ -138,7 +149,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                       ],
                     ),
                   ).onTap(() {
-                    DTCategoryDetailScreen().launch(context);
+                    DTCategoryDetailScreen(
+                      idCat: e['name'],
+                    ).launch(context);
                   });
                 }).toList(),
               ),
@@ -150,17 +163,24 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
       );
     }
 
-    Widget horizontalProductListView() {
-      return FutureBuilder(
-        future: getAllServices(),
-        builder: (context, snapshot) {
+    Widget horizontalProductListView(bool isv) {
+      return StreamBuilder(
+        stream: isv
+            ? FirebaseFirestore.instance
+            .collection('favServices')
+            .snapshots()
+            : FirebaseFirestore.instance
+            .collection('allService')
+            .where('isAccept', isEqualTo: true)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
             print('444444444444444444444444444444444444444444');
-            List ser = snapshot.data as List;
+            List ser = snapshot.data?.docs as List;
             return ListView.builder(
               padding: const EdgeInsets.all(8),
-              itemBuilder: (_, index) {
-                DTProductModel data = getProducts()[index];
+              itemBuilder: (_, index1) {
                 return Container(
                   decoration: boxDecorationRoundedWithShadow(8,
                       backgroundColor: appStore.appBarColor!),
@@ -174,19 +194,11 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                       Stack(
                         children: [
                           Image.network(
-                            ser[index]['image'],
+                            ser[index1]['image'],
                             fit: BoxFit.fitHeight,
                             height: 180,
                             width: context.width(),
                           ).cornerRadiusWithClipRRect(8),
-                          Positioned(
-                            right: 10,
-                            top: 10,
-                            child: data.isLiked.validate()
-                                ? const Icon(Icons.favorite,
-                                    color: Colors.red, size: 16)
-                                : const Icon(Icons.favorite_border, size: 16),
-                          ),
                         ],
                       ).expand(),
                       8.width,
@@ -195,10 +207,24 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(ser[index]['name'],
-                              style: primaryTextStyle(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(ser[index1]['name'],
+                                  style: primaryTextStyle(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                              !isv
+                                  ? ElevatedButton.icon(
+                                      onPressed: () {
+                                        addFavServices(ser[index1]);
+                                      },
+                                      icon: const Icon(Icons.add),
+                                      label: const Text('Fav'),
+                                    )
+                                  : Container(),
+                            ],
+                          ),
                           4.height,
                           Row(
                             children: [
@@ -207,23 +233,22 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                                   onRatingChanged: (r) {},
                                   filledIcon: Icons.star,
                                   emptyIcon: Icons.star_border,
-                                  initialRating: data.rating!,
+                                  initialRating: 3.5,
                                   maxRating: 5,
                                   filledColor: Colors.yellow,
                                   size: 14,
                                 ),
                               ),
                               5.width,
-                              Text('${data.rating}',
-                                  style: secondaryTextStyle(size: 12)),
+                              Text('3.5', style: secondaryTextStyle(size: 12)),
                             ],
                           ),
                           4.height,
                           Row(
                             children: [
-                              priceWidget(data.discountPrice),
                               8.width,
-                              priceWidget(int.parse(ser[index]['price']),
+                              priceWidget(
+                                  int.parse(ser[index1]['price'].toString()),
                                   applyStrike: true),
                             ],
                           ),
@@ -233,8 +258,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                     ],
                   ),
                 ).onTap(() async {
-                  int? index = await DTProductDetailScreen(productModel: data)
-                      .launch(context);
+                  int? index =
+                      await DTProductDetailScreen(productModel: ser[index1])
+                          .launch(context);
                   if (index != null) appStore.setDrawerItemIndex(index);
                 });
               },
@@ -403,9 +429,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                     ],
                   ),
                 ).onTap(() async {
-                  int? index = await DTProductDetailScreen(productModel: data)
-                      .launch(context);
-                  if (index != null) appStore.setDrawerItemIndex(index);
+                  // int? index = await DTProductDetailScreen(productModel: data)
+                  //     .launch(context);
+                  // if (index != null) appStore.setDrawerItemIndex(index);
                 });
               },
               shrinkWrap: true,
@@ -479,9 +505,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             8.height,
             horizontalList(),
             8.height,
-            Text('Top Picks For You', style: boldTextStyle()).paddingAll(8),
+            Text('Service For you', style: boldTextStyle()).paddingAll(8),
             8.height,
-            SizedBox(height: 300, child: horizontalProductListView()),
+            SizedBox(height: 300, child: horizontalProductListView(false)),
             8.height,
             // Text('Latest Offers For You', style: boldTextStyle()).paddingAll(8),
             // 8.height,
@@ -489,7 +515,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             8.height,
             Text('Recommended For You', style: boldTextStyle()).paddingAll(8),
             8.height,
-            SizedBox(height: 300, child: horizontalProductListView()),
+            SizedBox(height: 300, child: horizontalProductListView(true)),
             // Text('Recommended Offers For You', style: boldTextStyle()).paddingAll(8),
             // 8.height,
             // bannerWidget(),
@@ -513,10 +539,18 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     return qn.docs;
   }
 
-  Future getAllServices() async {
+  getAllServices() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection("allService").get();
+    var qn = await firestore
+        .collection("allService")
+        .where('isAccept', isEqualTo: true)
+        .snapshots();
 
-    return qn.docs;
+    return qn;
+  }
+
+  getFavServices() async {
+    var firestore = FirebaseFirestore.instance;
+    return firestore.collection("favServices").snapshots();
   }
 }

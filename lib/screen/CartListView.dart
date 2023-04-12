@@ -140,7 +140,7 @@ class CartListViewState extends State<CartListView> {
           DTProductModel data1 = data[index];
 
           return itemCart(data1, index).onTap(() {
-            DTProductDetailScreen(productModel: data1).launch(context);
+            // DTProductDetailScreen(productModel: data1).launch(context);
           });
         },
         shrinkWrap: true,

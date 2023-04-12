@@ -21,38 +21,40 @@ import 'ReviewWidget.dart';
 // ignore: must_be_immutable
 class DTProductDetailScreen extends StatefulWidget {
   static String tag = '/DTProductDetailScreen';
-  DTProductModel? productModel;
+  final productModel;
 
-  DTProductDetailScreen({this.productModel});
+  const DTProductDetailScreen({super.key, required this.productModel});
 
   @override
   DTProductDetailScreenState createState() => DTProductDetailScreenState();
 }
 
 class DTProductDetailScreenState extends State<DTProductDetailScreen> {
-  var discount = 0.0;
+  var discount = 15.0;
 
   DTAddressListModel? mSelectedAddress;
 
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
   }
 
-  init() async {
-    if (widget.productModel != null) {
-      if (widget.productModel!.price.validate() > widget.productModel!.discountPrice.validate()) {
-        double mrp = widget.productModel!.price.validate().toDouble();
-        double discountPrice = widget.productModel!.discountPrice.validate().toDouble();
-        discount = (((mrp - discountPrice) / mrp) * 100);
-
-        setState(() {});
-      }
-    } else {
-      widget.productModel = getProducts()[2];
-    }
-  }
+  // init() async {
+  //   if (widget.productModel != null) {
+  //     if (widget.productModel['price'].validate() >
+  //         widget.productModel!.discountPrice.validate()) {
+  //       double mrp = widget.productModel!.price.validate().toDouble();
+  //       double discountPrice =
+  //           widget.productModel!.discountPrice.validate().toDouble();
+  //       discount = (((mrp - discountPrice) / mrp) * 100);
+  //
+  //       setState(() {});
+  //     }
+  //   } else {
+  //     widget.productModel = getProducts()[2];
+  //   }
+  // }
 
   @override
   void setState(fn) {
@@ -61,19 +63,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget addToCartBtn() {
-      return Container(
-        height: 50,
-        width: context.width() / 2,
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(color: appStore.scaffoldBackground, boxShadow: defaultBoxShadow(spreadRadius: 3.0)),
-        child: Text('Add to Cart', style: boldTextStyle()),
-      ).onTap(() {
-        toast('Added to cart');
-        // Do your logic
-      });
-    }
+
 
     Widget buyNowBtn() {
       return Container(
@@ -81,8 +71,9 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         alignment: Alignment.center,
         width: context.width() / 2,
-        decoration: BoxDecoration(color: appColorPrimary, boxShadow: defaultBoxShadow()),
-        child: Text('Buy Now', style: boldTextStyle(color: white)),
+        decoration: BoxDecoration(
+            color: appColorPrimary, boxShadow: defaultBoxShadow()),
+        child: Text('Book Now', style: boldTextStyle(color: white)),
       ).onTap(() {
         // Do your logic
         DTCartScreen().launch(context);
@@ -93,7 +84,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
       return Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          addToCartBtn(),
           buyNowBtn(),
         ],
       );
@@ -105,37 +95,48 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.productModel!.name!, style: boldTextStyle(size: 18)),
+              Text(widget.productModel['name'], style: boldTextStyle(size: 18)),
               10.height,
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  priceWidget(widget.productModel!.discountPrice, fontSize: 28, textColor: appColorPrimary),
+                  // priceWidget(widget.productModel!.discountPrice,
+                  //     fontSize: 28, textColor: appColorPrimary),
                   8.width,
-                  priceWidget(widget.productModel!.price, applyStrike: true, fontSize: 18),
+                  priceWidget(int.parse(widget.productModel['price'].toString()),
+                      applyStrike: true, fontSize: 18),
                   16.width,
-                  Text('${discount.toInt()}% off', style: boldTextStyle(color: appColorPrimary)).visible(discount != 0.0),
+                  Text('${discount.toInt()}% off',
+                          style: boldTextStyle(color: appColorPrimary))
+                      .visible(discount != 0.0),
                 ],
               ),
               10.height,
               Row(
                 children: [
                   Container(
-                    decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(16)),
-                    padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+                    decoration: BoxDecoration(
+                        color: appColorPrimary,
+                        borderRadius: BorderRadius.circular(16)),
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 4, left: 8, right: 8),
                     child: Row(
                       children: [
-                        const Icon(Icons.star_border, color: Colors.white, size: 14),
+                        const Icon(Icons.star_border,
+                            color: Colors.white, size: 14),
                         8.width,
-                        Text(widget.productModel!.rating.toString(), style: primaryTextStyle(color: white)),
+                        Text('4',
+                            style: primaryTextStyle(color: white)),
                       ],
                     ),
                   ).onTap(() {
-                    DTReviewScreen().launch(context);
+                    const DTReviewScreen().launch(context);
                   }),
                   8.width,
-                  Text('${Random.secure().nextInt(100).toString()} ratings', style: secondaryTextStyle(size: 16)).onTap(() {
-                    DTReviewScreen().launch(context);
+                  Text('${Random.secure().nextInt(100).toString()} ratings',
+                          style: secondaryTextStyle(size: 16))
+                      .onTap(() {
+                    const DTReviewScreen().launch(context);
                   }),
                 ],
               ),
@@ -153,12 +154,19 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                     children: [
                       Text('Deliver to', style: primaryTextStyle()),
                       10.width,
-                      Text(mSelectedAddress != null ? mSelectedAddress!.name.validate() : 'John Doe', style: boldTextStyle()).expand(),
+                      Text(
+                              mSelectedAddress != null
+                                  ? mSelectedAddress!.name.validate()
+                                  : 'John Doe',
+                              style: boldTextStyle())
+                          .expand(),
                     ],
                   ).expand(),
                   Container(
                     padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(border: Border.all(color: appColorPrimary), borderRadius: BorderRadius.circular(3)),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: appColorPrimary),
+                        borderRadius: BorderRadius.circular(3)),
                     child: Text('Change', style: primaryTextStyle()),
                   ).onTap(() async {
                     var res = await DTAddressScreen().launch(context);
@@ -173,20 +181,16 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                 ],
               ),
               4.height,
-              Text(mSelectedAddress != null ? mSelectedAddress!.addressLine1.validate() : '4683 Stadium Drive, Cambridge, MA', style: secondaryTextStyle()),
+              Text(
+                  mSelectedAddress != null
+                      ? mSelectedAddress!.addressLine1.validate()
+                      : '4683 Stadium Drive, Cambridge, MA',
+                  style: secondaryTextStyle()),
               16.height,
               const Divider(height: 0),
             ],
           ).paddingAll(16),
-          settingItem(context, '\$10 Delivery in 2 days, Monday', leading: const Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
-            mMoreOfferBottomSheet(context);
-          }),
-          settingItem(context, '7 Days return policy', leading: const Icon(FontAwesome.exchange, color: appColorPrimary, size: 18), textSize: 15, padding: 0.0, onTap: () {
-            mMoreOfferBottomSheet(context);
-          }),
-          settingItem(context, 'Cash on Delivery', leading: const Icon(MaterialIcons.attach_money, color: appColorPrimary), textSize: 15, padding: 0.0, onTap: () {
-            mMoreOfferBottomSheet(context);
-          }),
+          Text(widget.productModel['des'], style: boldTextStyle(size: 18)),
         ],
       );
     }
@@ -202,7 +206,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                 SizedBox(
                   height: context.height() * 0.45,
                   child: Image.network(
-                    widget.productModel!.image!,
+                    widget.productModel['image'],
                     width: context.width(),
                     height: context.height() * 0.45,
                     fit: BoxFit.cover,
@@ -232,7 +236,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                     height: context.height() * 0.45,
                     margin: const EdgeInsets.all(8),
                     child: Image.network(
-                      widget.productModel!.image!,
+                      widget.productModel['image'],
                       width: context.width(),
                       fit: BoxFit.fitHeight,
                     ),
@@ -241,7 +245,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      addToCartBtn().expand(flex: 20),
                       buyNowBtn().expand(flex: 20),
                     ],
                   ),
@@ -257,7 +260,11 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
             ],
           ),
           16.height,
-          widget.productModel != null ? Text('${widget.productModel!.name.validate()} Reviews', style: boldTextStyle()).paddingAll(16) : const SizedBox(),
+          widget.productModel != null
+              ? Text('${widget.productModel['name']} Reviews',
+                      style: boldTextStyle())
+                  .paddingAll(16)
+              : const SizedBox(),
           ReviewWidget(list: getReviewList()),
         ],
       );
@@ -292,12 +299,14 @@ void mMoreOfferBottomSheet(BuildContext aContext) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(MaterialCommunityIcons.truck_delivery, color: appColorPrimary),
+                const Icon(MaterialCommunityIcons.truck_delivery,
+                    color: appColorPrimary),
                 10.width,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("\$10 Delivery in 2 days, Monday", style: boldTextStyle()),
+                    Text("\$10 Delivery in 2 days, Monday",
+                        style: boldTextStyle()),
                     4.height,
                     Text(
                       LoremText,

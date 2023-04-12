@@ -13,11 +13,14 @@ import 'DTProductDetailScreen.dart';
 class DTCategoryDetailScreen extends StatefulWidget {
   static String tag = '/DTCategoryDetailScreen';
 
+   DTCategoryDetailScreen({super.key,required this.idCat});
+String idCat;
   @override
   DTCategoryDetailScreenState createState() => DTCategoryDetailScreenState();
 }
 
 class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +42,7 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
       appBar: appBar(context, 'Grid View'),
       drawer: DTDrawerWidget(),
       body: FutureBuilder(
-        future: getCategoryService('rgreggrg'),
+        future: getCategoryService(widget.idCat),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List supSer = snapshot.data as List;
@@ -126,7 +129,7 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                       ],
                     ),
                   ).onTap(() async {
-                    int? index = await DTProductDetailScreen(productModel: data)
+                    int?index= await DTProductDetailScreen(productModel: data)
                         .launch(context);
                     if (index != null) appStore.setDrawerItemIndex(index);
                   });

@@ -97,7 +97,7 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                             'View All',
                             style: secondaryTextStyle(color: white),
                           ).onTap(() {
-                            DTCategoryDetailScreen().launch(context);
+                            // const DTCategoryDetailScreen().launch(context);
                           }),
                         ),
                       ],
