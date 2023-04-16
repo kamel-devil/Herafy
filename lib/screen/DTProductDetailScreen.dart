@@ -22,7 +22,6 @@ import 'ReviewWidget.dart';
 class DTProductDetailScreen extends StatefulWidget {
   static String tag = '/DTProductDetailScreen';
   final productModel;
-
   const DTProductDetailScreen({super.key, required this.productModel});
 
   @override
@@ -130,13 +129,14 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                       ],
                     ),
                   ).onTap(() {
-                    const DTReviewScreen().launch(context);
+
+                     DTReviewScreen(id:widget.productModel['id']).launch(context);
                   }),
                   8.width,
                   Text('${Random.secure().nextInt(100).toString()} ratings',
                           style: secondaryTextStyle(size: 16))
                       .onTap(() {
-                    const DTReviewScreen().launch(context);
+                     DTReviewScreen(id:widget.productModel['id']).launch(context);
                   }),
                 ],
               ),

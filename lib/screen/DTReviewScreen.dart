@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 
 import '../main.dart';
 import '../model/DTReviewModel.dart';
@@ -17,7 +19,9 @@ import 'main/utils/flutter_rating_bar.dart';
 class DTReviewScreen extends StatefulWidget {
   static String tag = '/DTReviewScreen';
 
-  const DTReviewScreen({super.key});
+  DTReviewScreen({super.key, required this.id});
+
+  String id;
 
   @override
   DTReviewScreenState createState() => DTReviewScreenState();
@@ -63,17 +67,27 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FittedBox(child: Text('4.2', style: boldTextStyle(size: 40, color: white))),
+                        FittedBox(
+                            child: Text('4.2',
+                                style: boldTextStyle(size: 40, color: white))),
                         IgnorePointer(
                           child: RatingBar(
                             onRatingUpdate: (r) {},
                             itemSize: 14.0,
-                            itemBuilder: (context, _) => const Icon(Icons.star_border, color: Colors.amber),
+                            itemBuilder: (context, _) => const Icon(
+                                Icons.star_border,
+                                color: Colors.amber),
                             initialRating: 0.0,
                           ),
                         ),
                         10.height,
-                        FittedBox(child: Text(Random().nextInt(50000000).toString().formatNumberWithComma(), style: boldTextStyle(color: white))),
+                        FittedBox(
+                            child: Text(
+                                Random()
+                                    .nextInt(50000000)
+                                    .toString()
+                                    .formatNumberWithComma(),
+                                style: boldTextStyle(color: white))),
                       ],
                     ).paddingOnly(left: 8, right: 8).expand(flex: 1),
                     Column(
@@ -86,7 +100,8 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             LinearProgressIndicator(
                               value: 0.6,
                               backgroundColor: white.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(white),
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(white),
                             ).expand(),
                             10.width,
                           ],
@@ -98,7 +113,8 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             LinearProgressIndicator(
                               value: 0.4,
                               backgroundColor: white.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(white),
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(white),
                             ).expand(),
                             10.width,
                           ],
@@ -110,7 +126,8 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             LinearProgressIndicator(
                               value: 0.9,
                               backgroundColor: white.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(white),
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(white),
                             ).expand(),
                             10.width,
                           ],
@@ -122,7 +139,8 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             LinearProgressIndicator(
                               value: 0.8,
                               backgroundColor: white.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(white),
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(white),
                             ).expand(),
                             10.width,
                           ],
@@ -134,7 +152,8 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             LinearProgressIndicator(
                               value: 0.2,
                               backgroundColor: white.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(white),
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(white),
                             ).expand(),
                             10.width,
                           ],
@@ -148,12 +167,19 @@ class DTReviewScreenState extends State<DTReviewScreen> {
             8.height,
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+              padding:
+                  const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
               margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(8)),
-              child: Text('Write a Review', style: boldTextStyle(color: appColorPrimary)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Theme.of(context).dividerColor),
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text('Write a Review',
+                  style: boldTextStyle(color: appColorPrimary)),
             ).onTap(() async {
-              DTReviewModel? model = await showInDialog(context, child: WriteReviewDialog(), backgroundColor: Colors.transparent, contentPadding: const EdgeInsets.all(0));
+              DTReviewModel? model = await showInDialog(context,
+                  child: WriteReviewDialog(id: widget.id),
+                  backgroundColor: Colors.transparent,
+                  contentPadding: const EdgeInsets.all(0));
               if (model != null) {
                 list.insert(0, model);
                 setState(() {});
@@ -179,7 +205,9 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                     margin: const EdgeInsets.only(top: 20),
                     height: 200,
                     width: dynamicWidth(context),
-                    decoration: BoxDecoration(gradient: defaultThemeGradient(), borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(
+                        gradient: defaultThemeGradient(),
+                        borderRadius: BorderRadius.circular(10)),
                     alignment: Alignment.center,
                     child: ConstrainedBox(
                       constraints: dynamicBoxConstraints(),
@@ -188,17 +216,28 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              FittedBox(child: Text('4.2', style: boldTextStyle(size: 40, color: white))),
+                              FittedBox(
+                                  child: Text('4.2',
+                                      style: boldTextStyle(
+                                          size: 40, color: white))),
                               IgnorePointer(
                                 child: RatingBar(
                                   onRatingUpdate: (r) {},
                                   itemSize: 14.0,
-                                  itemBuilder: (context, _) => const Icon(Icons.star_border, color: Colors.amber),
+                                  itemBuilder: (context, _) => const Icon(
+                                      Icons.star_border,
+                                      color: Colors.amber),
                                   initialRating: 0.0,
                                 ),
                               ),
                               10.height,
-                              FittedBox(child: Text(Random().nextInt(50000000).toString().formatNumberWithComma(), style: boldTextStyle(color: white))),
+                              FittedBox(
+                                  child: Text(
+                                      Random()
+                                          .nextInt(50000000)
+                                          .toString()
+                                          .formatNumberWithComma(),
+                                      style: boldTextStyle(color: white))),
                             ],
                           ).paddingOnly(left: 8, right: 8).expand(flex: 1),
                           Column(
@@ -206,60 +245,75 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Text('5', style: primaryTextStyle(color: white)),
+                                  Text('5',
+                                      style: primaryTextStyle(color: white)),
                                   10.width,
                                   LinearProgressIndicator(
                                     value: 0.6,
                                     backgroundColor: white.withOpacity(0.2),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(white),
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            white),
                                   ).expand(),
                                   10.width,
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text('4', style: primaryTextStyle(color: white)),
+                                  Text('4',
+                                      style: primaryTextStyle(color: white)),
                                   10.width,
                                   LinearProgressIndicator(
                                     value: 0.4,
                                     backgroundColor: white.withOpacity(0.2),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(white),
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            white),
                                   ).expand(),
                                   10.width,
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text('3', style: primaryTextStyle(color: white)),
+                                  Text('3',
+                                      style: primaryTextStyle(color: white)),
                                   10.width,
                                   LinearProgressIndicator(
                                     value: 0.9,
                                     backgroundColor: white.withOpacity(0.2),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(white),
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            white),
                                   ).expand(),
                                   10.width,
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text('2', style: primaryTextStyle(color: white)),
+                                  Text('2',
+                                      style: primaryTextStyle(color: white)),
                                   10.width,
                                   LinearProgressIndicator(
                                     value: 0.8,
                                     backgroundColor: white.withOpacity(0.2),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(white),
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            white),
                                   ).expand(),
                                   10.width,
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text('1', style: primaryTextStyle(color: white)),
+                                  Text('1',
+                                      style: primaryTextStyle(color: white)),
                                   10.width,
                                   LinearProgressIndicator(
                                     value: 0.2,
                                     backgroundColor: white.withOpacity(0.2),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(white),
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            white),
                                   ).expand(),
                                   10.width,
                                 ],
@@ -274,12 +328,22 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                   Container(
                     alignment: Alignment.center,
                     width: dynamicWidth(context),
-                    padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+                    padding: const EdgeInsets.only(
+                        top: 16, bottom: 16, left: 8, right: 8),
                     margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(8)),
-                    child: Text('Write a Review', style: boldTextStyle(color: appColorPrimary)),
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Theme.of(context).dividerColor),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Text('Write a Review',
+                        style: boldTextStyle(color: appColorPrimary)),
                   ).onTap(() async {
-                    DTReviewModel? model = await showInDialog(context, child: WriteReviewDialog(), backgroundColor: Colors.transparent, contentPadding: const EdgeInsets.all(0));
+                    DTReviewModel? model = await showInDialog(context,
+                        child: WriteReviewDialog(
+                          id: widget.id,
+                        ),
+                        backgroundColor: Colors.transparent,
+                        contentPadding: const EdgeInsets.all(0));
                     if (model != null) {
                       list.insert(0, model);
                       setState(() {});
@@ -313,8 +377,9 @@ class WriteReviewDialog extends StatelessWidget {
   var reviewCont = TextEditingController();
   var reviewFocus = FocusNode();
   double ratting = 0.0;
+  String id;
 
-  WriteReviewDialog({super.key});
+  WriteReviewDialog({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -355,7 +420,9 @@ class WriteReviewDialog extends StatelessWidget {
                 onTap: () {
                   finish(context);
                 },
-                child: Container(padding: const EdgeInsets.all(4), alignment: Alignment.centerRight),
+                child: Container(
+                    padding: const EdgeInsets.all(4),
+                    alignment: Alignment.centerRight),
               ),
               8.height,
               Center(
@@ -384,14 +451,20 @@ class WriteReviewDialog extends StatelessWidget {
                   contentPadding: const EdgeInsets.all(16),
                   labelStyle: secondaryTextStyle(),
                   border: const OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
-                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: appColorPrimary)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: appStore.textSecondaryColor!)),
                 ),
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
                 //Normal textInputField will be displayed
                 maxLines: 5,
-                textInputAction: TextInputAction.newline, // when user presses enter it will adapt to it
+                textInputAction: TextInputAction
+                    .newline, // when user presses enter it will adapt to it
               ),
               30.height,
               GestureDetector(
@@ -406,10 +479,13 @@ class WriteReviewDialog extends StatelessWidget {
                   } else {
                     toast(errorThisFieldRequired);
                   }
+                  getData();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.all(Radius.circular(5))),
+                  decoration: const BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Center(
                     child: Text("Submit", style: boldTextStyle(color: white)),
@@ -422,5 +498,30 @@ class WriteReviewDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  addData(String id, String name, email) async {
+    CollectionReference request = FirebaseFirestore.instance
+        .collection('allService')
+        .doc(id)
+        .collection('review');
+    request.add({
+      'review': reviewCont.text,
+      'rate': ratting,
+      'time': DateFormat('hh:mm a').format(DateTime.now()).toString(),
+      'date': DateFormat('dd-MM-yyyy').format(DateTime.now()).toString(),
+      'name': name,
+      'uid': FirebaseAuth.instance.currentUser!.uid
+    });
+  }
+
+  getData() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      addData(id, value['name'], value['email']);
+    });
   }
 }

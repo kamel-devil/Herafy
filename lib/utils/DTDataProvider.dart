@@ -1,37 +1,15 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/login/login.dart';
-import 'package:nb_utils/nb_utils.dart';
-
-
 import '../model/DTAddressListModel.dart';
 import '../model/DTChatMessageModel.dart';
 import '../model/DTChatModel.dart';
 import '../model/DTProductModel.dart';
 import '../model/DTReviewModel.dart';
 import '../screen/DTAboutScreen.dart';
-import '../screen/DTAddressScreen.dart';
-import '../screen/DTCartScreen.dart';
-import '../screen/DTCategoryDetailScreen.dart';
-import '../screen/DTChatScreen.dart';
 import '../screen/DTContactUsScreen.dart';
-import '../screen/DTDashboardScreen.dart';
-import '../screen/DTErrorScreen.dart';
 import '../screen/DTFAQScreen.dart';
-import '../screen/DTForgotPwdScreen.dart';
-import '../screen/DTMaintenanceScreen.dart';
-import '../screen/DTNoDataScreen.dart';
-import '../screen/DTNoResultScreen.dart';
-import '../screen/DTOrderSummaryScreen.dart';
-import '../screen/DTPaymentScreen.dart';
-import '../screen/DTProductDetailScreen.dart';
 import '../screen/DTProfileScreen.dart';
-import '../screen/DTReviewScreen.dart';
-import '../screen/DTSearchScreen.dart';
-import '../screen/login/DTSignInScreen.dart';
-import '../screen/login/DTSignUpScreen.dart';
-import '../screen/login/DTWalkThoughScreen.dart';
 import '../store/ListModels.dart';
 import 'AppConstant.dart';
 

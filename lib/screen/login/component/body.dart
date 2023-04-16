@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart'as dialog;
+import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/DTDashboardScreen.dart';
@@ -25,11 +25,12 @@ class _BodyState extends State<Body> {
             ? Image.asset(
                 'images/login.jpg',
                 width: 500,
-          height: 500,
+                height: 500,
               )
             : const SizedBox(),
-
-        const SizedBox(width: 40,),
+        const SizedBox(
+          width: 40,
+        ),
         Padding(
           padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / 6),
@@ -102,11 +103,12 @@ class _BodyState extends State<Body> {
             ],
           ),
           child: ElevatedButton(
-            onPressed: () {
-              login().then((value) {
-                finish(context);
+            onPressed: () async {
+              await login();
+              if (FirebaseAuth.instance.currentUser!.uid != null) {
                 DTDashboardScreen().launch(context);
-              });
+              }
+
               /// Remove comment if you want enable validation
               // if (formKey.currentState!.validate()) {
               // formKey.currentState!.save();
@@ -116,7 +118,8 @@ class _BodyState extends State<Body> {
               // }
             },
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white, backgroundColor: Colors.deepPurple,
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.deepPurple,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -201,12 +204,11 @@ class _BodyState extends State<Body> {
     );
   }
 
- Future login() async {
+  Future login() async {
     try {
       if (email.text.isNotEmpty && pass.text.isNotEmpty) {
         UserCredential userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-            email: email.text, password: pass.text);
+            .signInWithEmailAndPassword(email: email.text, password: pass.text);
         return userCredential;
       } else {
         print('isEmpty');

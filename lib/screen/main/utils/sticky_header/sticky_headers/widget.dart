@@ -60,7 +60,7 @@ class StickyHeader extends MultiChildRenderObjectWidget {
 
   @override
   RenderStickyHeader createRenderObject(BuildContext context) {
-    final scrollPosition = this.controller?.position ?? Scrollable.of(context)!.position;
+    final scrollPosition = this.controller?.position ?? Scrollable.of(context).position;
     return RenderStickyHeader(
       scrollPosition: scrollPosition,
       callback: this.callback,
@@ -70,7 +70,7 @@ class StickyHeader extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(BuildContext context, RenderStickyHeader renderObject) {
-    final scrollPosition = this.controller?.position ?? Scrollable.of(context)!.position;
+    final scrollPosition = this.controller?.position ?? Scrollable.of(context).position;
     renderObject
       ..scrollPosition = scrollPosition
       ..callback = this.callback
@@ -127,7 +127,7 @@ class _StickyHeaderBuilderState extends State<StickyHeaderBuilder> {
       callback: (double stuckAmount) {
         if (_stuckAmount != stuckAmount) {
           _stuckAmount = stuckAmount;
-          WidgetsBinding.instance!.endOfFrame.then((_) {
+          WidgetsBinding.instance.endOfFrame.then((_) {
             if (mounted) {
               setState(() {});
             }
