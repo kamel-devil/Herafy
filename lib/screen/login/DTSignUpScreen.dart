@@ -2,12 +2,11 @@ import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:herafy/screen/DTDashboardScreen.dart';
-import 'package:herafy/screen/login/component/menu.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../utils/AppWidget.dart';
+import '../DTDashboardScreen.dart';
 import '../DTDrawerWidget.dart';
 
 class DTSignUpScreen extends StatefulWidget {
@@ -57,28 +56,28 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
         children: [
           MediaQuery.of(context).size.width >= 980
               ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: (){
-                          // Navigator.push(context, route)
-                          LoginPage().launch(context);
-                        },
-                        child: _menuItem(title: 'Sign IN', isActive: false)
-
-                    ),
-                    const SizedBox(width: 20,),
-                    _menuItem(title: 'Register', isActive: true),
-                  ],
-                ),
-              ],
-            ),
-          )
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                // Navigator.push(context, route)
+                                LoginPage().launch(context);
+                              },
+                              child:
+                                  _menuItem(title: 'Sign IN', isActive: false)),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          _menuItem(title: 'Register', isActive: true),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
               : const SizedBox(), // Responsive
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,16 +87,18 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     ? Image.asset(
                         'images/login.jpg',
                         width: 500,
-                  height: 500,
+                        height: 500,
                       )
                     : const SizedBox(),
               ),
-              const SizedBox(width: 40,),
+              const SizedBox(
+                width: 40,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height / 6),
                 child: SizedBox(
-                  width: 320,
+                  width: 360,
                   child: _formLogin(context),
                 ),
               )
@@ -197,7 +198,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
               ],
             );
           },
-        ),        const SizedBox(height: 30),
+        ),
+        const SizedBox(height: 30),
         TextField(
           controller: naID,
           decoration: InputDecoration(
@@ -285,7 +287,6 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             ),
           ),
         ),
-
         const SizedBox(height: 40),
         Container(
           decoration: BoxDecoration(
@@ -300,12 +301,12 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             ],
           ),
           child: ElevatedButton(
-            onPressed: () {
-              finish(context);
-              signUp().then((value) {
+            onPressed: () async {
+              // finish(context);
+              await signUp();
+              if (FirebaseAuth.instance.currentUser != null) {
                 DTDashboardScreen().launch(context);
-                addDataEmail();
-              });
+              }
 
               /// Remove comment if you want enable validation
               // if (formKey.currentState!.validate()) {
@@ -316,7 +317,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
               // }
             },
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white, backgroundColor: Colors.deepPurple,
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.deepPurple,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -409,7 +411,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           naID.text.isNotEmpty) {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
-                email: email.text, password: pass.text);
+                email: email.text, password: pass.text).then((value) =>addDataEmail());
         return userCredential;
       } else {}
     } on FirebaseAuthException catch (e) {
@@ -443,7 +445,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
     User? user = FirebaseAuth.instance.currentUser;
     final time = DateTime.now().millisecondsSinceEpoch.toString();
     addUser = FirebaseFirestore.instance.collection('users');
-    addUser?.doc('${user?.uid}').set({
+    addUser.doc('${user?.uid}').set({
       'email': email.text,
       'name': nameCont.text,
       'national_id': naID.text,
@@ -453,11 +455,10 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'is_online': false,
       'last_active': time,
       'push_token': '',
-      'about': 'Hallo'
+      'about': 'Hallo',
+      'point':0,
     });
   }
-
-
 
   Widget _menuItem({String title = 'Title Menu', isActive = false}) {
     return Padding(
@@ -478,12 +479,13 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             ),
             isActive
                 ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(30),
-              ),
-            )
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  )
                 : const SizedBox()
           ],
         ),
@@ -491,32 +493,32 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
     );
   }
 
-  // Widget _registerButton() {
-  //   return GestureDetector(
-  //     onTap: (){
-  //       LoginPage().launch(context);
-  //     },
-  //     child: Container(
-  //       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         borderRadius: BorderRadius.circular(15),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.grey.shade200,
-  //             spreadRadius: 10,
-  //             blurRadius: 12,
-  //           ),
-  //         ],
-  //       ),
-  //       child: const Text(
-  //         'Sign IN',
-  //         style: TextStyle(
-  //           fontWeight: FontWeight.bold,
-  //           color: Colors.black54,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+// Widget _registerButton() {
+//   return GestureDetector(
+//     onTap: (){
+//       LoginPage().launch(context);
+//     },
+//     child: Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(15),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.shade200,
+//             spreadRadius: 10,
+//             blurRadius: 12,
+//           ),
+//         ],
+//       ),
+//       child: const Text(
+//         'Sign IN',
+//         style: TextStyle(
+//           fontWeight: FontWeight.bold,
+//           color: Colors.black54,
+//         ),
+//       ),
+//     ),
+//   );
+// }
 }

@@ -10,7 +10,6 @@ import '../main.dart';
 import '../model/DTReviewModel.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
-import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import 'DTDrawerWidget.dart';
 import 'ReviewWidget.dart';
@@ -28,17 +27,11 @@ class DTReviewScreen extends StatefulWidget {
 }
 
 class DTReviewScreenState extends State<DTReviewScreen> {
-  List<DTReviewModel> list = getReviewList();
   var scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    init();
-  }
-
-  init() async {
-    //
   }
 
   @override
@@ -49,7 +42,20 @@ class DTReviewScreenState extends State<DTReviewScreen> {
   @override
   Widget build(BuildContext context) {
     Widget reviewListing() {
-      return ReviewWidget(list: list);
+      return StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('allService')
+              .doc(widget.id)
+              .collection('review')
+              .snapshots(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              List data = snapshot.data?.docs;
+              return ReviewWidget(list: data);
+            } else {
+              return const CircularProgressIndicator();
+            }
+          });
     }
 
     Widget mobileWidget() {
@@ -181,7 +187,6 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                   backgroundColor: Colors.transparent,
                   contentPadding: const EdgeInsets.all(0));
               if (model != null) {
-                list.insert(0, model);
                 setState(() {});
               }
             }),
@@ -345,7 +350,6 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                         backgroundColor: Colors.transparent,
                         contentPadding: const EdgeInsets.all(0));
                     if (model != null) {
-                      list.insert(0, model);
                       setState(() {});
                     }
                   }),
@@ -520,8 +524,15 @@ class WriteReviewDialog extends StatelessWidget {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
-        .then((value) {
+        .then((value) async {
       addData(id, value['name'], value['email']);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set(
+        {'point': value['point'] + 1},
+        SetOptions(merge: true),
+      );
     });
   }
 }

@@ -1,16 +1,13 @@
-import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
 import '../model/DTAddressListModel.dart';
-import '../model/DTProductModel.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
-import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import 'DTAddressScreen.dart';
 import 'DTCartScreen.dart';
@@ -22,7 +19,10 @@ import 'ReviewWidget.dart';
 class DTProductDetailScreen extends StatefulWidget {
   static String tag = '/DTProductDetailScreen';
   final productModel;
-  const DTProductDetailScreen({super.key, required this.productModel});
+  final bool isFav;
+
+  const DTProductDetailScreen(
+      {super.key, required this.productModel, required this.isFav});
 
   @override
   DTProductDetailScreenState createState() => DTProductDetailScreenState();
@@ -62,8 +62,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     Widget buyNowBtn() {
       return Container(
         height: 50,
@@ -102,8 +100,10 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                   // priceWidget(widget.productModel!.discountPrice,
                   //     fontSize: 28, textColor: appColorPrimary),
                   8.width,
-                  priceWidget(int.parse(widget.productModel['price'].toString()),
-                      applyStrike: true, fontSize: 18),
+                  priceWidget(
+                      int.parse(widget.productModel['price'].toString()),
+                      applyStrike: true,
+                      fontSize: 18),
                   16.width,
                   Text('${discount.toInt()}% off',
                           style: boldTextStyle(color: appColorPrimary))
@@ -124,20 +124,14 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                         const Icon(Icons.star_border,
                             color: Colors.white, size: 14),
                         8.width,
-                        Text('4',
-                            style: primaryTextStyle(color: white)),
+                        Text('4', style: primaryTextStyle(color: white)),
                       ],
                     ),
                   ).onTap(() {
-
-                     DTReviewScreen(id:widget.productModel['id']).launch(context);
+                    DTReviewScreen(id: widget.productModel['id'])
+                        .launch(context);
                   }),
                   8.width,
-                  Text('${Random.secure().nextInt(100).toString()} ratings',
-                          style: secondaryTextStyle(size: 16))
-                      .onTap(() {
-                     DTReviewScreen(id:widget.productModel['id']).launch(context);
-                  }),
                 ],
               ),
             ],
@@ -265,7 +259,28 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                       style: boldTextStyle())
                   .paddingAll(16)
               : const SizedBox(),
-          ReviewWidget(list: getReviewList()),
+          StreamBuilder(
+              stream: widget.isFav
+                  ? FirebaseFirestore.instance
+                      .collection('allService')
+                      .doc(widget.productModel['id'])
+                      .collection('review')
+                      .snapshots()
+                  : FirebaseFirestore.instance
+                      .collection('allService')
+                      .doc(widget.productModel['id'])
+                      .collection('review')
+                      .snapshots(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  List data = snapshot.data!.docs;
+                  return ReviewWidget(list: data);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              })
         ],
       );
     }

@@ -4,7 +4,6 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
 import '../utils/AppWidget.dart';
-import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import '../utils/rating_bar.dart';
 import 'DTDrawerWidget.dart';
@@ -13,14 +12,15 @@ import 'DTProductDetailScreen.dart';
 class DTCategoryDetailScreen extends StatefulWidget {
   static String tag = '/DTCategoryDetailScreen';
 
-   DTCategoryDetailScreen({super.key,required this.idCat});
-String idCat;
+  DTCategoryDetailScreen({super.key, required this.idCat});
+
+  String idCat;
+
   @override
   DTCategoryDetailScreenState createState() => DTCategoryDetailScreenState();
 }
 
 class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -76,12 +76,11 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                                 right: 10,
                                 top: 10,
                                 child:
-                                // data.isLiked.validate()
-                                //     ? const Icon(Icons.favorite,
-                                //         color: Colors.red, size: 16)
-                                //     :
-                                Icon(Icons.favorite_border,
-                                        size: 16),
+                                    // data.isLiked.validate()
+                                    //     ? const Icon(Icons.favorite,
+                                    //         color: Colors.red, size: 16)
+                                    //     :
+                                    Icon(Icons.favorite_border, size: 16),
                               ),
                             ],
                           ),
@@ -119,9 +118,10 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                               children: [
                                 priceWidget(3000
                                     // data.discountPrice
-                                ),
+                                    ),
                                 8.width,
-                                priceWidget(int.parse(data['price']), applyStrike: true),
+                                priceWidget(int.parse(data['price']),
+                                    applyStrike: true),
                               ],
                             ),
                           ],
@@ -129,8 +129,10 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                       ],
                     ),
                   ).onTap(() async {
-                    int?index= await DTProductDetailScreen(productModel: data)
-                        .launch(context);
+                    int? index = await DTProductDetailScreen(
+                      productModel: data,
+                      isFav: false,
+                    ).launch(context);
                     if (index != null) appStore.setDrawerItemIndex(index);
                   });
                 }).toList(),

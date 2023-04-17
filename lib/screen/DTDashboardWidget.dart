@@ -1,17 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:herafy/screen/login/DTSignUpScreen.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
-import '../model/CategoryModel.dart';
 import '../model/DTProductModel.dart';
 import '../utils/AppColors.dart';
-import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
@@ -32,42 +29,12 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
   PageController pageController = PageController();
 
   List<Widget> pages = [];
-  List<CategoryModel> categories = [];
 
   int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    init();
-  }
-
-  init() async {
-    categories.add(CategoryModel(
-        name: 'Carpentry', icon: 'images/defaultTheme/category/furniture.png'));
-    categories.add(CategoryModel(
-        name: 'Event planning', icon: 'images/defaultTheme/category/Man.png'));
-    categories.add(CategoryModel(
-        name: 'Cooking', icon: 'images/defaultTheme/category/Food.png'));
-    categories.add(CategoryModel(
-        name: 'Men', icon: 'images/defaultTheme/category/Man.png'));
-
-    pages = [
-      Container(
-          child: Image.network(SampleImageUrl,
-              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(
-          child: Image.network(SampleImageUrl2,
-              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(
-          child: Image.network(SampleImageUrl3,
-              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-      Container(
-          child: Image.network(SampleImageUrl4,
-              height: isMobile ? 150 : 350, fit: BoxFit.cover)),
-    ];
-
-    setState(() {});
   }
 
   @override
@@ -108,6 +75,8 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         'type': data['type'],
         'price': data['price'],
         "time": data['time'],
+        "craftsman": data['craftsman'],
+        "id": data['id'],
       });
     }
 
@@ -166,17 +135,14 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     Widget horizontalProductListView(bool isv) {
       return StreamBuilder(
         stream: isv
-            ? FirebaseFirestore.instance
-            .collection('favServices')
-            .snapshots()
+            ? FirebaseFirestore.instance.collection('favServices').snapshots()
             : FirebaseFirestore.instance
-            .collection('allService')
-            .where('isAccept', isEqualTo: true)
-            .snapshots(),
+                .collection('allService')
+                .where('isAccept', isEqualTo: true)
+                .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
-            print('444444444444444444444444444444444444444444');
             List ser = snapshot.data?.docs as List;
             return ListView.builder(
               padding: const EdgeInsets.all(8),
@@ -259,7 +225,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                   ),
                 ).onTap(() async {
                   int? index =
-                      await DTProductDetailScreen(productModel: ser[index1])
+                      await DTProductDetailScreen(productModel: ser[index1], isFav: true,)
                           .launch(context);
                   if (index != null) appStore.setDrawerItemIndex(index);
                 });
@@ -465,29 +431,33 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 ),
                 searchTxt().expand(),
                 25.width,
-                Container(
-                  padding: const EdgeInsets.only(
-                      top: 8, left: 16, right: 16, bottom: 8),
-                  decoration: BoxDecoration(
-                      color: appColorPrimary,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Text('Sign In',
-                      style: boldTextStyle(color: white, size: 18)),
-                ).onTap(() {
-                  LoginPage().launch(context);
-                }),
+                FirebaseAuth.instance.currentUser == null
+                    ? Container(
+                        padding: const EdgeInsets.only(
+                            top: 8, left: 16, right: 16, bottom: 8),
+                        decoration: BoxDecoration(
+                            color: appColorPrimary,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Text('Sign In',
+                            style: boldTextStyle(color: white, size: 18)),
+                      ).onTap(() {
+                        LoginPage().launch(context);
+                      })
+                    : Container(),
                 16.width,
-                Container(
-                  padding: const EdgeInsets.only(
-                      top: 8, left: 16, right: 16, bottom: 8),
-                  decoration: BoxDecoration(
-                      color: appColorPrimary,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Text('Register',
-                      style: boldTextStyle(color: white, size: 18)),
-                ).onTap(() {
-                  DTSignUpScreen().launch(context);
-                }),
+                FirebaseAuth.instance.currentUser == null
+                    ? Container(
+                        padding: const EdgeInsets.only(
+                            top: 8, left: 16, right: 16, bottom: 8),
+                        decoration: BoxDecoration(
+                            color: appColorPrimary,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Text('Register',
+                            style: boldTextStyle(color: white, size: 18)),
+                      ).onTap(() {
+                        DTSignUpScreen().launch(context);
+                      })
+                    : Container(),
                 16.width,
                 Container(
                   padding: const EdgeInsets.all(8),
