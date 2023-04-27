@@ -10,6 +10,8 @@ import 'DTDrawerWidget.dart';
 class DTDashboardScreen extends StatefulWidget {
   static String tag = '/DTDashboardScreen';
 
+  const DTDashboardScreen({super.key});
+
   @override
   DTDashboardScreenState createState() => DTDashboardScreenState();
 }

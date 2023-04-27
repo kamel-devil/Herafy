@@ -12,6 +12,8 @@ import '../DTDrawerWidget.dart';
 class DTSignUpScreen extends StatefulWidget {
   static String tag = '/DTSignUpScreen';
 
+  const DTSignUpScreen({super.key});
+
   @override
   DTSignUpScreenState createState() => DTSignUpScreenState();
 }
@@ -27,6 +29,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
   TextEditingController rePass = TextEditingController();
   TextEditingController naID = TextEditingController();
   TextEditingController phone = TextEditingController();
+  bool isMale = false;
+  bool isFemale = false;
+  String? gender;
 
   @override
   void initState() {
@@ -110,253 +115,317 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
   }
 
   Widget _formLogin(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: nameCont,
-          decoration: InputDecoration(
-            hintText: 'Enter Name',
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: email,
-          decoration: InputDecoration(
-            hintText: 'Enter email',
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return Row(
-              children: <Widget>[
-                const SizedBox(
-                  width: 50,
-                  child: Text(
-                    "Gender",
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.blue[50],
-                  child: const Icon(Icons.face, color: Colors.grey),
-                ),
-                const SizedBox(
-                  width: 30.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                  child: Text(
-                    "Male",
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.blue[50],
-                  child: const Icon(
-                    Icons.face,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(
-                  width: 30.0,
-                ),
-                const SizedBox(
-                  width: 100.0,
-                  child: Text(
-                    "Female",
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: naID,
-          decoration: InputDecoration(
-            hintText: 'National ID',
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: phone,
-          decoration: InputDecoration(
-            hintText: 'Phone',
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: pass,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            suffixIcon: const Icon(
-              Icons.visibility_off_outlined,
-              color: Colors.grey,
-            ),
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.blueGrey.shade50,
-              ),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        TextField(
-          controller: rePass,
-          decoration: InputDecoration(
-            hintText: 'Re-enter Password',
-            suffixIcon: const Icon(
-              Icons.visibility_off_outlined,
-              color: Colors.grey,
-            ),
-            filled: true,
-            fillColor: Colors.blueGrey[50],
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.blueGrey.shade50,
-              ),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade50),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.deepPurple.shade100,
-                spreadRadius: 10,
-                blurRadius: 20,
-              ),
-            ],
-          ),
-          child: ElevatedButton(
-            onPressed: () async {
-              // finish(context);
-              await signUp();
-              if (FirebaseAuth.instance.currentUser != null) {
-                DTDashboardScreen().launch(context);
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: nameCont,
+            validator: (val) {
+              if (val!.length < 5) {
+                return 'Invalid Name';
+              } else {
+                return null;
               }
-
-              /// Remove comment if you want enable validation
-              // if (formKey.currentState!.validate()) {
-              // formKey.currentState!.save();
-              // DTDashboardScreen().launch(context);
-              // } else {
-              // autoValidate = true;
-              // }
             },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.deepPurple,
-              shape: RoundedRectangleBorder(
+            decoration: InputDecoration(
+              hintText: 'Enter Name',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
-            child: const SizedBox(
-                width: double.infinity,
+          ),
+          const SizedBox(height: 30),
+          TextFormField(
+            controller: email,
+            validator: (val) {
+              if (!val!.contains('@')) {
+                return 'Enter Valid Email';
+              } else {
+                return null;
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'Enter email',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Row(
+                children: <Widget>[
+                  const SizedBox(
+                    width: 50,
+                    child: Text(
+                      "Gender",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isMale = true;
+                        isFemale = false;
+                        gender = 'male';
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blue[50],
+                      child: Icon(Icons.face,
+                          color: isMale ? Colors.greenAccent : Colors.grey),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30.0,
+                  ),
+                  const SizedBox(
+                    width: 50.0,
+                    child: Text(
+                      "Male",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isFemale = true;
+                        isMale= false;
+                        gender = 'female';
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blue[50],
+                      child: Icon(
+                        Icons.face,
+                        color: isFemale ? Colors.greenAccent : Colors.grey,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30.0,
+                  ),
+                  const SizedBox(
+                    width: 100.0,
+                    child: Text(
+                      "Female",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 30),
+          TextFormField(
+            controller: naID,
+            validator: (val) {
+              if (val!.length < 10) {
+                return 'Invalid National ID';
+              } else {
+                return null;
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'National ID',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          TextFormField(
+            controller: phone,
+            validator: (val) {
+              if (val!.length < 10) {
+                return 'Invalid Phone Number ';
+              } else {
+                return null;
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'Phone',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          TextFormField(
+            controller: pass,
+            validator: (val) {
+              if (val!.length < 8) {
+                return 'Short Password';
+              } else {
+                return null;
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'Password',
+              suffixIcon: const Icon(
+                Icons.visibility_off_outlined,
+                color: Colors.grey,
+              ),
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.blueGrey.shade50,
+                ),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          TextFormField(
+            controller: rePass,
+            validator: (val) {
+              if (val!.length < 8) {
+                return 'Error password';
+              } else {
+                return null;
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'Re-enter Password',
+              suffixIcon: const Icon(
+                Icons.visibility_off_outlined,
+                color: Colors.grey,
+              ),
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: const TextStyle(fontSize: 12),
+              contentPadding: const EdgeInsets.only(left: 30),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.blueGrey.shade50,
+                ),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 40),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.deepPurple.shade100,
+                  spreadRadius: 10,
+                  blurRadius: 20,
+                ),
+              ],
+            ),
+            child: ElevatedButton(
+              onPressed: () async {
+                // finish(context);
+                await signUp();
+                if (FirebaseAuth.instance.currentUser != null) {
+                  DTDashboardScreen().launch(context);
+                }
+
+                /// Remove comment if you want enable validation
+                // if (formKey.currentState!.validate()) {
+                // formKey.currentState!.save();
+                // DTDashboardScreen().launch(context);
+                // } else {
+                // autoValidate = true;
+                // }
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(child: Text("Sign UP"))),
+            ),
+          ),
+          const SizedBox(height: 40),
+          Row(children: [
+            Expanded(
+              child: Divider(
+                color: Colors.grey[300],
                 height: 50,
-                child: Center(child: Text("Sign UP"))),
-          ),
-        ),
-        const SizedBox(height: 40),
-        Row(children: [
-          Expanded(
-            child: Divider(
-              color: Colors.grey[300],
-              height: 50,
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text("Or continue with"),
-          ),
-          Expanded(
-            child: Divider(
-              color: Colors.grey[400],
-              height: 50,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text("Or continue with"),
             ),
+            Expanded(
+              child: Divider(
+                color: Colors.grey[400],
+                height: 50,
+              ),
+            ),
+          ]),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _loginWithButton(image: 'images/google.png', isActive: true),
+              _loginWithButton(image: 'images/facebook.png'),
+            ],
           ),
-        ]),
-        const SizedBox(height: 40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _loginWithButton(image: 'images/google.png', isActive: true),
-            _loginWithButton(image: 'images/facebook.png'),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -404,39 +473,42 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
   }
 
   Future signUp() async {
-    try {
-      if (email.text.isNotEmpty &&
-          pass.text.isNotEmpty &&
-          nameCont.text.isNotEmpty &&
-          naID.text.isNotEmpty) {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: email.text, password: pass.text).then((value) =>addDataEmail());
-        return userCredential;
-      } else {}
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        dialog.AwesomeDialog(
-          context: context,
-          dialogType: dialog.DialogType.info,
-          animType: dialog.AnimType.bottomSlide,
-          title: 'Attend  !',
-          desc: 'The password is weak',
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
-        ).show();
-      } else if (e.code == 'email-already-in-use') {
-        dialog.AwesomeDialog(
-          context: context,
-          dialogType: dialog.DialogType.info,
-          animType: dialog.AnimType.bottomSlide,
-          title: 'Attend  !',
-          desc: 'This Account is Already Exist',
-          btnOkOnPress: () {},
-        ).show();
+    if (formKey.currentState!.validate()) {
+      try {
+        if (email.text.isNotEmpty &&
+            pass.text.isNotEmpty &&
+            nameCont.text.isNotEmpty &&
+            naID.text.isNotEmpty) {
+          UserCredential userCredential = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(
+                  email: email.text, password: pass.text)
+              .then((value) => addDataEmail());
+          return userCredential;
+        } else {}
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          dialog.AwesomeDialog(
+            context: context,
+            dialogType: dialog.DialogType.info,
+            animType: dialog.AnimType.bottomSlide,
+            title: 'Attend  !',
+            desc: 'The password is weak',
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {},
+          ).show();
+        } else if (e.code == 'email-already-in-use') {
+          dialog.AwesomeDialog(
+            context: context,
+            dialogType: dialog.DialogType.info,
+            animType: dialog.AnimType.bottomSlide,
+            title: 'Attend  !',
+            desc: 'This Account is Already Exist',
+            btnOkOnPress: () {},
+          ).show();
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -454,9 +526,11 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'created_at': time,
       'is_online': false,
       'last_active': time,
+      'isAccept': true,
       'push_token': '',
       'about': 'Hallo',
-      'point':0,
+      'gender': gender,
+      'point': 0,
     });
   }
 

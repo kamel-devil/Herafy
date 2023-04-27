@@ -10,8 +10,8 @@ import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
 import 'DTAddressScreen.dart';
-import 'DTCartScreen.dart';
 import 'DTDrawerWidget.dart';
+import 'DTPaymentScreen.dart';
 import 'DTReviewScreen.dart';
 import 'ReviewWidget.dart';
 
@@ -73,7 +73,9 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
         child: Text('Book Now', style: boldTextStyle(color: white)),
       ).onTap(() {
         // Do your logic
-        DTCartScreen().launch(context);
+        DTPaymentScreen(
+          data: widget.productModel,
+        ).launch(context);
       });
     }
 

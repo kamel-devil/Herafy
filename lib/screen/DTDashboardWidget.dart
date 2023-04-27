@@ -13,7 +13,7 @@ import '../utils/AppWidget.dart';
 import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import '../utils/rating_bar.dart';
-import 'DTCartScreen.dart';
+
 import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
 import 'DTSearchScreen.dart';
@@ -466,7 +466,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                   child: Icon(Icons.shopping_cart,
                       size: 30, color: appStore.iconColor),
                 ).onTap(() {
-                  DTCartScreen().launch(context);
+                  // DTCartScreen().launch(context);
                 }),
                 16.width
               ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
@@ -12,11 +11,12 @@ import '../utils/AppWidget.dart';
 import 'DTAboutScreen.dart';
 import 'DTDrawerWidget.dart';
 import 'DTNotificationSettingScreen.dart';
-import 'DTPaymentScreen.dart';
 import 'DTSecurityScreen.dart';
 
 class DTProfileScreen extends StatefulWidget {
   static String tag = '/DTProfileScreen';
+
+  const DTProfileScreen({super.key});
 
   @override
   DTProfileScreenState createState() => DTProfileScreenState();
@@ -47,7 +47,9 @@ class DTProfileScreenState extends State<DTProfileScreen> {
         children: [
           Row(
             children: [
-              Image.asset(profileImage, height: 70, width: 70, fit: BoxFit.cover).cornerRadiusWithClipRRect(40),
+              Image.asset(profileImage,
+                      height: 70, width: 70, fit: BoxFit.cover)
+                  .cornerRadiusWithClipRRect(40),
               16.width,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,23 +74,30 @@ class DTProfileScreenState extends State<DTProfileScreen> {
         children: [
           settingItem(context, 'Notifications', onTap: () {
             DTNotificationSettingScreen().launch(context);
-          }, leading: const Icon(MaterialIcons.notifications_none), detail: const SizedBox()),
+          },
+              leading: const Icon(MaterialIcons.notifications_none),
+              detail: const SizedBox()),
           settingItem(context, 'Security', onTap: () {
             DTSecurityScreen().launch(context);
-          }, leading: const Icon(MaterialCommunityIcons.shield_check_outline), detail: const SizedBox()),
-          settingItem(context, 'Payments', onTap: () {
-            DTPaymentScreen().launch(context);
-          }, leading: const Icon(MaterialIcons.credit_card), detail: const SizedBox()),
+          },
+              leading: const Icon(MaterialCommunityIcons.shield_check_outline),
+              detail: const SizedBox()),
           settingItem(context, 'Help', onTap: () {
             launch('https://www.google.com');
-          }, leading: const Icon(MaterialIcons.help_outline), detail: const SizedBox()),
+          },
+              leading: const Icon(MaterialIcons.help_outline),
+              detail: const SizedBox()),
           settingItem(context, 'About', onTap: () {
             DTAboutScreen().launch(context);
-          }, leading: const Icon(MaterialIcons.info_outline), detail: const SizedBox()),
+          },
+              leading: const Icon(MaterialIcons.info_outline),
+              detail: const SizedBox()),
           settingItem(context, 'Theme', onTap: () {
             appStore.toggleDarkMode();
             setState(() {});
-          }, leading: const Icon(MaterialCommunityIcons.theme_light_dark), detail: const SizedBox()),
+          },
+              leading: const Icon(MaterialCommunityIcons.theme_light_dark),
+              detail: const SizedBox()),
           settingItem(context, 'Log Out', onTap: () {
             //
           }, detail: const SizedBox(), textColor: appColorPrimary),
@@ -106,7 +115,8 @@ class DTProfileScreenState extends State<DTProfileScreen> {
             child: Column(
               children: [
                 profileView(),
-                const Divider(color: appDividerColor, height: 8).paddingOnly(top: 4, bottom: 4),
+                const Divider(color: appDividerColor, height: 8)
+                    .paddingOnly(top: 4, bottom: 4),
                 options(),
               ],
             ),
