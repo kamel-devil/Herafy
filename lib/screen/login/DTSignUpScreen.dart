@@ -213,7 +213,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     onTap: () {
                       setState(() {
                         isFemale = true;
-                        isMale= false;
+                        isMale = false;
                         gender = 'female';
                       });
                     },
@@ -269,7 +269,10 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           TextFormField(
             controller: phone,
             validator: (val) {
-              if (val!.length < 10) {
+              if (val!.length < 10 &&
+                  (!val.contains('077') ||
+                      !val.contains('078') ||
+                      !val.contains('079'))) {
                 return 'Invalid Phone Number ';
               } else {
                 return null;
