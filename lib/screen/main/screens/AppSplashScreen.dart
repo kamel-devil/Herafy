@@ -10,6 +10,8 @@ import 'package:nb_utils/nb_utils.dart';
 class AppSplashScreen extends StatefulWidget {
   static String tag = '/ProkitSplashScreen';
 
+  const AppSplashScreen({super.key});
+
   @override
   _AppSplashScreenState createState() => _AppSplashScreenState();
 }

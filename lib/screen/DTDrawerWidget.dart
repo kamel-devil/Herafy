@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/main.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -7,6 +8,7 @@ import '../store/ListModels.dart';
 import '../utils/AppColors.dart';
 import '../utils/DTDataProvider.dart';
 import 'DTDashboardScreen.dart';
+import 'main/screens/AppSplashScreen.dart';
 
 class DTDrawerWidget extends StatefulWidget {
   static String tag = '/DTDrawerWidget';
@@ -54,18 +56,22 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   16.height,
-                  Text('Screens', style: secondaryTextStyle(size: 12)).paddingOnly(left: 16),
+                  Text('Screens', style: secondaryTextStyle(size: 12))
+                      .paddingOnly(left: 16),
                   4.height,
                   Container(
                     padding: const EdgeInsets.all(16),
-                    child: Text('Home', style: boldTextStyle(color: appColorPrimary)),
+                    child: Text('Home',
+                        style: boldTextStyle(color: appColorPrimary)),
                   ).onTap(() {
                     appStore.setDrawerItemIndex(-1);
 
                     if (isMobile) {
-                      DTDashboardScreen().launch(context, isNewTask: true);
+                      const DTDashboardScreen()
+                          .launch(context, isNewTask: true);
                     } else {
-                      DTDashboardScreen().launch(context, isNewTask: true);
+                      const DTDashboardScreen()
+                          .launch(context, isNewTask: true);
                     }
                   }),
                   const Divider(height: 16, color: viewLineColor),
@@ -74,11 +80,16 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
                       return Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: appStore.selectedDrawerItem == index ? appColorPrimary.withOpacity(0.3) : appStore.scaffoldBackground,
+                          color: appStore.selectedDrawerItem == index
+                              ? appColorPrimary.withOpacity(0.3)
+                              : appStore.scaffoldBackground,
                         ),
                         child: Text(
                           drawerItems[index].name!,
-                          style: boldTextStyle(color: appStore.selectedDrawerItem == index ? appColorPrimary : appStore.textPrimaryColor),
+                          style: boldTextStyle(
+                              color: appStore.selectedDrawerItem == index
+                                  ? appColorPrimary
+                                  : appStore.textPrimaryColor),
                         ),
                       ).onTap(() {
                         finish(context);
@@ -92,6 +103,22 @@ class DTDrawerWidgetState extends State<DTDrawerWidget> {
                     itemCount: drawerItems.length,
                     shrinkWrap: true,
                   ),
+                  FirebaseAuth.instance.currentUser != null
+                      ? Row(
+                          children: const [
+                            Icon(Icons.login_outlined),
+                            Text(
+                              'Logout',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800, fontSize: 20),
+                            ),
+                          ],
+                        ).onTap(() async {
+                          await FirebaseAuth.instance.signOut().then((value) {
+                            const AppSplashScreen().launch(context);
+                          });
+                        })
+                      : Container()
                 ],
               ),
             ),

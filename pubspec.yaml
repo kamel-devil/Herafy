@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   nb_utils: ^5.0.5
   intl: ^0.17.0
+  firebase_storage:
   flutter_vector_icons: ^1.0.0
   google_fonts: ^2.1.0
 

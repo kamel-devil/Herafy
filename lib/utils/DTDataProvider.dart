@@ -1,6 +1,9 @@
 import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/login/login.dart';
+
 import '../model/DTAddressListModel.dart';
 import '../model/DTChatMessageModel.dart';
 import '../model/DTChatModel.dart';
@@ -9,7 +12,8 @@ import '../model/DTReviewModel.dart';
 import '../screen/DTAboutScreen.dart';
 import '../screen/DTContactUsScreen.dart';
 import '../screen/DTFAQScreen.dart';
-import '../screen/DTProfileScreen.dart';
+import '../screen/login/DTSignUpScreen.dart';
+import '../screen/profile_edit/DTProfileScreen.dart';
 import '../store/ListModels.dart';
 import 'AppConstant.dart';
 
@@ -135,11 +139,19 @@ List<ListModel> getDrawerItems() {
   List<ListModel> drawerItems = [];
 
   // drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
-  drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()));
+  FirebaseAuth.instance.currentUser == null
+      ? drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()))
+      : null;
   // drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
-  // drawerItems.add(ListModel(name: 'Sign Up', widget: DTSignUpScreen()));
+  FirebaseAuth.instance.currentUser == null
+      ? drawerItems
+          .add(ListModel(name: 'Sign Up', widget: const DTSignUpScreen()))
+      : null;
   // drawerItems.add(ListModel(name: 'HomePage', widget: DTDashboardScreen()));
-  drawerItems.add(ListModel(name: 'Profile', widget: DTProfileScreen()));
+  FirebaseAuth.instance.currentUser != null
+      ? drawerItems
+          .add(ListModel(name: 'Profile', widget: const DTProfileScreen()))
+      : null;
   // drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
   // drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));
   drawerItems.add(ListModel(name: 'About', widget: DTAboutScreen()));
