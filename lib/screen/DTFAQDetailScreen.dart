@@ -10,6 +10,8 @@ import 'DTDrawerWidget.dart';
 class DTFAQDetailScreen extends StatefulWidget {
   static String tag = '/DTFAQDetailScreen';
 
+  const DTFAQDetailScreen({super.key});
+
   @override
   _DTFAQDetailScreenState createState() => _DTFAQDetailScreenState();
 }

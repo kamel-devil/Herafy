@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
@@ -39,22 +41,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
     // init();
   }
 
-  // init() async {
-  //   if (widget.productModel != null) {
-  //     if (widget.productModel['price'].validate() >
-  //         widget.productModel!.discountPrice.validate()) {
-  //       double mrp = widget.productModel!.price.validate().toDouble();
-  //       double discountPrice =
-  //           widget.productModel!.discountPrice.validate().toDouble();
-  //       discount = (((mrp - discountPrice) / mrp) * 100);
-  //
-  //       setState(() {});
-  //     }
-  //   } else {
-  //     widget.productModel = getProducts()[2];
-  //   }
-  // }
-
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
@@ -63,20 +49,52 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     Widget buyNowBtn() {
-      return Container(
-        height: 50,
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        alignment: Alignment.center,
-        width: context.width() / 2,
-        decoration: BoxDecoration(
-            color: appColorPrimary, boxShadow: defaultBoxShadow()),
-        child: Text('Book Now', style: boldTextStyle(color: white)),
-      ).onTap(() {
-        // Do your logic
-        DTPaymentScreen(
-          data: widget.productModel,
-        ).launch(context);
-      });
+      return FirebaseAuth.instance.currentUser != null
+          ? StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data;
+                  return Container(
+                    height: 50,
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    alignment: Alignment.center,
+                    width: context.width() / 2,
+                    decoration: BoxDecoration(
+                        color: appColorPrimary, boxShadow: defaultBoxShadow()),
+                    child: Text('Book Now', style: boldTextStyle(color: white)),
+                  ).onTap(data['isAccept']
+                      ? () {
+                          // Do your logic
+                          DTPaymentScreen(
+                            data: widget.productModel,
+                          ).launch(context);
+                        }
+                      : null);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              })
+          : Container(
+              height: 50,
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              alignment: Alignment.center,
+              width: context.width() / 2,
+              decoration: BoxDecoration(
+                  color: appColorPrimary, boxShadow: defaultBoxShadow()),
+              child: Text('Book Now', style: boldTextStyle(color: white)),
+            ).onTap(() {
+              // Do your logic
+              LoginPage().launch(context);
+              // DTPaymentScreen(
+              //   data: widget.productModel,
+              // ).launch(context);
+            });
     }
 
     Widget buttonWidget() {
@@ -96,22 +114,97 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
             children: [
               Text(widget.productModel['name'], style: boldTextStyle(size: 18)),
               10.height,
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  // priceWidget(widget.productModel!.discountPrice,
-                  //     fontSize: 28, textColor: appColorPrimary),
-                  8.width,
-                  priceWidget(
-                      int.parse(widget.productModel['price'].toString()),
-                      applyStrike: true,
-                      fontSize: 18),
-                  16.width,
-                  Text('${discount.toInt()}% off',
-                          style: boldTextStyle(color: appColorPrimary))
-                      .visible(discount != 0.0),
-                ],
-              ),
+              FirebaseAuth.instance.currentUser != null
+                  ? StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .snapshots(),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data;
+                          return Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              priceWidget(
+                                  (int.parse(widget.productModel['price']) -
+                                      data['point']) as int?,
+                                  fontSize: 28,
+                                  textColor: appColorPrimary),
+                              8.width,
+                              priceWidget(data['point'],
+                                  applyStrike: true, fontSize: 18),
+                              16.width,
+                              FirebaseAuth.instance.currentUser != null
+                                  ? StreamBuilder(
+                                      stream: FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser!.uid)
+                                          .snapshots(),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        if (snapshot.hasData) {
+                                          var data = snapshot.data;
+                                          return Text(
+                                                  '${(data['point'] / int.parse(widget.productModel['price'])) * 100}% off',
+                                                  style: boldTextStyle(
+                                                      color: appColorPrimary))
+                                              .visible(discount != 0.0);
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                      })
+                                  : Text('0 % off',
+                                          style: boldTextStyle(
+                                              color: appColorPrimary))
+                                      .visible(discount != 0.0),
+                            ],
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      })
+                  : Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        priceWidget(0,
+                            fontSize: 28, textColor: appColorPrimary),
+                        8.width,
+                        priceWidget(
+                            int.parse(widget.productModel['price'].toString()),
+                            applyStrike: true,
+                            fontSize: 18),
+                        16.width,
+                        FirebaseAuth.instance.currentUser != null
+                            ? StreamBuilder(
+                                stream: FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .snapshots(),
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    var data = snapshot.data;
+                                    return Text('${data['point']}% off',
+                                            style: boldTextStyle(
+                                                color: appColorPrimary))
+                                        .visible(discount != 0.0);
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                })
+                            : Text('0 % off',
+                                    style:
+                                        boldTextStyle(color: appColorPrimary))
+                                .visible(discount != 0.0),
+                      ],
+                    ),
               10.height,
               Row(
                 children: [
@@ -192,30 +285,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
     }
 
     Widget mobileWidget() {
-      return Stack(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 70),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: context.height() * 0.45,
-                  child: Image.network(
-                    widget.productModel['image'],
-                    width: context.width(),
-                    height: context.height() * 0.45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                10.height,
-                productDetail(),
-              ],
-            ),
-          ),
-          Positioned(bottom: 0, child: buttonWidget()),
-        ],
-      );
+      return Container();
     }
 
     Widget webWidget() {

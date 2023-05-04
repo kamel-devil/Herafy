@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/login/login.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -471,31 +472,67 @@ class WriteReviewDialog extends StatelessWidget {
                     .newline, // when user presses enter it will adapt to it
               ),
               30.height,
-              GestureDetector(
-                onTap: () {
-                  if (reviewCont.text != '') {
-                    var reviewData = DTReviewModel();
-                    reviewData.name = "Benjamin";
-                    reviewData.comment = reviewCont.text.validate();
-                    reviewData.ratting = ratting;
-                    finish(context, reviewData);
-                    toast('Review is submitted');
-                  } else {
-                    toast(errorThisFieldRequired);
-                  }
-                  getData();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: appColorPrimary,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  child: Center(
-                    child: Text("Submit", style: boldTextStyle(color: white)),
-                  ),
-                ),
-              ),
+              FirebaseAuth.instance.currentUser != null
+                  ? StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .snapshots(),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data;
+                          return GestureDetector(
+                            onTap: data['isAccept']
+                                ? () {
+                                    if (reviewCont.text != '') {
+                                      var reviewData = DTReviewModel();
+                                      reviewData.name = "Benjamin";
+                                      reviewData.comment =
+                                          reviewCont.text.validate();
+                                      reviewData.ratting = ratting;
+                                      finish(context, reviewData);
+                                      toast('Review is submitted');
+                                    } else {
+                                      toast(errorThisFieldRequired);
+                                    }
+                                    getData();
+                                  }
+                                : null,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: const BoxDecoration(
+                                  color: appColorPrimary,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                              child: Center(
+                                child: Text("Submit",
+                                    style: boldTextStyle(color: white)),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      })
+                  : GestureDetector(
+                      onTap: () {
+                        LoginPage().launch(context);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: appColorPrimary,
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        child: Center(
+                          child: Text("Submit",
+                              style: boldTextStyle(color: white)),
+                        ),
+                      ),
+                    ),
               16.height,
             ],
           ),
