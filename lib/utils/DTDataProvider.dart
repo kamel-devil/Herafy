@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/login/login.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../model/DTAddressListModel.dart';
 import '../model/DTChatMessageModel.dart';
@@ -13,6 +14,7 @@ import '../screen/DTAboutScreen.dart';
 import '../screen/DTContactUsScreen.dart';
 import '../screen/DTFAQScreen.dart';
 import '../screen/login/DTSignUpScreen.dart';
+import '../screen/order/orders.dart';
 import '../screen/profile_edit/DTProfileScreen.dart';
 import '../store/ListModels.dart';
 import 'AppConstant.dart';
@@ -151,6 +153,14 @@ List<ListModel> getDrawerItems() {
   FirebaseAuth.instance.currentUser != null
       ? drawerItems
           .add(ListModel(name: 'Profile', widget: const DTProfileScreen()))
+      : null;
+
+  FirebaseAuth.instance.currentUser != null
+      ? drawerItems.add(ListModel(
+          name: 'Request',
+          widget: const Orders(
+            deviceScreenType: DeviceScreenType.desktop,
+          )))
       : null;
   // drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
   // drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));

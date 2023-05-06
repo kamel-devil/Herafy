@@ -5,16 +5,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:herafy/screen/profile_edit/profile_edit.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 import '../../utils/AppColors.dart';
 import '../../utils/AppConstant.dart';
 import '../../utils/AppWidget.dart';
-import '../DTAboutScreen.dart';
 import '../DTDrawerWidget.dart';
-import '../DTNotificationSettingScreen.dart';
 import '../DTSecurityScreen.dart';
+import '../main/screens/AppSplashScreen.dart';
 
 class DTProfileScreen extends StatefulWidget {
   static String tag = '/DTProfileScreen';
@@ -55,33 +53,35 @@ class DTProfileScreenState extends State<DTProfileScreen> {
     Widget options() {
       return Column(
         children: [
-          settingItem(context, 'Notifications', onTap: () {
-            DTNotificationSettingScreen().launch(context);
-          },
-              leading: const Icon(MaterialIcons.notifications_none),
-              detail: const SizedBox()),
+          // settingItem(context, 'Notifications', onTap: () {
+          //   DTNotificationSettingScreen().launch(context);
+          // },
+          //     leading: const Icon(MaterialIcons.notifications_none),
+          //     detail: const SizedBox()),
           settingItem(context, 'Security', onTap: () {
             DTSecurityScreen().launch(context);
           },
               leading: const Icon(MaterialCommunityIcons.shield_check_outline),
               detail: const SizedBox()),
-          settingItem(context, 'Help', onTap: () {
-            launch('https://www.google.com');
-          },
-              leading: const Icon(MaterialIcons.help_outline),
-              detail: const SizedBox()),
-          settingItem(context, 'About', onTap: () {
-            DTAboutScreen().launch(context);
-          },
-              leading: const Icon(MaterialIcons.info_outline),
-              detail: const SizedBox()),
+          // settingItem(context, 'Help', onTap: () {
+          //   launch('https://www.google.com');
+          // },
+          //     leading: const Icon(MaterialIcons.help_outline),
+          //     detail: const SizedBox()),
+          // settingItem(context, 'About', onTap: () {
+          //   DTAboutScreen().launch(context);
+          // },
+          //     leading: const Icon(MaterialIcons.info_outline),
+          //     detail: const SizedBox()),
           settingItem(context, 'Edit', onTap: () {
             ProfileEdit().launch(context);
           },
               leading: const Icon(MaterialIcons.settings),
               detail: const SizedBox()),
-          settingItem(context, 'Log Out', onTap: () {
-            //
+          settingItem(context, 'Log Out', onTap: () async {
+            await FirebaseAuth.instance.signOut().then((value) {
+              const AppSplashScreen().launch(context);
+            });
           }, detail: const SizedBox(), textColor: appColorPrimary),
         ],
       );
@@ -90,7 +90,7 @@ class DTProfileScreenState extends State<DTProfileScreen> {
     return Observer(
       builder: (_) => Scaffold(
         appBar: appBar(context, 'Profile'),
-        drawer: DTDrawerWidget(),
+        drawer: const DTDrawerWidget(),
         body: ContainerX(
           mobile: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16),
@@ -116,11 +116,17 @@ class DTProfileScreenState extends State<DTProfileScreen> {
                           Row(
                             children: [
                               data['image'] == 'null'
-                                  ? Image.asset(profileImage,
-                                          height: 70,
-                                          width: 70,
-                                          fit: BoxFit.cover)
-                                      .cornerRadiusWithClipRRect(40)
+                                  ? data['gender'] == 'female'
+                                      ? Image.asset('assets/images/img.png',
+                                              height: 70,
+                                              width: 70,
+                                              fit: BoxFit.cover)
+                                          .cornerRadiusWithClipRRect(40)
+                                      : Image.asset(profileImage,
+                                              height: 70,
+                                              width: 70,
+                                              fit: BoxFit.cover)
+                                          .cornerRadiusWithClipRRect(40)
                                   : Image.network(data['image'],
                                           height: 70,
                                           width: 70,

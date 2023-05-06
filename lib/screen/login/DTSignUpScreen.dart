@@ -376,7 +376,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                 // finish(context);
                 await signUp();
                 if (FirebaseAuth.instance.currentUser != null) {
-                  DTDashboardScreen().launch(context);
+                  const DTDashboardScreen().launch(context);
                 }
 
                 /// Remove comment if you want enable validation

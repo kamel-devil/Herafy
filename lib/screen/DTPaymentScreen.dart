@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -14,9 +12,10 @@ import 'DTPaymentProcessScreen.dart';
 
 class DTPaymentScreen extends StatefulWidget {
   static String tag = '/DTPaymentScreen';
-  final data;
 
-  const DTPaymentScreen({super.key, required this.data});
+  const DTPaymentScreen({
+    super.key,
+  });
 
   @override
   DTPaymentScreenState createState() => DTPaymentScreenState();
@@ -287,54 +286,6 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
                     child: Text('Proceed to Pay',
                         style: boldTextStyle(color: white)),
                   ).onTap(() async {
-                    String id = FirebaseFirestore.instance
-                        .collection('craftsman')
-                        .doc(widget.data['uid'])
-                        .collection('requests')
-                        .doc()
-                        .id;
-                    String id1 = FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .collection('request')
-                        .doc()
-                        .id;
-                    FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .collection('request')
-                        .doc(id1)
-                        .set({
-                      'id': id1,
-                      'isAccept': 0,
-
-                      'services': widget.data['name'],
-                      'image': widget.data['image'],
-                      'type': widget.data['type'],
-                    });
-                    FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .get()
-                        .then((value) async {
-                      await FirebaseFirestore.instance
-                          .collection('craftsman')
-                          .doc(widget.data['uid'])
-                          .collection('requests')
-                          .doc(id)
-                          .set({
-                        'id': id,
-                        'userDocID': id1,
-                        'user': value['name'],
-                        'userImage': value['image'],
-                        'userUid': value['id'],
-                        'isAccept': 0,
-                        'services': widget.data['name'],
-                        'image': widget.data['image'],
-                        'type': widget.data['type'],
-                      });
-                    });
-
                     hideKeyboard(context);
 
                     showModalBottomSheet(

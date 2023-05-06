@@ -13,9 +13,9 @@ import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
 import 'DTAddressScreen.dart';
 import 'DTDrawerWidget.dart';
-import 'DTPaymentScreen.dart';
 import 'DTReviewScreen.dart';
 import 'ReviewWidget.dart';
+import 'order/order_info.dart';
 
 // ignore: must_be_immutable
 class DTProductDetailScreen extends StatefulWidget {
@@ -69,8 +69,8 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                   ).onTap(data['isAccept']
                       ? () {
                           // Do your logic
-                          DTPaymentScreen(
-                            data: widget.productModel,
+                          OrderInfo(
+                            productModel: widget.productModel,
                           ).launch(context);
                         }
                       : null);

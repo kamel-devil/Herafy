@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -62,29 +63,6 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                 30.height,
                 16.height,
                 TextFormField(
-                  obscureText: oldPassObscureText,
-                  controller: passCont,
-                  style: primaryTextStyle(),
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    contentPadding: const EdgeInsets.all(16),
-                    labelStyle: secondaryTextStyle(),
-                    border: const OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                    suffix: Icon(!oldPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
-                      oldPassObscureText = !oldPassObscureText;
-                      setState(() {});
-                    }),
-                  ),
-                  onFieldSubmitted: (s) => FocusScope.of(context).requestFocus(newPassFocus),
-                  validator: (s) {
-                    if (s!.trim().isEmpty) return errorThisFieldRequired;
-                    return null;
-                  },
-                ),
-                16.height,
-                TextFormField(
                   obscureText: newPassObscureText,
                   focusNode: newPassFocus,
                   controller: newPassCont,
@@ -94,14 +72,23 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                     contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
                     border: const OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                    suffix: Icon(!newPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: const BorderSide(color: appColorPrimary)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide:
+                            BorderSide(color: appStore.textSecondaryColor!)),
+                    suffix: Icon(!newPassObscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off)
+                        .onTap(() {
                       newPassObscureText = !newPassObscureText;
                       setState(() {});
                     }),
                   ),
-                  onFieldSubmitted: (s) => FocusScope.of(context).requestFocus(confirmPassFocus),
+                  onFieldSubmitted: (s) =>
+                      FocusScope.of(context).requestFocus(confirmPassFocus),
                   validator: (s) {
                     if (s!.trim().isEmpty) return errorThisFieldRequired;
                     return null;
@@ -118,9 +105,17 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                     contentPadding: const EdgeInsets.all(16),
                     labelStyle: secondaryTextStyle(),
                     border: const OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: const BorderSide(color: appColorPrimary)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
-                    suffix: Icon(!confirmPassObscureText ? Icons.visibility : Icons.visibility_off).onTap(() {
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: const BorderSide(color: appColorPrimary)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide:
+                            BorderSide(color: appStore.textSecondaryColor!)),
+                    suffix: Icon(!confirmPassObscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off)
+                        .onTap(() {
                       confirmPassObscureText = !confirmPassObscureText;
                       setState(() {});
                     }),
@@ -137,11 +132,18 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                 Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
-                  child: Text('Submit', style: boldTextStyle(color: white, size: 18)),
-                ).onTap(() {
+                  decoration: BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: defaultBoxShadow()),
+                  child: Text('Submit',
+                      style: boldTextStyle(color: white, size: 18)),
+                ).onTap(() async {
                   if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
+                    // formKey.currentState!.save();
+                    print(newPassCont.text);
+                  await FirebaseAuth.instance.currentUser!
+                        .updatePassword(newPassCont.text);
                     finish(context);
                   } else {
                     autoValidate = true;

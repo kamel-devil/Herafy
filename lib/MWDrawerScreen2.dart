@@ -9,6 +9,8 @@ import 'main.dart';
 class MWDrawerScreen2 extends StatefulWidget {
   static String tag = '/MWDrawerScreen2';
 
+  const MWDrawerScreen2({super.key});
+
   @override
   _MWDrawerScreen2State createState() => _MWDrawerScreen2State();
 }

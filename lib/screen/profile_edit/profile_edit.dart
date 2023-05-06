@@ -28,7 +28,10 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   TextEditingController name = TextEditingController();
 
-  TextEditingController nationalId = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  bool isMale = false;
+  bool isFemale = false;
+  String? gender;
 
   @override
   void initState() {
@@ -47,7 +50,9 @@ class _ProfileEditState extends State<ProfileEdit> {
             Icons.arrow_back,
             color: Colors.green,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
@@ -68,7 +73,8 @@ class _ProfileEditState extends State<ProfileEdit> {
             if (snapshot.hasData) {
               var data = snapshot.data;
               name = TextEditingController(text: data['name']);
-              nationalId = TextEditingController(text: data['national_id']);
+              phone = TextEditingController();
+              data['gender'] == 'female' ? isFemale = true : isMale = true;
               return Container(
                 padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
                 child: GestureDetector(
@@ -173,8 +179,82 @@ class _ProfileEditState extends State<ProfileEdit> {
                         height: 35,
                       ),
                       buildTextField("Full Name", data['name'], false, name),
-                      buildTextField("National Id", data['national_id'], false,
-                          nationalId),
+                      buildTextField("phone", data['phone'], false, phone),
+                      LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          return Row(
+                            children: <Widget>[
+                              const SizedBox(
+                                width: 50,
+                                child: Text(
+                                  "Gender",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isMale = true;
+                                    isFemale = false;
+                                    gender = 'male';
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue[50],
+                                  child: Icon(Icons.face,
+                                      color: isMale
+                                          ? Colors.greenAccent
+                                          : Colors.grey),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              const SizedBox(
+                                width: 50.0,
+                                child: Text(
+                                  "Male",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isFemale = true;
+                                    isMale = false;
+                                    gender = 'female';
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue[50],
+                                  child: Icon(
+                                    Icons.face,
+                                    color: isFemale
+                                        ? Colors.greenAccent
+                                        : Colors.grey,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              const SizedBox(
+                                width: 100.0,
+                                child: Text(
+                                  "Female",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      // buildTextField("National I", data['national_id'], false,
+                      //     nationalId),
                       // buildTextField("Password", "********", true),
                       // buildTextField("Location", "TLV, Israel", false),
                       const SizedBox(
@@ -256,9 +336,8 @@ class _ProfileEditState extends State<ProfileEdit> {
     print(selctFile);
   }
 
+
   Future<String> uploadFile() async {
-    print(name.text);
-    print(nationalId.text);
     String imageUrl = '';
     try {
       firabase_storage.UploadTask uploadTask;
@@ -283,7 +362,8 @@ class _ProfileEditState extends State<ProfileEdit> {
           .set({
         'image': imageUrl,
         "name": name.text,
-        "national_id": nationalId.text,
+        "gender": gender,
+        "phone": phone.text,
       }, SetOptions(merge: true));
     } catch (e) {
       print(e);

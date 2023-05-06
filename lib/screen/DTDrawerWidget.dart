@@ -13,6 +13,8 @@ import 'main/screens/AppSplashScreen.dart';
 class DTDrawerWidget extends StatefulWidget {
   static String tag = '/DTDrawerWidget';
 
+  const DTDrawerWidget({super.key});
+
   @override
   DTDrawerWidgetState createState() => DTDrawerWidgetState();
 }
