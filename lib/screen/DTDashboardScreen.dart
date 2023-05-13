@@ -41,7 +41,7 @@ class DTDashboardScreenState extends State<DTDashboardScreen> {
             backgroundColor: appStore.appBarColor,
             title: appBarTitleWidget(context, 'Dashboard'),
           ),
-          drawer: DTDrawerWidget(),
+          drawer: const DTDrawerWidget(),
           body: DTDashboardWidget(),
         ),
       ),

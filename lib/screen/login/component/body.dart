@@ -5,6 +5,8 @@ import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class Body extends StatefulWidget {
+  const Body({super.key});
+
   @override
   State<Body> createState() => _BodyState();
 }
@@ -77,6 +79,7 @@ class _BodyState extends State<Body> {
           const SizedBox(height: 30),
           TextFormField(
             controller: pass,
+            obscureText: true,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Short Password';
@@ -122,7 +125,7 @@ class _BodyState extends State<Body> {
             child: ElevatedButton(
               onPressed: () async {
                 await login();
-                if (FirebaseAuth.instance.currentUser!.uid != null) {
+                if (FirebaseAuth.instance.currentUser != null) {
                   const DTDashboardScreen().launch(context);
                 }
 

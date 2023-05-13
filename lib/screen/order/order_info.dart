@@ -21,6 +21,7 @@ class _OrderInfoState extends State<OrderInfo> {
   TextEditingController address = TextEditingController();
 
   TextEditingController info = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   bool showPassword = true;
   DateTime _selectedDate = DateTime.now();
@@ -135,6 +136,7 @@ class _OrderInfoState extends State<OrderInfo> {
                 ],
               ),
               buildTextField("Address", '', false, address),
+              buildTextField("phone", '', false, phone),
               buildTextField("Info", '', false, info),
               const SizedBox(
                 height: 35,
@@ -143,7 +145,7 @@ class _OrderInfoState extends State<OrderInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MaterialButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       String id = FirebaseFirestore.instance
                           .collection('craftsman')
                           .doc(widget.productModel['uid'])
@@ -156,7 +158,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           .collection('request')
                           .doc()
                           .id;
-                     await FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection('users')
                           .doc(FirebaseAuth.instance.currentUser!.uid)
                           .collection('request')
@@ -168,13 +170,13 @@ class _OrderInfoState extends State<OrderInfo> {
                         'image': widget.productModel['image'],
                         'type': widget.productModel['type'],
                         'date': _selectedDate.toString(),
-                       'craftman':widget.productModel['craftsman'],
+                        'craftman': widget.productModel['craftsman'],
                         'time': _selectedTime.toString(),
                         'info': info.text,
                         'address': address.text,
                       });
 
-                    await  FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection('users')
                           .doc(FirebaseAuth.instance.currentUser!.uid)
                           .get()
@@ -191,7 +193,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           'userImage': value['image'],
                           'userUid': value['id'],
                           'isAccept': 0,
-                          'craftman':widget.productModel['craftsman'],
+                          'craftman': widget.productModel['craftsman'],
                           'services': widget.productModel['name'],
                           'image': widget.productModel['image'],
                           'type': widget.productModel['type'],
@@ -199,9 +201,12 @@ class _OrderInfoState extends State<OrderInfo> {
                           'time': _selectedTime.toString(),
                           'info': info.text,
                           'address': address.text,
+                          'phone': phone.text,
                         });
                       });
-                      const DTPaymentProcessScreen(isSuccessFul: true,).launch(context);
+                      const DTPaymentProcessScreen(
+                        isSuccessFul: true,
+                      ).launch(context);
                     },
                     color: Colors.green,
                     padding: const EdgeInsets.symmetric(horizontal: 50),

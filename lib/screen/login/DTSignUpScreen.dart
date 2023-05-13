@@ -8,6 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../utils/AppWidget.dart';
 import '../DTDashboardScreen.dart';
 import '../DTDrawerWidget.dart';
+import '../check_email/check_email.dart';
 
 class DTSignUpScreen extends StatefulWidget {
   static String tag = '/DTSignUpScreen';
@@ -297,6 +298,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           const SizedBox(height: 30),
           TextFormField(
             controller: pass,
+            obscureText: true,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Short Password';
@@ -329,6 +331,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           const SizedBox(height: 30),
           TextFormField(
             controller: rePass,
+            obscureText: true,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Error password';
@@ -376,7 +379,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                 // finish(context);
                 await signUp();
                 if (FirebaseAuth.instance.currentUser != null) {
-                  const DTDashboardScreen().launch(context);
+                  const SendVerificationPage().launch(context);
                 }
 
                 /// Remove comment if you want enable validation

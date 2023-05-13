@@ -32,7 +32,7 @@ class _DTPaymentProcessScreenState extends State<DTPaymentProcessScreen> {
             ),
             8.height,
             Text(
-              widget.isSuccessFul! ? 'Payment Successful' : 'Payment Failed',
+              widget.isSuccessFul! ? 'Order Successful' : 'Order Failed',
               style: boldTextStyle(
                   color: widget.isSuccessFul! ? greenColor : redColor),
             ),

@@ -122,35 +122,32 @@ class _OrdersEditState extends State<OrdersEdit> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
-                          height: 15,
-                        ),
-                        const SizedBox(
                           height: 35,
                         ),
-                        buildTextField("Name", '', false, name),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: buildTextField("date", '', false, date)),
-                            const SizedBox(width: 16),
-                            ElevatedButton(
-                              onPressed: _pickDate,
-                              child: const Text('Pick a date'),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: buildTextField("time", '', false, time)),
-                            const SizedBox(width: 16),
-                            ElevatedButton(
-                              onPressed: _pickTime,
-                              child: const Text('Pick a time'),
-                            ),
-                          ],
-                        ),
-                        buildTextField("info", info.text, false, info),
+                        // buildTextField("Name", '', false, name),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //         child: buildTextField("date", '', false, date)),
+                        //     const SizedBox(width: 16),
+                        //     ElevatedButton(
+                        //       onPressed: _pickDate,
+                        //       child: const Text('Pick a date'),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //         child: buildTextField("time", '', false, time)),
+                        //     const SizedBox(width: 16),
+                        //     ElevatedButton(
+                        //       onPressed: _pickTime,
+                        //       child: const Text('Pick a time'),
+                        //     ),
+                        //   ],
+                        // ),
+                        // buildTextField("info", info.text, false, info),
                         buildTextField("address", address.text, false, address),
                       ],
                     ),
@@ -186,9 +183,9 @@ class _OrdersEditState extends State<OrdersEdit> {
                             .collection('request')
                             .doc(widget.data['id'])
                             .set({
-                          'time': time.text,
-                          'info': info.text,
-                          'date': date.text,
+                          // 'time': time.text,
+                          // 'info': info.text,
+                          // 'date': date.text,
                           'address': address.text
                         }, SetOptions(merge: true)).then((value) {
                           const DTDashboardScreen().launch(context);

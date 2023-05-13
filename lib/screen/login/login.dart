@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'component/body.dart';
 import 'component/menu.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
           MediaQuery.of(context).size.width >= 980
               ? Menu()
               : const SizedBox(), // Responsive
-          Body()
+          const Body()
         ],
       ),
     );

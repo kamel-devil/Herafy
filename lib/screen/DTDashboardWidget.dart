@@ -13,7 +13,6 @@ import '../utils/AppWidget.dart';
 import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import '../utils/rating_bar.dart';
-
 import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
 import 'DTSearchScreen.dart';
@@ -68,7 +67,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
     }
 
     void addFavServices(data) async {
-      FirebaseFirestore.instance.collection('favServices').add({
+      FirebaseFirestore.instance.collection('favServices').doc(data['id']).set({
         'image': data['image'],
         "name": data['name'],
         "des": data['des'],
@@ -183,6 +182,18 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                               !isv
                                   ? ElevatedButton.icon(
                                       onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection('allService')
+                                            .doc(ser[index1]['id'])
+                                            .set(
+                                          {
+                                            'add': [
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid
+                                            ],
+                                          },
+                                          SetOptions(merge: true),
+                                        );
                                         addFavServices(ser[index1]);
                                       },
                                       icon: const Icon(Icons.add),
@@ -224,9 +235,10 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                     ],
                   ),
                 ).onTap(() async {
-                  int? index =
-                      await DTProductDetailScreen(productModel: ser[index1], isFav: true,)
-                          .launch(context);
+                  int? index = await DTProductDetailScreen(
+                    productModel: ser[index1],
+                    isFav: true,
+                  ).launch(context);
                   if (index != null) appStore.setDrawerItemIndex(index);
                 });
               },
