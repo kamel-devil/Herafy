@@ -42,7 +42,7 @@ class DTDashboardScreenState extends State<DTDashboardScreen> {
             title: appBarTitleWidget(context, 'Dashboard'),
           ),
           drawer: const DTDrawerWidget(),
-          body: DTDashboardWidget(),
+          body: const DTDashboardWidget(),
         ),
       ),
     );

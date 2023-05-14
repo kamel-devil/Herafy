@@ -20,6 +20,8 @@ import 'DTSearchScreen.dart';
 class DTDashboardWidget extends StatefulWidget {
   static String tag = '/DTDashboardWidget';
 
+  const DTDashboardWidget({super.key});
+
   @override
   DTDashboardWidgetState createState() => DTDashboardWidgetState();
 }
@@ -62,7 +64,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
           ],
         ),
       ).onTap(() {
-        DTSearchScreen().launch(context);
+        const DTSearchScreen().launch(context);
       });
     }
 
@@ -470,16 +472,6 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                         DTSignUpScreen().launch(context);
                       })
                     : Container(),
-                16.width,
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                  child: Icon(Icons.shopping_cart,
-                      size: 30, color: appStore.iconColor),
-                ).onTap(() {
-                  // DTCartScreen().launch(context);
-                }),
                 16.width
               ],
             ),
