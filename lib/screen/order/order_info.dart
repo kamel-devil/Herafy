@@ -22,6 +22,7 @@ class _OrderInfoState extends State<OrderInfo> {
 
   TextEditingController info = TextEditingController();
   TextEditingController phone = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
 
   bool showPassword = true;
   DateTime _selectedDate = DateTime.now();
@@ -146,67 +147,69 @@ class _OrderInfoState extends State<OrderInfo> {
                 children: [
                   MaterialButton(
                     onPressed: () async {
-                      String id = FirebaseFirestore.instance
-                          .collection('craftsman')
-                          .doc(widget.productModel['uid'])
-                          .collection('requests')
-                          .doc()
-                          .id;
-                      String id1 = FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .collection('request')
-                          .doc()
-                          .id;
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .collection('request')
-                          .doc(id1)
-                          .set({
-                        'id': id1,
-                        'isAccept': 0,
-                        'services': widget.productModel['name'],
-                        'image': widget.productModel['image'],
-                        'type': widget.productModel['type'],
-                        'date': _selectedDate.toString(),
-                        'craftman': widget.productModel['craftsman'],
-                        'time': _selectedTime.toString(),
-                        'info': info.text,
-                        'address': address.text,
-                      });
-
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .get()
-                          .then((value) async {
-                        await FirebaseFirestore.instance
+                      if (formKey.currentState!.validate()) {
+                        String id = FirebaseFirestore.instance
                             .collection('craftsman')
                             .doc(widget.productModel['uid'])
                             .collection('requests')
-                            .doc(id)
+                            .doc()
+                            .id;
+                        String id1 = FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('request')
+                            .doc()
+                            .id;
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('request')
+                            .doc(id1)
                             .set({
-                          'id': id,
-                          'userDocID': id1,
-                          'user': value['name'],
-                          'userImage': value['image'],
-                          'userUid': value['id'],
+                          'id': id1,
                           'isAccept': 0,
-                          'craftman': widget.productModel['craftsman'],
                           'services': widget.productModel['name'],
                           'image': widget.productModel['image'],
                           'type': widget.productModel['type'],
                           'date': _selectedDate.toString(),
+                          'craftman': widget.productModel['craftsman'],
                           'time': _selectedTime.toString(),
                           'info': info.text,
                           'address': address.text,
-                          'phone': phone.text,
                         });
-                      });
-                      const DTPaymentProcessScreen(
-                        isSuccessFul: true,
-                      ).launch(context);
+
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .get()
+                            .then((value) async {
+                          await FirebaseFirestore.instance
+                              .collection('craftsman')
+                              .doc(widget.productModel['uid'])
+                              .collection('requests')
+                              .doc(id)
+                              .set({
+                            'id': id,
+                            'userDocID': id1,
+                            'user': value['name'],
+                            'userImage': value['image'],
+                            'userUid': value['id'],
+                            'isAccept': 0,
+                            'craftman': widget.productModel['craftsman'],
+                            'services': widget.productModel['name'],
+                            'image': widget.productModel['image'],
+                            'type': widget.productModel['type'],
+                            'date': _selectedDate.toString(),
+                            'time': _selectedTime.toString(),
+                            'info': info.text,
+                            'address': address.text,
+                            'phone': phone.text,
+                          });
+                        });
+                        const DTPaymentProcessScreen(
+                          isSuccessFul: true,
+                        ).launch(context);
+                      }
                     },
                     color: Colors.green,
                     padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -234,8 +237,15 @@ class _OrderInfoState extends State<OrderInfo> {
       bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
+      child: TextFormField(
+        key: formKey,
         controller: controller,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Enter valid data';
+          }
+          return null;
+        },
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField

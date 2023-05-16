@@ -183,7 +183,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                                   overflow: TextOverflow.ellipsis),
                               !isv
                                   ? ElevatedButton.icon(
-                                      onPressed: () {
+                                      onPressed:FirebaseAuth.instance.currentUser != null? () {
                                         FirebaseFirestore.instance
                                             .collection('allService')
                                             .doc(ser[index1]['id'])
@@ -197,7 +197,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                                           SetOptions(merge: true),
                                         );
                                         addFavServices(ser[index1]);
-                                      },
+                                      }:(){},
                                       icon: const Icon(Icons.add),
                                       label: const Text('Fav'),
                                     )
@@ -284,142 +284,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
 
     Widget mobileWidget() {
       return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: 150,
-                  decoration: const BoxDecoration(
-                    color: appColorPrimary,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8)),
-                  ),
-                ).visible(false),
-                Column(
-                  children: [
-                    10.height,
-                    searchTxt(),
-                    Container(
-                      margin: const EdgeInsets.all(8),
-                      height: 230,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          PageView(
-                            controller: pageController,
-                            scrollDirection: Axis.horizontal,
-                            children: pages,
-                            onPageChanged: (index) {
-                              selectedIndex = index;
-                              setState(() {});
-                            },
-                          ).cornerRadiusWithClipRRect(8),
-                          DotIndicator(
-                            pages: pages,
-                            indicatorColor: appColorPrimary,
-                            pageController: pageController,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            10.height,
-            Text('Category', style: boldTextStyle()).paddingAll(8),
-            Center(child: horizontalList()),
-            20.height,
-            Text('ListView', style: boldTextStyle()).paddingAll(8),
-            ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemBuilder: (_, index) {
-                DTProductModel data = getProducts()[index];
-
-                return Container(
-                  decoration: boxDecorationRoundedWithShadow(8,
-                      backgroundColor: appStore.appBarColor!),
-                  margin: const EdgeInsets.all(8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 110,
-                        width: 126,
-                        child: Stack(
-                          children: [
-                            Image.network(
-                              data.image!,
-                              fit: BoxFit.cover,
-                              height: 110,
-                              width: 126,
-                            ).cornerRadiusWithClipRRect(8),
-                            Positioned(
-                              right: 10,
-                              top: 10,
-                              child: data.isLiked.validate()
-                                  ? const Icon(Icons.favorite,
-                                      color: Colors.red, size: 16)
-                                  : const Icon(Icons.favorite_border, size: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      8.width,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(data.name!,
-                              style: primaryTextStyle(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
-                          4.height,
-                          Row(
-                            children: [
-                              IgnorePointer(
-                                child: RatingBar(
-                                  onRatingChanged: (r) {},
-                                  filledIcon: Icons.star,
-                                  emptyIcon: Icons.star_border,
-                                  initialRating: data.rating!,
-                                  maxRating: 5,
-                                  filledColor: Colors.yellow,
-                                  size: 14,
-                                ),
-                              ),
-                              5.width,
-                              Text('${data.rating}',
-                                  style: secondaryTextStyle(size: 12)),
-                            ],
-                          ),
-                          4.height,
-                          Row(
-                            children: [
-                              priceWidget(data.discountPrice),
-                              8.width,
-                              priceWidget(data.price, applyStrike: true),
-                            ],
-                          ),
-                        ],
-                      ).paddingAll(8).expand(),
-                    ],
-                  ),
-                ).onTap(() async {
-                  // int? index = await DTProductDetailScreen(productModel: data)
-                  //     .launch(context);
-                  // if (index != null) appStore.setDrawerItemIndex(index);
-                });
-              },
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: getProducts().length,
-            ),
-          ],
-        ),
+        child:Container(),
       );
     }
 

@@ -10,6 +10,10 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFf5f5f5),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 8),

@@ -10,6 +10,8 @@ import 'DTDrawerWidget.dart';
 class DTAboutScreen extends StatefulWidget {
   static String tag = '/DTAboutScreen';
 
+  const DTAboutScreen({super.key});
+
   @override
   DTAboutScreenState createState() => DTAboutScreenState();
 }
@@ -34,23 +36,23 @@ class DTAboutScreenState extends State<DTAboutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context, 'About'),
-      drawer: DTDrawerWidget(),
+      drawer: const DTDrawerWidget(),
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: boxDecoration(showShadow: true),
-              child: Image.asset('images/app/app_icon.png', height: 100),
+              child: Image.asset('images/logo.png', height: 100),
             ).cornerRadiusWithClipRRect(50),
             20.height,
             FutureBuilder<String>(
               future: PackageInfo.fromPlatform().then((value) => value.version),
               builder: (_, snap) {
-                if (snap.hasData)
+                if (snap.hasData) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -59,7 +61,8 @@ class DTAboutScreenState extends State<DTAboutScreen> {
                       Text(snap.data!, style: primaryTextStyle(size: 18)),
                     ],
                   );
-                return SizedBox();
+                }
+                return const SizedBox();
               },
             ),
             10.height,

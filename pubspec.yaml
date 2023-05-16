@@ -161,7 +161,9 @@ flutter:
     - assets/defaultTheme/
     - images/defaultTheme/
     - images/
-    - assets/images/defaultTheme/
+    - assets/images/defaultTheme/    - images/defaultTheme/category/    - images/defaultTheme/banner/
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

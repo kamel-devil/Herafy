@@ -90,20 +90,11 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
               child: Text('Book Now', style: boldTextStyle(color: white)),
             ).onTap(() {
               // Do your logic
-              LoginPage().launch(context);
+              const LoginPage().launch(context);
               // DTPaymentScreen(
               //   data: widget.productModel,
               // ).launch(context);
             });
-    }
-
-    Widget buttonWidget() {
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          buyNowBtn(),
-        ],
-      );
     }
 
     Widget productDetail() {
@@ -219,7 +210,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                         const Icon(Icons.star_border,
                             color: Colors.white, size: 14),
                         8.width,
-                        Text('4', style: primaryTextStyle(color: white)),
                       ],
                     ),
                   ).onTap(() {
@@ -232,53 +222,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
             ],
           ).paddingAll(16),
           const Divider(height: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Deliver to', style: primaryTextStyle()),
-                      10.width,
-                      Text(
-                              mSelectedAddress != null
-                                  ? mSelectedAddress!.name.validate()
-                                  : 'John Doe',
-                              style: boldTextStyle())
-                          .expand(),
-                    ],
-                  ).expand(),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: appColorPrimary),
-                        borderRadius: BorderRadius.circular(3)),
-                    child: Text('Change', style: primaryTextStyle()),
-                  ).onTap(() async {
-                    var res = await DTAddressScreen().launch(context);
-                    if (res is DTAddressListModel) {
-                      mSelectedAddress = res;
-
-                      toast('Address Updated');
-                    }
-
-                    setState(() {});
-                  }),
-                ],
-              ),
-              4.height,
-              Text(
-                  mSelectedAddress != null
-                      ? mSelectedAddress!.addressLine1.validate()
-                      : '4683 Stadium Drive, Cambridge, MA',
-                  style: secondaryTextStyle()),
-              16.height,
-              const Divider(height: 0),
-            ],
-          ).paddingAll(16),
           Text(widget.productModel['des'], style: boldTextStyle(size: 18)),
         ],
       );
@@ -359,7 +302,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
 
     return Scaffold(
       appBar: appBar(context, 'Detail'),
-      drawer: DTDrawerWidget(),
+      drawer: const DTDrawerWidget(),
       body: ContainerX(
         mobile: mobileWidget(),
         web: SingleChildScrollView(child: webWidget()),
