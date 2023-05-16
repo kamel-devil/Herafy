@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info/package_info.dart';
 
-
 import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
 import 'DTDrawerWidget.dart';
@@ -66,7 +65,8 @@ class DTAboutScreenState extends State<DTAboutScreen> {
               },
             ),
             10.height,
-            Text(LoremText, style: primaryTextStyle(), textAlign: TextAlign.center),
+            Text(LoremText,
+                style: primaryTextStyle(), textAlign: TextAlign.center),
           ],
         ),
       ),
