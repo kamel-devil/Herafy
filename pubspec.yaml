@@ -161,7 +161,8 @@ flutter:
     - assets/defaultTheme/
     - images/defaultTheme/
     - images/
-    - assets/images/defaultTheme/    - images/defaultTheme/category/    - images/defaultTheme/banner/
+    - assets/images/defaultTheme/    - images/defaultTheme/category/    - images/defaultTheme/banner/    - assets/images/img.png
+
 
 
 

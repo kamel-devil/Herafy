@@ -18,6 +18,7 @@ class _BodyState extends State<Body> {
 
   TextEditingController naID = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _BodyState extends State<Body> {
           const SizedBox(height: 30),
           TextFormField(
             controller: pass,
-            obscureText: true,
+            obscureText: isVisible,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Short Password';
@@ -89,9 +90,16 @@ class _BodyState extends State<Body> {
             },
             decoration: InputDecoration(
               hintText: 'Password',
-              suffixIcon: const Icon(
-                Icons.visibility_off_outlined,
-                color: Colors.grey,
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                child: const Icon(
+                  Icons.visibility_off_outlined,
+                  color: Colors.grey,
+                ),
               ),
               filled: true,
               fillColor: Colors.blueGrey[50],
@@ -128,14 +136,6 @@ class _BodyState extends State<Body> {
                 if (FirebaseAuth.instance.currentUser != null) {
                   const DTDashboardScreen().launch(context);
                 }
-
-                /// Remove comment if you want enable validation
-                // if (formKey.currentState!.validate()) {
-                // formKey.currentState!.save();
-                // DTDashboardScreen().launch(context);
-                // } else {
-                // autoValidate = true;
-                // }
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
@@ -150,25 +150,6 @@ class _BodyState extends State<Body> {
                   child: Center(child: Text("Sign In"))),
             ),
           ),
-          const SizedBox(height: 40),
-          Row(children: [
-            Expanded(
-              child: Divider(
-                color: Colors.grey[300],
-                height: 50,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text("Or continue with"),
-            ),
-            Expanded(
-              child: Divider(
-                color: Colors.grey[400],
-                height: 50,
-              ),
-            ),
-          ]),
           const SizedBox(height: 40),
         ],
       ),

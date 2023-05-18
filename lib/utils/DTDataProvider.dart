@@ -134,22 +134,22 @@ int getDTWidgetIndex(Widget widget) {
     return -1;
   });
   return -1;
-  //return getDrawerItems().indexWhere((element) => element.widget.key == widget.key);
+
 }
 
 List<ListModel> getDrawerItems() {
   List<ListModel> drawerItems = [];
 
-  // drawerItems.add(ListModel(name: 'WalkThrough', widget: DTWalkThoughScreen()));
+
   FirebaseAuth.instance.currentUser == null
-      ? drawerItems.add(ListModel(name: 'Sign In', widget: LoginPage()))
+      ? drawerItems.add(ListModel(name: 'Sign In', widget: const LoginPage()))
       : null;
-  // drawerItems.add(ListModel(name: 'Forgot Password', widget: DTForgotPwdScreen()));
+
   FirebaseAuth.instance.currentUser == null
       ? drawerItems
           .add(ListModel(name: 'Sign Up', widget: const DTSignUpScreen()))
       : null;
-  // drawerItems.add(ListModel(name: 'HomePage', widget: DTDashboardScreen()));
+
   FirebaseAuth.instance.currentUser != null
       ? drawerItems
           .add(ListModel(name: 'Profile', widget: const DTProfileScreen()))
@@ -162,19 +162,12 @@ List<ListModel> getDrawerItems() {
             deviceScreenType: DeviceScreenType.desktop,
           )))
       : null;
-  // drawerItems.add(ListModel(name: 'Cart', widget: DTCartScreen()));
-  // drawerItems.add(ListModel(name: 'Payment', widget: DTPaymentScreen()));
-  drawerItems.add(ListModel(name: 'About', widget: DTAboutScreen()));
-  // drawerItems.add(ListModel(name: 'Chat', widget: DTChatScreen()));
 
-  drawerItems.add(ListModel(name: 'Contact Us', widget: DTContactUsScreen()));
+  drawerItems.add(ListModel(name: 'About', widget: const DTAboutScreen()));
 
-  // drawerItems.add(ListModel(name: 'Review & Rating', widget: DTReviewScreen()));
-  drawerItems.add(ListModel(name: 'FAQ', widget: DTFAQScreen()));
-  //drawerItems.add(ListModel(name: 'No Internet', widget: DTNoInternetScreen()));
-  // drawerItems.add(ListModel(name: 'Order Summary', widget: DTOrderSummaryScreen(getCartProducts())));
-  // drawerItems.add(ListModel(name: 'Address Manager', widget: DTAddressScreen()));
-  // drawerItems.add(ListModel(name: 'Search', widget: DTSearchScreen()));
+
+  drawerItems.add(ListModel(name: 'Contact Us', widget: const DTContactUsScreen()));
+
   return drawerItems;
 }
 

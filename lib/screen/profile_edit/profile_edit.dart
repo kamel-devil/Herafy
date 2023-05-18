@@ -9,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ProfileEdit extends StatefulWidget {
+  const ProfileEdit({super.key});
+
   @override
   State<ProfileEdit> createState() => _ProfileEditState();
 }
@@ -35,7 +37,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void initState() {
-    print(FirebaseAuth.instance.currentUser!.uid);
+
     super.initState();
   }
 
@@ -54,18 +56,6 @@ class _ProfileEditState extends State<ProfileEdit> {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.green,
-            ),
-            onPressed: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (BuildContext context) => SettingsPage()));
-            },
-          ),
-        ],
       ),
       body: FutureBuilder(
           future: getData(),
@@ -335,7 +325,6 @@ class _ProfileEditState extends State<ProfileEdit> {
     }
     print(selctFile);
   }
-
 
   Future<String> uploadFile() async {
     String imageUrl = '';

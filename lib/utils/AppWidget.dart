@@ -140,6 +140,7 @@ AppBar appBar(BuildContext context, String title, {List<Widget>? actions, bool s
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: color ?? appStore.appBarColor,
+    elevation: 0,
     leading: showBack
         ? IconButton(
             onPressed: () {

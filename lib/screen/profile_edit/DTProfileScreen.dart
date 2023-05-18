@@ -88,88 +88,91 @@ class DTProfileScreenState extends State<DTProfileScreen> {
     }
 
     return Observer(
-      builder: (_) => Scaffold(
-        appBar: appBar(context, 'Profile'),
-        drawer: const DTDrawerWidget(),
-        body: ContainerX(
-          mobile: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 16),
-            child: Column(
-              children: [
-                const Divider(color: appDividerColor, height: 8)
-                    .paddingOnly(top: 4, bottom: 4),
-                options(),
-              ],
+      builder: (_) =>
+          Scaffold(
+            appBar: appBar(context, 'Profile'),
+            drawer: const DTDrawerWidget(),
+            body: ContainerX(
+              mobile: SingleChildScrollView(
+                padding: const EdgeInsets.only(top: 16),
+                child: Column(
+                  children: [
+                    const Divider(color: appDividerColor, height: 8)
+                        .paddingOnly(top: 4, bottom: 4),
+                    options(),
+                  ],
+                ),
+              ),
+              web: Column(
+                children: [
+                  FutureBuilder(
+                      future: getData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data;
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  data['image'] == 'null'
+                                      ? data['gender'] == 'female'
+                                      ? Image.asset('assets/images/img.png',
+                                      height: 70,
+                                      width: 70,
+                                      fit: BoxFit.cover)
+                                      .cornerRadiusWithClipRRect(40)
+                                      : Image.asset(profileImage,
+                                      height: 70,
+                                      width: 70,
+                                      fit: BoxFit.cover)
+                                      .cornerRadiusWithClipRRect(40)
+                                      : Image.network(data['image'],
+                                      height: 70,
+                                      width: 70,
+                                      fit: BoxFit.cover)
+                                      .cornerRadiusWithClipRRect(40),
+                                  16.width,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text(data['name'],
+                                          style: primaryTextStyle()),
+                                      2.height,
+                                      Text(data['email'],
+                                          style: primaryTextStyle()),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              IconButton(
+                                icon: Icon(AntDesign.edit,
+                                    color: appStore.iconSecondaryColor),
+                                onPressed: () {},
+                              ).visible(false)
+                            ],
+                          ).paddingAll(16);
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      }),
+                  const Divider(height: 8).paddingOnly(top: 4, bottom: 4),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: options(),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-          web: Column(
-            children: [
-              FutureBuilder(
-                  future: getData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var data = snapshot.data;
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              data['image'] == 'null'
-                                  ? data['gender'] == 'female'
-                                      ? Image.asset('assets/images/img.png',
-                                              height: 70,
-                                              width: 70,
-                                              fit: BoxFit.cover)
-                                          .cornerRadiusWithClipRRect(40)
-                                      : Image.asset(profileImage,
-                                              height: 70,
-                                              width: 70,
-                                              fit: BoxFit.cover)
-                                          .cornerRadiusWithClipRRect(40)
-                                  : Image.network(data['image'],
-                                          height: 70,
-                                          width: 70,
-                                          fit: BoxFit.cover)
-                                      .cornerRadiusWithClipRRect(40),
-                              16.width,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(data['name'], style: primaryTextStyle()),
-                                  2.height,
-                                  Text(data['email'],
-                                      style: primaryTextStyle()),
-                                ],
-                              )
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(AntDesign.edit,
-                                color: appStore.iconSecondaryColor),
-                            onPressed: () {},
-                          ).visible(false)
-                        ],
-                      ).paddingAll(16);
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
-              const Divider(height: 8).paddingOnly(top: 4, bottom: 4),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: options(),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

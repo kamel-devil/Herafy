@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:herafy/screen/check_email/verify_email.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../DTDashboardScreen.dart';
@@ -29,7 +28,11 @@ class _SendVerificationPageState extends State<SendVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Send Verification Email'),
+        title: const Text(
+          'Send Verification Email',
+          style: TextStyle(fontSize: 20, color: Colors.black),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

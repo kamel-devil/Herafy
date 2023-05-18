@@ -11,7 +11,6 @@ import '../utils/AppColors.dart';
 import '../utils/AppConstant.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
-import 'DTAddressScreen.dart';
 import 'DTDrawerWidget.dart';
 import 'DTReviewScreen.dart';
 import 'ReviewWidget.dart';
@@ -65,7 +64,8 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                     width: context.width() / 2,
                     decoration: BoxDecoration(
                         color: appColorPrimary, boxShadow: defaultBoxShadow()),
-                    child: Text('Book Now', style: boldTextStyle(color: white)),
+                    child:
+                        Text('Order Now', style: boldTextStyle(color: white)),
                   ).onTap(data['isAccept']
                       ? () {
                           // Do your logic
@@ -87,7 +87,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
               width: context.width() / 2,
               decoration: BoxDecoration(
                   color: appColorPrimary, boxShadow: defaultBoxShadow()),
-              child: Text('Book Now', style: boldTextStyle(color: white)),
+              child: Text('Order Now', style: boldTextStyle(color: white)),
             ).onTap(() {
               // Do your logic
               const LoginPage().launch(context);
@@ -104,6 +104,11 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(widget.productModel['name'], style: boldTextStyle(size: 18)),
+              10.height,
+              Text(
+                'CraftsMan : ${widget.productModel['craftsman']}',
+                style: const TextStyle(fontSize: 18),
+              ),
               10.height,
               FirebaseAuth.instance.currentUser != null
                   ? StreamBuilder(
@@ -163,8 +168,10 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                   : Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        priceWidget(0,
-                            fontSize: 28, textColor: appColorPrimary),
+                        priceWidget(
+                            int.parse(widget.productModel['price'].toString()),
+                            fontSize: 28,
+                            textColor: appColorPrimary),
                         8.width,
                         priceWidget(
                             int.parse(widget.productModel['price'].toString()),

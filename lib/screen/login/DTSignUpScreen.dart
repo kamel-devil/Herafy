@@ -2,13 +2,12 @@ import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../utils/AppWidget.dart';
-import '../DTDashboardScreen.dart';
 import '../DTDrawerWidget.dart';
-import '../check_email/check_email.dart';
 
 class DTSignUpScreen extends StatefulWidget {
   static String tag = '/DTSignUpScreen';
@@ -33,6 +32,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
   bool isMale = false;
   bool isFemale = false;
   String? gender;
+  bool isVisible = true;
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       backgroundColor: const Color(0xFFf5f5f5),
       resizeToAvoidBottomInset: false,
       appBar: appBar(context, 'Sign Up', color: const Color(0xFFf5f5f5)),
-      drawer: DTDrawerWidget(),
+      drawer: const DTDrawerWidget(),
       body: ListView(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 8),
@@ -298,7 +298,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           const SizedBox(height: 30),
           TextFormField(
             controller: pass,
-            obscureText: true,
+            obscureText: isVisible,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Short Password';
@@ -308,9 +308,16 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             },
             decoration: InputDecoration(
               hintText: 'Password',
-              suffixIcon: const Icon(
-                Icons.visibility_off_outlined,
-                color: Colors.grey,
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                child: const Icon(
+                  Icons.visibility_off_outlined,
+                  color: Colors.grey,
+                ),
               ),
               filled: true,
               fillColor: Colors.blueGrey[50],
@@ -331,7 +338,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           const SizedBox(height: 30),
           TextFormField(
             controller: rePass,
-            obscureText: true,
+            obscureText: isVisible,
             validator: (val) {
               if (val!.length < 8) {
                 return 'Error password';
@@ -341,9 +348,16 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             },
             decoration: InputDecoration(
               hintText: 'Re-enter Password',
-              suffixIcon: const Icon(
-                Icons.visibility_off_outlined,
-                color: Colors.grey,
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                child: const Icon(
+                  Icons.visibility_off_outlined,
+                  color: Colors.grey,
+                ),
               ),
               filled: true,
               fillColor: Colors.blueGrey[50],
@@ -379,16 +393,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                 // finish(context);
                 await signUp();
                 if (FirebaseAuth.instance.currentUser != null) {
-                  const SendVerificationPage().launch(context);
+                  const DTDashboardScreen().launch(context);
                 }
-
-                /// Remove comment if you want enable validation
-                // if (formKey.currentState!.validate()) {
-                // formKey.currentState!.save();
-                // DTDashboardScreen().launch(context);
-                // } else {
-                // autoValidate = true;
-                // }
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
@@ -403,78 +409,8 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                   child: Center(child: Text("Sign UP"))),
             ),
           ),
-          const SizedBox(height: 40),
-          Row(children: [
-            Expanded(
-              child: Divider(
-                color: Colors.grey[300],
-                height: 50,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text("Or continue with"),
-            ),
-            Expanded(
-              child: Divider(
-                color: Colors.grey[400],
-                height: 50,
-              ),
-            ),
-          ]),
-          const SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _loginWithButton(image: 'images/google.png', isActive: true),
-              _loginWithButton(image: 'images/facebook.png'),
-            ],
-          ),
         ],
       ),
-    );
-  }
-
-  Widget _loginWithButton({required String image, bool isActive = false}) {
-    return Container(
-      width: 90,
-      height: 70,
-      decoration: isActive
-          ? BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade100,
-                  spreadRadius: 10,
-                  blurRadius: 30,
-                )
-              ],
-              borderRadius: BorderRadius.circular(15),
-            )
-          : BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.grey.shade400),
-            ),
-      child: Center(
-          child: Container(
-        decoration: isActive
-            ? BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(35),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade400,
-                    spreadRadius: 2,
-                    blurRadius: 15,
-                  )
-                ],
-              )
-            : const BoxDecoration(),
-        child: Image.asset(
-          image,
-          width: 35,
-        ),
-      )),
     );
   }
 
@@ -535,6 +471,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'isAccept': true,
       'push_token': '',
       'about': 'Hallo',
+      'phone': phone.text,
       'gender': gender,
       'point': 0,
     });

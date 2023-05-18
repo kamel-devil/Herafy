@@ -39,8 +39,8 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, 'Grid View'),
-      drawer: DTDrawerWidget(),
+      appBar: appBar(context, 'Details'),
+      drawer: const DTDrawerWidget(),
       body: FutureBuilder(
         future: getCategoryService(widget.idCat),
         builder: (context, snapshot) {
@@ -72,16 +72,7 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                                 height: isMobile ? 110 : 180,
                                 width: context.width(),
                               ).cornerRadiusWithClipRRect(8),
-                              const Positioned(
-                                right: 10,
-                                top: 10,
-                                child:
-                                    // data.isLiked.validate()
-                                    //     ? const Icon(Icons.favorite,
-                                    //         color: Colors.red, size: 16)
-                                    //     :
-                                    Icon(Icons.favorite_border, size: 16),
-                              ),
+
                             ],
                           ),
                         ),
@@ -98,30 +89,9 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                             4.height,
                             Row(
                               children: [
-                                RatingBar(
-                                  onRatingChanged: (r) {},
-                                  filledIcon: Icons.star,
-                                  emptyIcon: Icons.star_border,
-                                  initialRating: 3.5,
-                                  maxRating: 5,
-                                  filledColor: Colors.yellow,
-                                  size: 14,
-                                ),
-                                5.width,
-                                Text('3.5',
-                                    // '${data.rating}',
-                                    style: secondaryTextStyle(size: 12)),
-                              ],
-                            ),
-                            4.height,
-                            Row(
-                              children: [
-                                priceWidget(3000
+                                priceWidget(int.parse(data['price'].toString())
                                     // data.discountPrice
                                     ),
-                                8.width,
-                                priceWidget(int.parse(data['price']),
-                                    applyStrike: true),
                               ],
                             ),
                           ],
