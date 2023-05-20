@@ -90,143 +90,144 @@ class _OrderInfoState extends State<OrderInfo> {
           onTap: () {
             FocusScope.of(context).unfocus();
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "More Info",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _selectedDate == null
-                        ? 'No date selected'
-                        : '$_selectedDate',
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: _pickDate,
-                    child: const Text('Pick a date'),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _selectedTime == null
-                        ? 'No time selected'
-                        : ' ${_selectedTime.format(context)}',
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: _pickTime,
-                    child: const Text('Pick a time'),
-                  ),
-                ],
-              ),
-              buildTextField("Address", '', false, address),
-              buildTextField("phone", '', false, phone),
-              buildTextField("Info", '', false, info),
-              const SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MaterialButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        String id = FirebaseFirestore.instance
-                            .collection('craftsman')
-                            .doc(widget.productModel['uid'])
-                            .collection('requests')
-                            .doc()
-                            .id;
-                        String id1 = FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection('request')
-                            .doc()
-                            .id;
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection('request')
-                            .doc(id1)
-                            .set({
-                          'id': id1,
-                          'isAccept': 0,
-                          'services': widget.productModel['name'],
-                          'image': widget.productModel['image'],
-                          'type': widget.productModel['type'],
-                          'date': _selectedDate.toString(),
-                          'craftman': widget.productModel['craftsman'],
-                          'time': _selectedTime.toString(),
-                          'info': info.text,
-                          'address': address.text,
-                        });
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "More Info",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
 
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .get()
-                            .then((value) async {
-                          await FirebaseFirestore.instance
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _selectedDate == null
+                          ? 'No date selected'
+                          : '$_selectedDate',
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton(
+                      onPressed: _pickDate,
+                      child: const Text('Pick a date'),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _selectedTime == null
+                          ? 'No time selected'
+                          : ' ${_selectedTime.format(context)}',
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton(
+                      onPressed: _pickTime,
+                      child: const Text('Pick a time'),
+                    ),
+                  ],
+                ),
+                buildTextField("Address", '', false, address),
+                buildTextField("phone", '', false, phone),
+                buildTextField("Info", '', false, info),
+                const SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MaterialButton(
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          String id = FirebaseFirestore.instance
                               .collection('craftsman')
                               .doc(widget.productModel['uid'])
                               .collection('requests')
-                              .doc(id)
+                              .doc()
+                              .id;
+                          String id1 = FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('request')
+                              .doc()
+                              .id;
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('request')
+                              .doc(id1)
                               .set({
-                            'id': id,
-                            'userDocID': id1,
-                            'user': value['name'],
-                            'userImage': value['image'],
-                            'userUid': value['id'],
+                            'id': id1,
                             'isAccept': 0,
-                            'craftman': widget.productModel['craftsman'],
                             'services': widget.productModel['name'],
                             'image': widget.productModel['image'],
                             'type': widget.productModel['type'],
                             'date': _selectedDate.toString(),
+                            'craftman': widget.productModel['craftsman'],
                             'time': _selectedTime.toString(),
                             'info': info.text,
                             'address': address.text,
-                            'phone': phone.text,
                           });
-                        });
-                        const DTPaymentProcessScreen(
-                          isSuccessFul: true,
-                        ).launch(context);
-                      }
-                    },
-                    color: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Text(
-                      "Next",
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 2.2,
-                          color: Colors.white),
-                    ),
-                  )
-                ],
-              )
-            ],
+
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .get()
+                              .then((value) async {
+                            await FirebaseFirestore.instance
+                                .collection('craftsman')
+                                .doc(widget.productModel['uid'])
+                                .collection('requests')
+                                .doc(id)
+                                .set({
+                              'id': id,
+                              'userDocID': id1,
+                              'user': value['name'],
+                              'userImage': value['image'],
+                              'userUid': value['id'],
+                              'isAccept': 0,
+                              'craftman': widget.productModel['craftsman'],
+                              'services': widget.productModel['name'],
+                              'image': widget.productModel['image'],
+                              'type': widget.productModel['type'],
+                              'date': _selectedDate.toString(),
+                              'time': _selectedTime.toString(),
+                              'info': info.text,
+                              'address': address.text,
+                              'phone': phone.text,
+                            });
+                          });
+                          const DTPaymentProcessScreen(
+                            isSuccessFul: true,
+                          ).launch(context);
+                        }
+                      },
+                      color: Colors.green,
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Text(
+                        "Next",
+                        style: TextStyle(
+                            fontSize: 14,
+                            letterSpacing: 2.2,
+                            color: Colors.white),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -238,7 +239,6 @@ class _OrderInfoState extends State<OrderInfo> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextFormField(
-        key: formKey,
         controller: controller,
         validator: (value) {
           if (value!.isEmpty) {

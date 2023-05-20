@@ -80,15 +80,81 @@ class Orders extends StatelessWidget {
                                           margin:
                                               const EdgeInsets.only(bottom: 20),
                                           child: ListTile(
-                                            title: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8),
-                                              child: Text(
-                                                Orders[index]['services'],
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
+                                            title: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 8),
+                                                  child: Text(
+                                                    Orders[index]['services'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                16.width,
+                                                ElevatedButton(
+                                                    onPressed: () async {
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection('users')
+                                                          .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                          .collection('cancel')
+                                                          .add({
+                                                        'name': Orders[index]
+                                                            ['services'],
+                                                        'craftman':
+                                                            Orders[index]
+                                                                ['craftman'],
+                                                        'date': DateTime.now()
+                                                            .toString()
+                                                      });
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection('users')
+                                                          .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                          .collection('request')
+                                                          .doc(Orders[index]
+                                                              ['id'])
+                                                          .delete();
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection('users')
+                                                          .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                          .get()
+                                                          .then((value) {
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection('users')
+                                                            .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                            .set(
+                                                                {
+                                                              'cancel': value[
+                                                                      'cancel'] +
+                                                                  1
+                                                            },
+                                                                SetOptions(
+                                                                    merge:
+                                                                        true));
+                                                      });
+                                                    },
+                                                    child: const Text(
+                                                        'Cancel order'))
+                                              ],
                                             ),
                                             leading: Orders[index]['image'] ==
                                                     'null'
@@ -164,6 +230,7 @@ class Orders extends StatelessWidget {
                                                                     child: const Text(
                                                                         'Info')),
                                                           ),
+                                                          const SizedBox(height: 10,),
                                                           Expanded(
                                                             child:
                                                                 ElevatedButton(

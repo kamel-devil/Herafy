@@ -473,6 +473,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'about': 'Hallo',
       'phone': phone.text,
       'gender': gender,
+      'cancel': 0,
       'point': 0,
     });
   }
