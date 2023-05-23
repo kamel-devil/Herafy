@@ -9,6 +9,8 @@ import '../utils/AppWidget.dart';
 class DTChangePasswordScreen extends StatefulWidget {
   static String tag = '/DTChangePasswordScreen';
 
+  const DTChangePasswordScreen({super.key});
+
   @override
   DTChangePasswordScreenState createState() => DTChangePasswordScreenState();
 }
@@ -90,7 +92,9 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                   onFieldSubmitted: (s) =>
                       FocusScope.of(context).requestFocus(confirmPassFocus),
                   validator: (s) {
-                    if (s!.trim().isEmpty) return errorThisFieldRequired;
+                    if (s!.trim().isEmpty) {
+                      return 'Password is Less than 8 character';
+                    }
                     return null;
                   },
                 ),
@@ -142,7 +146,7 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                   if (formKey.currentState!.validate()) {
                     // formKey.currentState!.save();
                     print(newPassCont.text);
-                  await FirebaseAuth.instance.currentUser!
+                    await FirebaseAuth.instance.currentUser!
                         .updatePassword(newPassCont.text);
                     finish(context);
                   } else {

@@ -203,7 +203,7 @@ class LiquidPullToRefreshState extends State<LiquidPullToRefresh> with TickerPro
   void didChangeDependencies() {
     final ThemeData theme = Theme.of(context);
     _valueColor = _positionController!.drive(
-      ColorTween(begin: (widget.color ?? theme.accentColor).withOpacity(0.0), end: (widget.color ?? theme.accentColor).withOpacity(1.0))
+      ColorTween(begin: (widget.color ?? Colors.blueAccent).withOpacity(0.0), end: (widget.color ?? Colors.blueAccent).withOpacity(1.0))
           .chain(CurveTween(curve: const Interval(0.0, 1.0 / _kDragSizeFactorLimit))),
     );
     super.didChangeDependencies();
@@ -469,7 +469,7 @@ class LiquidPullToRefreshState extends State<LiquidPullToRefresh> with TickerPro
     assert(debugCheckHasMaterialLocalizations(context));
 
     // assigning default color and background color
-    Color _defaultColor = Theme.of(context).accentColor;
+    Color _defaultColor = Colors.blueAccent;
     Color _defaultBackgroundColor = Theme.of(context).canvasColor;
 
     // assigning default height

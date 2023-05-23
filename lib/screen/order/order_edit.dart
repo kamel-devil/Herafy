@@ -177,7 +177,7 @@ class _OrdersEditState extends State<OrdersEdit> {
                     ),
                     MaterialButton(
                       onPressed: () async {
-                        FirebaseFirestore.instance
+                        await FirebaseFirestore.instance
                             .collection('users')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
                             .collection('request')
@@ -190,6 +190,13 @@ class _OrdersEditState extends State<OrdersEdit> {
                         }, SetOptions(merge: true)).then((value) {
                           const DTDashboardScreen().launch(context);
                         });
+                        await FirebaseFirestore.instance
+                            .collection('craftsman')
+                            .doc(widget.data['craftmanID'])
+                            .collection('requests')
+                            .doc(widget.data['craftmanDocID'])
+                            .set({'address': address.text},
+                                SetOptions(merge: true));
                       },
                       color: Colors.green,
                       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -218,7 +225,7 @@ class _OrdersEditState extends State<OrdersEdit> {
       bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(

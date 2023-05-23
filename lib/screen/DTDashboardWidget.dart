@@ -7,10 +7,8 @@ import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
-import '../model/DTProductModel.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
-import '../utils/DTDataProvider.dart';
 import '../utils/DTWidgets.dart';
 import '../utils/rating_bar.dart';
 import 'DTCategoryDetailScreen.dart';
@@ -139,7 +137,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
             ? FirebaseFirestore.instance.collection('favServices').snapshots()
             : FirebaseFirestore.instance
                 .collection('allService')
-                .where('isAccept', isEqualTo: true)
+                .where('isAccept', isEqualTo: 1)
                 .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -177,49 +175,37 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(ser[index1]['name'],
-                                  style: primaryTextStyle(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis),
+                              Flexible(
+                                child: Text(ser[index1]['name'],
+                                    style: primaryTextStyle(),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
                               !isv
                                   ? ElevatedButton.icon(
-                                      onPressed:FirebaseAuth.instance.currentUser != null? () {
-                                        FirebaseFirestore.instance
-                                            .collection('allService')
-                                            .doc(ser[index1]['id'])
-                                            .set(
-                                          {
-                                            'add': [
-                                              FirebaseAuth
-                                                  .instance.currentUser!.uid
-                                            ],
-                                          },
-                                          SetOptions(merge: true),
-                                        );
-                                        addFavServices(ser[index1]);
-                                      }:(){},
+                                      onPressed:
+                                          FirebaseAuth.instance.currentUser !=
+                                                  null
+                                              ? () {
+                                                  FirebaseFirestore.instance
+                                                      .collection('allService')
+                                                      .doc(ser[index1]['id'])
+                                                      .set(
+                                                    {
+                                                      'add': [
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.uid
+                                                      ],
+                                                    },
+                                                    SetOptions(merge: true),
+                                                  );
+                                                  addFavServices(ser[index1]);
+                                                }
+                                              : () {},
                                       icon: const Icon(Icons.add),
                                       label: const Text('Fav'),
                                     )
                                   : Container(),
-                            ],
-                          ),
-                          4.height,
-                          Row(
-                            children: [
-                              IgnorePointer(
-                                child: RatingBar(
-                                  onRatingChanged: (r) {},
-                                  filledIcon: Icons.star,
-                                  emptyIcon: Icons.star_border,
-                                  initialRating: 3.5,
-                                  maxRating: 5,
-                                  filledColor: Colors.yellow,
-                                  size: 14,
-                                ),
-                              ),
-                              5.width,
-                              Text('3.5', style: secondaryTextStyle(size: 12)),
                             ],
                           ),
                           4.height,
@@ -265,26 +251,10 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
       );
     }
 
-    // Widget bannerWidget() {
-    //   return Container(
-    //     margin: const EdgeInsets.only(left: 8),
-    //     child: Row(
-    //       children: [
-    //         Image.asset('images/defaultTheme/banner/dt_advertise1.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-    //         8.width,
-    //         Image.asset('images/defaultTheme/banner/dt_advertise2.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-    //         8.width,
-    //         Image.asset('images/defaultTheme/banner/dt_advertise4.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-    //         8.width,
-    //         Image.asset('images/defaultTheme/banner/dt_advertise3.jpg', fit: BoxFit.cover).cornerRadiusWithClipRRect(8).expand(),
-    //       ],
-    //     ),
-    //   );
-    // }
 
     Widget mobileWidget() {
       return SingleChildScrollView(
-        child:Container(),
+        child: Container(),
       );
     }
 
@@ -298,8 +268,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
+                  padding: const EdgeInsets.only(top: 16),
                   width: 100,
-                  height: 60,
+                  height: 50,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(

@@ -102,7 +102,6 @@ class _OrderInfoState extends State<OrderInfo> {
                 const SizedBox(
                   height: 15,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -168,6 +167,8 @@ class _OrderInfoState extends State<OrderInfo> {
                               .set({
                             'id': id1,
                             'isAccept': 0,
+                            'craftmanDocID': id,
+                            'craftmanID': widget.productModel['uid'],
                             'services': widget.productModel['name'],
                             'image': widget.productModel['image'],
                             'type': widget.productModel['type'],
@@ -195,6 +196,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               'userImage': value['image'],
                               'userUid': value['id'],
                               'isAccept': 0,
+                              'cash': 0,
                               'craftman': widget.productModel['craftsman'],
                               'services': widget.productModel['name'],
                               'image': widget.productModel['image'],

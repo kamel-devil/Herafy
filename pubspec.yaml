@@ -38,7 +38,7 @@ dependencies:
   intl: ^0.17.0
   firebase_storage:
   flutter_vector_icons: ^1.0.0
-  google_fonts: ^2.1.0
+  #  google_fonts: ^2.1.0
   responsive_builder:
 
 
@@ -161,7 +161,10 @@ flutter:
     - assets/defaultTheme/
     - images/defaultTheme/
     - images/
-    - assets/images/defaultTheme/    - images/defaultTheme/category/    - images/defaultTheme/banner/    - assets/images/img.png
+    - assets/images/defaultTheme/
+    - images/defaultTheme/category/
+    - images/defaultTheme/banner/
+    - assets/images/img.png
 
 
 

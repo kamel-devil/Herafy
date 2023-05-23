@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/DTDashboardScreen.dart';
+import 'package:herafy/screen/login/forget_password.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class Body extends StatefulWidget {
@@ -151,6 +152,16 @@ class _BodyState extends State<Body> {
             ),
           ),
           const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    const ForgetPassword().launch(context);
+                  },
+                  child: const Text('Forget Password..?'))
+            ],
+          )
         ],
       ),
     );

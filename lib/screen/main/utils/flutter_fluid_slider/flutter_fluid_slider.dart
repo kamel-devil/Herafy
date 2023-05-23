@@ -470,7 +470,7 @@ class _MinMaxLabels extends StatelessWidget {
         child: child ??
             Text(
               '${value!.toInt()}',
-              style: textStyle ?? Theme.of(context).accentTextTheme.headline6,
+
             ),
       ),
     );

@@ -14,10 +14,10 @@ class Menu extends StatelessWidget {
           Row(
             children: [
               _menuItem(title: 'Sign In', isActive: true),
-              SizedBox(width: 40,),
+              const SizedBox(width: 40,),
               InkWell(
                   onTap: (){
-                    DTSignUpScreen().launch(context);
+                    const DTSignUpScreen().launch(context);
 
                   },
                   child: _registerButton())

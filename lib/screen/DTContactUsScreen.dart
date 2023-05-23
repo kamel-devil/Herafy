@@ -45,7 +45,11 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Image(image: AssetImage('images/logo.png'),width: 200,height: 200,),
+              const Image(
+                image: AssetImage('images/logo.png'),
+                width: 200,
+                height: 200,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -54,18 +58,18 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     child: Icon(Icons.phone),
                   ),
                   10.width,
-                  Column(
+                  const Text(
+                    'Phone',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  10.width,
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Phone',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
+                    children: [
                       Text(
                         '+962776359812',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       )
                     ],
                   )
@@ -79,17 +83,17 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     child: Icon(Icons.email),
                   ),
                   10.width,
-                  Column(
-                    children: const [
-                      Text(
-                        'Email',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
+                  const Text(
+                    'Email',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  10.width,
+                  const Column(
+                    children: [
                       Text(
                         'HerafyInfo@herafy.com',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       )
                     ],
                   )
@@ -103,17 +107,17 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     child: Icon(Icons.location_on_rounded),
                   ),
                   10.width,
-                  Column(
-                    children: const [
-                      Text(
-                        'Address',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
+                  const Text(
+                    'Address',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  10.width,
+                  const Column(
+                    children: [
                       Text(
                         'Mecca street, Bldg N: 24, 3rd floor. Amman Jordan',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       )
                     ],
                   )

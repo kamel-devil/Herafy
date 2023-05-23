@@ -12,7 +12,6 @@ import '../model/DTProductModel.dart';
 import '../model/DTReviewModel.dart';
 import '../screen/DTAboutScreen.dart';
 import '../screen/DTContactUsScreen.dart';
-import '../screen/DTFAQScreen.dart';
 import '../screen/login/DTSignUpScreen.dart';
 import '../screen/order/orders.dart';
 import '../screen/profile_edit/DTProfileScreen.dart';

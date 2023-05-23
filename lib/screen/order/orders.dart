@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -151,6 +152,8 @@ class Orders extends StatelessWidget {
                                                                     merge:
                                                                         true));
                                                       });
+                                                      const DTDashboardScreen()
+                                                          .launch(context);
                                                     },
                                                     child: const Text(
                                                         'Cancel order'))
@@ -209,39 +212,49 @@ class Orders extends StatelessWidget {
                                                           const Text(
                                                             'Accepted',
                                                             style: TextStyle(
-                                                                color:
-                                                                    Colors.red,
-                                                                fontSize: 20,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800),
+                                                              color: Colors.red,
+                                                              fontSize: 12,
+                                                            ),
                                                           ),
                                                           Expanded(
-                                                            child:
-                                                                ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      OrdersEdit(
-                                                                        data: Orders[
-                                                                            index],
-                                                                      ).launch(
+                                                            child: TextButton(
+                                                                onPressed: () {
+                                                                  OrdersEdit(
+                                                                    data: Orders[
+                                                                        index],
+                                                                  ).launch(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'Info')),
+                                                          ),
+                                                          Expanded(
+                                                            child: TextButton(
+                                                                onPressed:
+                                                                    () async {
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'craftsman')
+                                                                      .doc(Orders[
+                                                                              index]
+                                                                          [
+                                                                          'craftmanID'])
+                                                                      .collection(
+                                                                          'requests')
+                                                                      .doc(Orders[
+                                                                              index]
+                                                                          [
+                                                                          'craftmanDocID'])
+                                                                      .set({
+                                                                    'cash': 1
+                                                                  }, SetOptions(merge: true));
+                                                                  const DTPaymentScreen()
+                                                                      .launch(
                                                                           context);
-                                                                    },
-                                                                    child: const Text(
-                                                                        'Info')),
-                                                          ),
-                                                          const SizedBox(height: 10,),
-                                                          Expanded(
-                                                            child:
-                                                                ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      const DTPaymentScreen()
-                                                                          .launch(
-                                                                              context);
-                                                                    },
-                                                                    child: const Text(
-                                                                        'pay')),
+                                                                },
+                                                                child: const Text(
+                                                                    'pay')),
                                                           ),
                                                         ],
                                                       )
@@ -312,6 +325,7 @@ class Orders extends StatelessWidget {
   }
 
   Future getOrders() async {
+    print(FirebaseAuth.instance.currentUser!.uid);
     var firestore = FirebaseFirestore.instance;
     QuerySnapshot qn = await firestore
         .collection("users")

@@ -68,15 +68,13 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
+                          InkWell(
                               onTap: () {
-                                // Navigator.push(context, route)
-                                LoginPage().launch(context);
+                                const LoginPage().launch(context);
                               },
-                              child:
-                                  _menuItem(title: 'Sign IN', isActive: false)),
+                              child: _loginButton()),
                           const SizedBox(
-                            width: 20,
+                            width: 40,
                           ),
                           _menuItem(title: 'Register', isActive: true),
                         ],
@@ -111,6 +109,30 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _loginButton() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            spreadRadius: 10,
+            blurRadius: 12,
+          ),
+        ],
+      ),
+      child: const Text(
+        'SignIn',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+        ),
       ),
     );
   }
@@ -270,10 +292,9 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
           TextFormField(
             controller: phone,
             validator: (val) {
-              if (val!.length < 10 &&
-                  (!val.contains('077') ||
-                      !val.contains('078') ||
-                      !val.contains('079'))) {
+              if (!val!.startsWith("078") &&
+                  !val.startsWith("077") &&
+                  !val.startsWith("079")) {
                 return 'Invalid Phone Number ';
               } else {
                 return null;
@@ -472,6 +493,7 @@ class DTSignUpScreenState extends State<DTSignUpScreen> {
       'push_token': '',
       'about': 'Hallo',
       'phone': phone.text,
+      'password': pass.text,
       'gender': gender,
       'cancel': 0,
       'point': 0,
