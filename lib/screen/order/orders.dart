@@ -152,6 +152,22 @@ class Orders extends StatelessWidget {
                                                                     merge:
                                                                         true));
                                                       });
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              'craftsman')
+                                                          .doc(Orders[index]
+                                                              ['craftmanID'])
+                                                          .collection(
+                                                              'requests')
+                                                          .doc(Orders[index]
+                                                              ['craftmanDocID'])
+                                                          .set(
+                                                              {
+                                                            'cancelorder': true
+                                                          },
+                                                              SetOptions(
+                                                                  merge: true));
                                                       const DTDashboardScreen()
                                                           .launch(context);
                                                     },
@@ -225,8 +241,9 @@ class Orders extends StatelessWidget {
                                                                   ).launch(
                                                                       context);
                                                                 },
-                                                                child: const Text(
-                                                                    'Info')),
+                                                                child:
+                                                                    const Text(
+                                                                        'Info')),
                                                           ),
                                                           Expanded(
                                                             child: TextButton(
@@ -253,8 +270,9 @@ class Orders extends StatelessWidget {
                                                                       .launch(
                                                                           context);
                                                                 },
-                                                                child: const Text(
-                                                                    'pay')),
+                                                                child:
+                                                                    const Text(
+                                                                        'pay')),
                                                           ),
                                                         ],
                                                       )

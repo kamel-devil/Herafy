@@ -63,9 +63,9 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   10.width,
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         '+962776359812',
                         style: TextStyle(
@@ -88,7 +88,7 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   10.width,
-                  const Column(
+                   Column(
                     children: [
                       Text(
                         'HerafyInfo@herafy.com',
@@ -112,7 +112,7 @@ class DTContactUsScreenState extends State<DTContactUsScreen> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   10.width,
-                  const Column(
+                   Column(
                     children: [
                       Text(
                         'Mecca street, Bldg N: 24, 3rd floor. Amman Jordan',
