@@ -519,7 +519,7 @@ class WriteReviewDialog extends StatelessWidget {
                       })
                   : GestureDetector(
                       onTap: () {
-                        LoginPage().launch(context);
+                        const LoginPage().launch(context);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -563,13 +563,13 @@ class WriteReviewDialog extends StatelessWidget {
         .get()
         .then((value) async {
       addData(id, value['name'], value['email']);
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set(
-        {'point': value['point'] + 1},
-        SetOptions(merge: true),
-      );
+      // await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(FirebaseAuth.instance.currentUser!.uid)
+      //     .set(
+      //   {'point': value['point'] + 1},
+      //   SetOptions(merge: true),
+      // );
     });
   }
 }

@@ -10,7 +10,6 @@ import '../main.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
-import '../utils/rating_bar.dart';
 import 'DTCategoryDetailScreen.dart';
 import 'DTProductDetailScreen.dart';
 import 'DTSearchScreen.dart';
@@ -76,6 +75,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         "time": data['time'],
         "craftsman": data['craftsman'],
         "id": data['id'],
+        "uid": data['uid'],
       });
     }
 
@@ -250,7 +250,6 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         },
       );
     }
-
 
     Widget mobileWidget() {
       return SingleChildScrollView(

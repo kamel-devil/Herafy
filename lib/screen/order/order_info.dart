@@ -22,6 +22,7 @@ class _OrderInfoState extends State<OrderInfo> {
 
   TextEditingController info = TextEditingController();
   TextEditingController phone = TextEditingController();
+  TextEditingController hours = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
 
   bool showPassword = true;
@@ -137,6 +138,7 @@ class _OrderInfoState extends State<OrderInfo> {
                 ),
                 buildTextField("Address", '', false, address),
                 buildTextField("phone", '', false, phone),
+                buildTextField("Hours", '', false, hours),
                 buildTextField("Info", '', false, info),
                 const SizedBox(
                   height: 35,
@@ -176,7 +178,10 @@ class _OrderInfoState extends State<OrderInfo> {
                             'craftman': widget.productModel['craftsman'],
                             'time': _selectedTime.toString(),
                             'info': info.text,
+                            'phone': phone.text,
                             'address': address.text,
+                            'hours': hours.text,
+                            'price': widget.productModel['price']
                           });
 
                           await FirebaseFirestore.instance
@@ -206,6 +211,8 @@ class _OrderInfoState extends State<OrderInfo> {
                               'info': info.text,
                               'address': address.text,
                               'phone': phone.text,
+                              'hours': hours.text,
+                              'price': widget.productModel['price']
                             });
                           });
                           const DTPaymentProcessScreen(
