@@ -215,6 +215,8 @@ class _OrderInfoState extends State<OrderInfo> {
                               'price': widget.productModel['price']
                             });
                           });
+                          getData();
+
                           const DTPaymentProcessScreen(
                             isSuccessFul: true,
                           ).launch(context);
@@ -241,6 +243,22 @@ class _OrderInfoState extends State<OrderInfo> {
         ),
       ),
     );
+  }
+
+  getData() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) async {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set(
+        {'point': value['point'] + 1},
+        SetOptions(merge: true),
+      );
+    });
   }
 
   Widget buildTextField(String labelText, String placeholder,

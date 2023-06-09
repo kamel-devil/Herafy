@@ -6,7 +6,6 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../utils/AppWidget.dart';
 import '../DTDrawerWidget.dart';
-import 'DTSignInScreen.dart';
 
 class DTWalkThoughScreen extends StatefulWidget {
   static String tag = '/DTWalkThoughScreen';

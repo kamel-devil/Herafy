@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 import '../main.dart';
 import '../model/DTAddressListModel.dart';
 import '../utils/AppColors.dart';

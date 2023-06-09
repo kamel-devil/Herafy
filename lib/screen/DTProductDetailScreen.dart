@@ -68,7 +68,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                         Text('Order Now', style: boldTextStyle(color: white)),
                   ).onTap(data['isAccept']
                       ? () async {
-                          await getData();
                           OrderInfo(
                             productModel: widget.productModel,
                           ).launch(context);
@@ -316,22 +315,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
         useFullWidth: true,
       ),
     );
-  }
-
-  getData() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) async {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set(
-        {'point': value['point'] + 1},
-        SetOptions(merge: true),
-      );
-    });
   }
 }
 

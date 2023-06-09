@@ -27,8 +27,8 @@ class AppTheme {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.themes != null) {
-      data['themes'] = this.themes!.map((v) => v.toJson()).toList();
+    if (themes != null) {
+      data['themes'] = themes!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -70,17 +70,17 @@ class ProTheme {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['show_cover'] = this.show_cover;
-    data['title_name'] = this.title_name;
-    data['type'] = this.type;
-    data['tag'] = this.tag;
-    data['darkThemeSupported'] = this.darkThemeSupported;
-    data['icon'] = this.icon;
-    data['widget'] = this.widget;
-    data['is_theme'] = this.is_theme;
-    if (this.sub_kits != null) {
-      data['sub_kits'] = this.sub_kits!.map((v) => v.toJson()).toList();
+    data['name'] = name;
+    data['show_cover'] = show_cover;
+    data['title_name'] = title_name;
+    data['type'] = type;
+    data['tag'] = tag;
+    data['darkThemeSupported'] = darkThemeSupported;
+    data['icon'] = icon;
+    data['widget'] = widget;
+    data['is_theme'] = is_theme;
+    if (sub_kits != null) {
+      data['sub_kits'] = sub_kits!.map((v) => v.toJson()).toList();
     }
     return data;
   }

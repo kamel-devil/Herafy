@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herafy/screen/login/DTSignUpScreen.dart';
 import 'package:nb_utils/nb_utils.dart';

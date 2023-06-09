@@ -5,7 +5,6 @@ import 'package:nb_utils/nb_utils.dart';
 import '../main.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
-import '../utils/rating_bar.dart';
 import 'DTDrawerWidget.dart';
 import 'DTProductDetailScreen.dart';
 

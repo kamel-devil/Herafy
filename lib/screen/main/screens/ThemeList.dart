@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-
 import '../../../main.dart';
 import '../../../utils/AppColors.dart';
 import '../../../utils/AppImages.dart';

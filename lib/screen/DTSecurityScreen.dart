@@ -9,6 +9,8 @@ import 'DTDrawerWidget.dart';
 class DTSecurityScreen extends StatefulWidget {
   static String tag = '/DTSecurityScreen';
 
+  const DTSecurityScreen({super.key});
+
   @override
   DTSecurityScreenState createState() => DTSecurityScreenState();
 }

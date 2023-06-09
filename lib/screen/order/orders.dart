@@ -98,78 +98,196 @@ class Orders extends StatelessWidget {
                                                 16.width,
                                                 ElevatedButton(
                                                     onPressed: () async {
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection('users')
-                                                          .doc(FirebaseAuth
-                                                              .instance
-                                                              .currentUser!
-                                                              .uid)
-                                                          .collection('cancel')
-                                                          .add({
-                                                        'name': Orders[index]
-                                                            ['services'],
-                                                        'craftman':
-                                                            Orders[index]
-                                                                ['craftman'],
-                                                        'date': DateTime.now()
-                                                            .toString()
-                                                      });
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection('users')
-                                                          .doc(FirebaseAuth
-                                                              .instance
-                                                              .currentUser!
-                                                              .uid)
-                                                          .collection('request')
-                                                          .doc(Orders[index]
-                                                              ['id'])
-                                                          .delete();
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection('users')
-                                                          .doc(FirebaseAuth
-                                                              .instance
-                                                              .currentUser!
-                                                              .uid)
-                                                          .get()
-                                                          .then((value) {
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection('users')
-                                                            .doc(FirebaseAuth
-                                                                .instance
-                                                                .currentUser!
-                                                                .uid)
-                                                            .set(
-                                                                {
-                                                              'cancel': value[
-                                                                      'cancel'] +
-                                                                  1
-                                                            },
-                                                                SetOptions(
-                                                                    merge:
-                                                                        true));
-                                                      });
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection(
-                                                              'craftsman')
-                                                          .doc(Orders[index]
-                                                              ['craftmanID'])
-                                                          .collection(
-                                                              'requests')
-                                                          .doc(Orders[index]
-                                                              ['craftmanDocID'])
-                                                          .set(
-                                                              {
-                                                            'cancelorder': true
-                                                          },
-                                                              SetOptions(
-                                                                  merge: true));
-                                                      const DTDashboardScreen()
-                                                          .launch(context);
+                                                      // QuickAlert.show(
+                                                      //   context: context,
+                                                      //   type: QuickAlertType.info,
+                                                      //   onCancelBtnTap: () {
+                                                      //     Navigator.pop(
+                                                      //         context);
+                                                      //   },
+                                                      //   onConfirmBtnTap: ()async {
+                                                      //     await FirebaseFirestore
+                                                      //         .instance
+                                                      //         .collection('users')
+                                                      //         .doc(FirebaseAuth
+                                                      //         .instance
+                                                      //         .currentUser!
+                                                      //         .uid)
+                                                      //         .collection('cancel')
+                                                      //         .add({
+                                                      //       'name': Orders[index]
+                                                      //       ['services'],
+                                                      //       'craftman':
+                                                      //       Orders[index]
+                                                      //       ['craftman'],
+                                                      //       'date': DateTime.now()
+                                                      //           .toString()
+                                                      //     });
+                                                      //     await FirebaseFirestore
+                                                      //         .instance
+                                                      //         .collection('users')
+                                                      //         .doc(FirebaseAuth
+                                                      //         .instance
+                                                      //         .currentUser!
+                                                      //         .uid)
+                                                      //         .collection('request')
+                                                      //         .doc(Orders[index]
+                                                      //     ['id'])
+                                                      //         .delete();
+                                                      //     await FirebaseFirestore
+                                                      //         .instance
+                                                      //         .collection('users')
+                                                      //         .doc(FirebaseAuth
+                                                      //         .instance
+                                                      //         .currentUser!
+                                                      //         .uid)
+                                                      //         .get()
+                                                      //         .then((value) {
+                                                      //       FirebaseFirestore
+                                                      //           .instance
+                                                      //           .collection('users')
+                                                      //           .doc(FirebaseAuth
+                                                      //           .instance
+                                                      //           .currentUser!
+                                                      //           .uid)
+                                                      //           .set(
+                                                      //           {
+                                                      //             'cancel': value[
+                                                      //             'cancel'] +
+                                                      //                 1
+                                                      //           },
+                                                      //           SetOptions(
+                                                      //               merge:
+                                                      //               true));
+                                                      //     });
+                                                      //     await FirebaseFirestore
+                                                      //         .instance
+                                                      //         .collection(
+                                                      //         'craftsman')
+                                                      //         .doc(Orders[index]
+                                                      //     ['craftmanID'])
+                                                      //         .collection(
+                                                      //         'requests')
+                                                      //         .doc(Orders[index]
+                                                      //     ['craftmanDocID'])
+                                                      //         .set(
+                                                      //         {
+                                                      //           'cancelorder': true
+                                                      //         },
+                                                      //         SetOptions(
+                                                      //             merge: true));
+                                                      //     const DTDashboardScreen()
+                                                      //         .launch(context);
+                                                      //   },
+                                                      //   showCancelBtn: true,
+                                                      //   cancelBtnText: 'Cancel',
+                                                      //   confirmBtnText:
+                                                      //       'Confirm',
+                                                      //   customAsset:
+                                                      //       'images/defaultTheme/successfull.png',
+                                                      //   text: '',
+                                                      // );
+                                                      showDialog<void>(
+                                                        context: context,
+                                                        barrierDismissible: false, // user must tap button!
+                                                        builder: (BuildContext context) {
+                                                          return AlertDialog( // <-- SEE HERE
+                                                            title: const Text(''),
+                                                            content: SingleChildScrollView(
+                                                              child: ListBody(
+                                                                children: const <Widget>[
+                                                                  Text('Are you sure want to cancel booking?'),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              TextButton(
+                                                                child: const Text('No'),
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                              ),
+                                                              TextButton(
+                                                                child: const Text('Yes'),
+                                                                onPressed: () async {
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection('users')
+                                                                      .doc(FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser!
+                                                                      .uid)
+                                                                      .collection('cancel')
+                                                                      .add({
+                                                                    'name': Orders[index]
+                                                                    ['services'],
+                                                                    'craftman':
+                                                                    Orders[index]
+                                                                    ['craftman'],
+                                                                    'date': DateTime.now()
+                                                                        .toString()
+                                                                  });
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection('users')
+                                                                      .doc(FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser!
+                                                                      .uid)
+                                                                      .collection('request')
+                                                                      .doc(Orders[index]
+                                                                  ['id'])
+                                                                      .delete();
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection('users')
+                                                                      .doc(FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser!
+                                                                      .uid)
+                                                                      .get()
+                                                                      .then((value) {
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection('users')
+                                                                        .doc(FirebaseAuth
+                                                                        .instance
+                                                                        .currentUser!
+                                                                        .uid)
+                                                                        .set(
+                                                                        {
+                                                                          'cancel': value[
+                                                                          'cancel'] +
+                                                                              1
+                                                                        },
+                                                                        SetOptions(
+                                                                            merge:
+                                                                            true));
+                                                                  });
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                      'craftsman')
+                                                                      .doc(Orders[index]
+                                                                  ['craftmanID'])
+                                                                      .collection(
+                                                                      'requests')
+                                                                      .doc(Orders[index]
+                                                                  ['craftmanDocID'])
+                                                                      .set(
+                                                                      {
+                                                                        'cancelorder': true
+                                                                      },
+                                                                      SetOptions(
+                                                                          merge: true));
+                                                                  const DTDashboardScreen()
+                                                                      .launch(context);
+                                                                },
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                     },
                                                     child: const Text(
                                                         'Cancel order'))

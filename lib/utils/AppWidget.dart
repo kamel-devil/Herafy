@@ -7,13 +7,10 @@ import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-
 import '../main.dart';
-import '../screen/main/utils/clusteringGoogleMaps/lat_lang_geohash.dart';
 import '../store/ListModels.dart';
 import 'AppColors.dart';
 import 'AppConstant.dart';
-import 'common.dart';
 
 Widget text(
   String? text, {

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
@@ -148,7 +149,7 @@ class DTChangePasswordScreenState extends State<DTChangePasswordScreen> {
                     print(newPassCont.text);
                     await FirebaseAuth.instance.currentUser!
                         .updatePassword(newPassCont.text);
-                    finish(context);
+                    const DTDashboardScreen().launch(context);
                   } else {
                     autoValidate = true;
                   }
