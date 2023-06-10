@@ -86,7 +86,7 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('allService')
-          .where('name',isEqualTo: searchText.toLowerCase())
+          .where('name',isEqualTo: searchText)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {

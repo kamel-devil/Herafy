@@ -17,16 +17,6 @@ class DTSecurityScreen extends StatefulWidget {
 
 class DTSecurityScreenState extends State<DTSecurityScreen> {
   @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  init() async {
-    //
-  }
-
-  @override
   void setState(fn) {
     if (mounted) super.setState(fn);
   }
@@ -35,12 +25,12 @@ class DTSecurityScreenState extends State<DTSecurityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context, 'Security'),
-      drawer: DTDrawerWidget(),
+      drawer: const DTDrawerWidget(),
       body: Column(
         children: [
           settingItem(context, 'Change Password', onTap: () {
-            DTChangePasswordScreen().launch(context);
-          }, leading: Icon(AntDesign.lock), detail: SizedBox()),
+            const DTChangePasswordScreen().launch(context);
+          }, leading: const Icon(AntDesign.lock), detail: const SizedBox()),
         ],
       ),
     );

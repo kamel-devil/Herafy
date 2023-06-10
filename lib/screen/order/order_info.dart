@@ -33,7 +33,8 @@ class _OrderInfoState extends State<OrderInfo> {
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
+      currentDate: DateTime.now(),
+      firstDate:DateTime.now(),
       lastDate: DateTime(2030),
     );
 
