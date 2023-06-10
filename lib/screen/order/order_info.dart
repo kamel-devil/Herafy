@@ -34,7 +34,7 @@ class _OrderInfoState extends State<OrderInfo> {
       context: context,
       initialDate: DateTime.now(),
       currentDate: DateTime.now(),
-      firstDate:DateTime.now(),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     );
 

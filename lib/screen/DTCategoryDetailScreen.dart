@@ -71,7 +71,6 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
                                 height: isMobile ? 110 : 180,
                                 width: context.width(),
                               ).cornerRadiusWithClipRRect(8),
-
                             ],
                           ),
                         ),
@@ -121,6 +120,7 @@ class DTCategoryDetailScreenState extends State<DTCategoryDetailScreen> {
         .collection("category")
         .doc(cat)
         .collection('services')
+        .where('isAccept', isEqualTo: 1)
         .get();
 
     return qn.docs;
