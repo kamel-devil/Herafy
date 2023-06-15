@@ -7,7 +7,6 @@ import '../main.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
-import '../utils/rating_bar.dart';
 import 'DTDrawerWidget.dart';
 import 'DTProductDetailScreen.dart';
 
@@ -86,7 +85,7 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('allService')
-          .where('name',isEqualTo: searchText)
+          .where('name', isEqualTo: searchText)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -129,31 +128,6 @@ class _DTSearchScreenState extends State<DTSearchScreen> {
                                 style: primaryTextStyle(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis),
-                            !isv
-                                ? ElevatedButton.icon(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add),
-                                    label: const Text('Fav'),
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                        4.height,
-                        Row(
-                          children: [
-                            IgnorePointer(
-                              child: RatingBar(
-                                onRatingChanged: (r) {},
-                                filledIcon: Icons.star,
-                                emptyIcon: Icons.star_border,
-                                initialRating: 3.5,
-                                maxRating: 5,
-                                filledColor: Colors.yellow,
-                                size: 14,
-                              ),
-                            ),
-                            5.width,
-                            Text('3.5', style: secondaryTextStyle(size: 12)),
                           ],
                         ),
                         4.height,

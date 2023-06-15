@@ -127,7 +127,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                                   fontSize: 28,
                                   textColor: appColorPrimary),
                               8.width,
-                              priceWidget(data['point'],
+                              priceWidget(int.parse(widget.productModel['price']),
                                   applyStrike: true, fontSize: 18),
                               16.width,
                               FirebaseAuth.instance.currentUser != null
@@ -142,7 +142,7 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                                         if (snapshot.hasData) {
                                           var data = snapshot.data;
                                           return Text(
-                                                  '${(data['point'] / int.parse(widget.productModel['price'])) * 100}% off',
+                                                  '${((data['point'] / int.parse(widget.productModel['price'])) * 100).toStringAsFixed(2).substring(0, 4)}% off',
                                                   style: boldTextStyle(
                                                       color: appColorPrimary))
                                               .visible(discount != 0.0);
