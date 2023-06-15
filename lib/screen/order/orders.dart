@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:herafy/screen/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../DTPaymentScreen.dart';
 import 'order_edit.dart';
@@ -81,6 +83,297 @@ class Orders extends StatelessWidget {
                                           margin:
                                               const EdgeInsets.only(bottom: 20),
                                           child: ListTile(
+                                            onTap: () {
+                                              Get.defaultDialog(
+                                                  backgroundColor: Colors.grey,
+                                                  title: 'Contract',
+                                                  content: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            80.0),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'address : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['address'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'services : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index][
+                                                                    'services'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'type : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['type'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'Information : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['info'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'time : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['date'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'price : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['price'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'hours : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                Orders[index]
+                                                                    ['hours'],
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                'Total Price : ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              Text(
+                                                                '${double.parse(Orders[index]['price']) * double.parse(Orders[index]['hours'])}',
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 50,
+                                                          ),
+                                                          StreamBuilder(
+                                                              stream: FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'craftsman')
+                                                                  .doc(Orders[
+                                                                          index]
+                                                                      [
+                                                                      'craftmanID'])
+                                                                  .snapshots(),
+                                                              builder: (context,
+                                                                  AsyncSnapshot snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  return IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                             launchUrl(Uri.parse('https://wa.me/${snapshot.data['phone']}'));
+                                                                          },
+                                                                      icon: const Icon(
+                                                                          Icons
+                                                                              .phone));
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              }),
+                                                          const SizedBox(
+                                                            height: 100,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ));
+                                            },
                                             title: Row(
                                               children: [
                                                 Padding(
@@ -189,99 +482,126 @@ class Orders extends StatelessWidget {
                                                       // );
                                                       showDialog<void>(
                                                         context: context,
-                                                        barrierDismissible: false, // user must tap button!
-                                                        builder: (BuildContext context) {
-                                                          return AlertDialog( // <-- SEE HERE
-                                                            title: const Text(''),
-                                                            content: SingleChildScrollView(
+                                                        barrierDismissible:
+                                                            false,
+                                                        // user must tap button!
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            // <-- SEE HERE
+                                                            title:
+                                                                const Text(''),
+                                                            content:
+                                                                SingleChildScrollView(
                                                               child: ListBody(
-                                                                children: const <Widget>[
-                                                                  Text('Are you sure want to cancel booking?'),
+                                                                children: const <
+                                                                    Widget>[
+                                                                  Text(
+                                                                      'Are you sure want to cancel booking?'),
                                                                 ],
                                                               ),
                                                             ),
                                                             actions: <Widget>[
                                                               TextButton(
-                                                                child: const Text('No'),
+                                                                child:
+                                                                    const Text(
+                                                                        'No'),
                                                                 onPressed: () {
-                                                                  Navigator.of(context).pop();
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
                                                                 },
                                                               ),
                                                               TextButton(
-                                                                child: const Text('Yes'),
-                                                                onPressed: () async {
+                                                                child:
+                                                                    const Text(
+                                                                        'Yes'),
+                                                                onPressed:
+                                                                    () async {
                                                                   await FirebaseFirestore
                                                                       .instance
-                                                                      .collection('users')
+                                                                      .collection(
+                                                                          'users')
                                                                       .doc(FirebaseAuth
-                                                                      .instance
-                                                                      .currentUser!
-                                                                      .uid)
-                                                                      .collection('cancel')
+                                                                          .instance
+                                                                          .currentUser!
+                                                                          .uid)
+                                                                      .collection(
+                                                                          'cancel')
                                                                       .add({
-                                                                    'name': Orders[index]
-                                                                    ['services'],
+                                                                    'name': Orders[
+                                                                            index]
+                                                                        [
+                                                                        'services'],
                                                                     'craftman':
-                                                                    Orders[index]
-                                                                    ['craftman'],
-                                                                    'date': DateTime.now()
+                                                                        Orders[index]
+                                                                            [
+                                                                            'craftman'],
+                                                                    'date': DateTime
+                                                                            .now()
                                                                         .toString()
                                                                   });
                                                                   await FirebaseFirestore
                                                                       .instance
-                                                                      .collection('users')
+                                                                      .collection(
+                                                                          'users')
                                                                       .doc(FirebaseAuth
-                                                                      .instance
-                                                                      .currentUser!
-                                                                      .uid)
-                                                                      .collection('request')
-                                                                      .doc(Orders[index]
-                                                                  ['id'])
+                                                                          .instance
+                                                                          .currentUser!
+                                                                          .uid)
+                                                                      .collection(
+                                                                          'request')
+                                                                      .doc(Orders[
+                                                                              index]
+                                                                          [
+                                                                          'id'])
                                                                       .delete();
                                                                   await FirebaseFirestore
                                                                       .instance
-                                                                      .collection('users')
+                                                                      .collection(
+                                                                          'users')
                                                                       .doc(FirebaseAuth
-                                                                      .instance
-                                                                      .currentUser!
-                                                                      .uid)
+                                                                          .instance
+                                                                          .currentUser!
+                                                                          .uid)
                                                                       .get()
-                                                                      .then((value) {
+                                                                      .then(
+                                                                          (value) {
                                                                     FirebaseFirestore
                                                                         .instance
-                                                                        .collection('users')
+                                                                        .collection(
+                                                                            'users')
                                                                         .doc(FirebaseAuth
-                                                                        .instance
-                                                                        .currentUser!
-                                                                        .uid)
-                                                                        .set(
-                                                                        {
-                                                                          'cancel': value[
-                                                                          'cancel'] +
+                                                                            .instance
+                                                                            .currentUser!
+                                                                            .uid)
+                                                                        .set({
+                                                                      'cancel':
+                                                                          value['cancel'] +
                                                                               1
-                                                                        },
-                                                                        SetOptions(
-                                                                            merge:
-                                                                            true));
+                                                                    }, SetOptions(merge: true));
                                                                   });
                                                                   await FirebaseFirestore
                                                                       .instance
                                                                       .collection(
-                                                                      'craftsman')
-                                                                      .doc(Orders[index]
-                                                                  ['craftmanID'])
+                                                                          'craftsman')
+                                                                      .doc(Orders[
+                                                                              index]
+                                                                          [
+                                                                          'craftmanID'])
                                                                       .collection(
-                                                                      'requests')
-                                                                      .doc(Orders[index]
-                                                                  ['craftmanDocID'])
-                                                                      .set(
-                                                                      {
-                                                                        'cancelorder': true
-                                                                      },
-                                                                      SetOptions(
-                                                                          merge: true));
+                                                                          'requests')
+                                                                      .doc(Orders[
+                                                                              index]
+                                                                          [
+                                                                          'craftmanDocID'])
+                                                                      .set({
+                                                                    'cancelorder':
+                                                                        true
+                                                                  }, SetOptions(merge: true));
                                                                   const DTDashboardScreen()
-                                                                      .launch(context);
+                                                                      .launch(
+                                                                          context);
                                                                 },
                                                               ),
                                                             ],

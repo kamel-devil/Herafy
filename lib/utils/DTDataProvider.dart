@@ -156,7 +156,7 @@ List<ListModel> getDrawerItems() {
 
   FirebaseAuth.instance.currentUser != null
       ? drawerItems.add(ListModel(
-          name: 'Request',
+          name: 'Contracts',
           widget: const Orders(
             deviceScreenType: DeviceScreenType.desktop,
           )))

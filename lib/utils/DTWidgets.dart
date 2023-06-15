@@ -8,7 +8,7 @@ import 'AppWidget.dart';
 
 Widget priceWidget(int? price, {bool applyStrike = false, double? fontSize, Color? textColor}) {
   return Text(
-    applyStrike ? '$price' : '\$$price',
+    applyStrike ? '$price' : 'JD $price',
     style: TextStyle(
       decoration: applyStrike ? TextDecoration.lineThrough : TextDecoration.none,
       color: textColor != null

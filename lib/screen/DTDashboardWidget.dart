@@ -136,9 +136,9 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
         stream: isv
             ? FirebaseFirestore.instance.collection('favServices').snapshots()
             : FirebaseFirestore.instance
-                .collection('allService')
-                .where('isAccept', isEqualTo: 1)
-                .snapshots(),
+            .collection('allService')
+            .where('isAccept', isEqualTo: 1)
+            .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
@@ -183,28 +183,28 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                               ),
                               !isv
                                   ? ElevatedButton.icon(
-                                      onPressed:
-                                          FirebaseAuth.instance.currentUser !=
-                                                  null
-                                              ? () {
-                                                  FirebaseFirestore.instance
-                                                      .collection('allService')
-                                                      .doc(ser[index1]['id'])
-                                                      .set(
-                                                    {
-                                                      'add': [
-                                                        FirebaseAuth.instance
-                                                            .currentUser!.uid
-                                                      ],
-                                                    },
-                                                    SetOptions(merge: true),
-                                                  );
-                                                  addFavServices(ser[index1]);
-                                                }
-                                              : () {},
-                                      icon: const Icon(Icons.add),
-                                      label: const Text('Fav'),
-                                    )
+                                onPressed:
+                                FirebaseAuth.instance.currentUser !=
+                                    null
+                                    ? () {
+                                  FirebaseFirestore.instance
+                                      .collection('allService')
+                                      .doc(ser[index1]['id'])
+                                      .set(
+                                    {
+                                      'add': [
+                                        FirebaseAuth.instance
+                                            .currentUser!.uid
+                                      ],
+                                    },
+                                    SetOptions(merge: true),
+                                  );
+                                  addFavServices(ser[index1]);
+                                }
+                                    : () {},
+                                icon: const Icon(Icons.add),
+                                label: const Text('Fav'),
+                              )
                                   : Container(),
                             ],
                           ),
@@ -214,7 +214,7 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                               8.width,
                               priceWidget(
                                   int.parse(ser[index1]['price'].toString()),
-                                  applyStrike: true),
+                                  applyStrike: false),
                             ],
                           ),
                         ],
@@ -282,30 +282,30 @@ class DTDashboardWidgetState extends State<DTDashboardWidget> {
                 25.width,
                 FirebaseAuth.instance.currentUser == null
                     ? Container(
-                        padding: const EdgeInsets.only(
-                            top: 8, left: 16, right: 16, bottom: 8),
-                        decoration: BoxDecoration(
-                            color: appColorPrimary,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Text('Sign In',
-                            style: boldTextStyle(color: white, size: 18)),
-                      ).onTap(() {
-                        LoginPage().launch(context);
-                      })
+                  padding: const EdgeInsets.only(
+                      top: 8, left: 16, right: 16, bottom: 8),
+                  decoration: BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text('Sign In',
+                      style: boldTextStyle(color: white, size: 18)),
+                ).onTap(() {
+                  LoginPage().launch(context);
+                })
                     : Container(),
                 16.width,
                 FirebaseAuth.instance.currentUser == null
                     ? Container(
-                        padding: const EdgeInsets.only(
-                            top: 8, left: 16, right: 16, bottom: 8),
-                        decoration: BoxDecoration(
-                            color: appColorPrimary,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Text('Register',
-                            style: boldTextStyle(color: white, size: 18)),
-                      ).onTap(() {
-                        DTSignUpScreen().launch(context);
-                      })
+                  padding: const EdgeInsets.only(
+                      top: 8, left: 16, right: 16, bottom: 8),
+                  decoration: BoxDecoration(
+                      color: appColorPrimary,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text('Register',
+                      style: boldTextStyle(color: white, size: 18)),
+                ).onTap(() {
+                  DTSignUpScreen().launch(context);
+                })
                     : Container(),
                 16.width
               ],

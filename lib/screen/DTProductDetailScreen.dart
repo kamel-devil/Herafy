@@ -117,45 +117,18 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                           .snapshots(),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
-                          var data = snapshot.data;
                           return Wrap(
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               priceWidget(
-                                  (int.parse(widget.productModel['price']) -
-                                      data['point']) as int?,
+                                  int.parse(widget.productModel['price'] ),
                                   fontSize: 28,
                                   textColor: appColorPrimary),
                               8.width,
-                              priceWidget(int.parse(widget.productModel['price']),
-                                  applyStrike: true, fontSize: 18),
-                              16.width,
-                              FirebaseAuth.instance.currentUser != null
-                                  ? StreamBuilder(
-                                      stream: FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .snapshots(),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        if (snapshot.hasData) {
-                                          var data = snapshot.data;
-                                          return Text(
-                                                  '${((data['point'] / int.parse(widget.productModel['price'])) * 100).toStringAsFixed(2).substring(0, 4)}% off',
-                                                  style: boldTextStyle(
-                                                      color: appColorPrimary))
-                                              .visible(discount != 0.0);
-                                        } else {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        }
-                                      })
-                                  : Text('0 % off',
-                                          style: boldTextStyle(
-                                              color: appColorPrimary))
-                                      .visible(discount != 0.0),
+                              // priceWidget(int.parse(widget.productModel['price']),
+                              //     applyStrike: true, fontSize: 18),
+
+
                             ],
                           );
                         } else {

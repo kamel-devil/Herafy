@@ -41,6 +41,7 @@ dependencies:
   #  google_fonts: ^2.1.0
   responsive_builder:
   quickalert: ^1.0.1
+  get:
 
   # FIREBASE PACKAGES
   firebase_messaging: ^14.2.6

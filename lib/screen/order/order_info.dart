@@ -181,6 +181,7 @@ class _OrderInfoState extends State<OrderInfo> {
                             'info': info.text,
                             'phone': phone.text,
                             'address': address.text,
+                            'cancelorder': false,
                             'hours': hours.text,
                             'price': widget.productModel['price']
                           });
@@ -201,6 +202,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               'user': value['name'],
                               'userImage': value['image'],
                               'userUid': value['id'],
+                              'phone': value['phone'],
                               'isAccept': 0,
                               'cash': 0,
                               'craftman': widget.productModel['craftsman'],
@@ -210,6 +212,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               'date': _selectedDate.toString(),
                               'time': _selectedTime.toString(),
                               'info': info.text,
+                              'cancelorder': false,
                               'address': address.text,
                               'phone': phone.text,
                               'hours': hours.text,
