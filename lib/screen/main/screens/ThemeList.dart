@@ -13,7 +13,7 @@ import 'ProKitScreenListing.dart';
 class ThemeList extends StatefulWidget {
   final List<ProTheme>? list;
 
-  ThemeList(this.list);
+  ThemeList(this.list, {super.key});
 
   @override
   ThemeListState createState() => ThemeListState();

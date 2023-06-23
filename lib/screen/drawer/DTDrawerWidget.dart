@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:herafy/main.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../MWDrawerScreen2.dart';
-import '../store/ListModels.dart';
-import '../utils/AppColors.dart';
-import '../utils/DTDataProvider.dart';
-import 'DTDashboardScreen.dart';
-import 'main/screens/AppSplashScreen.dart';
+import '../../store/ListModels.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/DTDataProvider.dart';
+import '../home/DTDashboardScreen.dart';
+import '../main/screens/AppSplashScreen.dart';
+import 'MWDrawerScreen2.dart';
+
 
 class DTDrawerWidget extends StatefulWidget {
   static String tag = '/DTDrawerWidget';

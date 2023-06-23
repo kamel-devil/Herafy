@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:herafy/screen/profile/DTChangePasswordScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/AppWidget.dart';
-import 'DTChangePasswordScreen.dart';
-import 'DTDrawerWidget.dart';
+import '../../utils/AppWidget.dart';
+
+import '../drawer/DTDrawerWidget.dart';
 
 class DTSecurityScreen extends StatefulWidget {
   static String tag = '/DTSecurityScreen';

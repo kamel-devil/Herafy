@@ -6,7 +6,7 @@ import '../../../main.dart';
 import '../../../utils/AppColors.dart';
 import '../../../utils/AppImages.dart';
 import '../../../utils/AppWidget.dart';
-import '../../DTDashboardScreen.dart';
+import '../../home/DTDashboardScreen.dart';
 import '../model/AppModel.dart';
 import 'SettingScreen.dart';
 

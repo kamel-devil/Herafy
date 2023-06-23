@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info/package_info.dart';
 
-import '../utils/AppWidget.dart';
-import 'DTDrawerWidget.dart';
+import '../../utils/AppWidget.dart';
+import '../drawer/DTDrawerWidget.dart';
+
 
 class DTAboutScreen extends StatefulWidget {
   static String tag = '/DTAboutScreen';

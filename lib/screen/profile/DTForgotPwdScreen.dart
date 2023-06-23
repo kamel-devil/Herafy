@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppWidget.dart';
-import 'DTDrawerWidget.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
+
+import '../drawer/DTDrawerWidget.dart';
 
 class DTForgotPwdScreen extends StatefulWidget {
   static String tag = '/DTForgotPwdScreen';

@@ -2,12 +2,13 @@ import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:herafy/screen/DTDashboardScreen.dart';
+import 'package:herafy/screen/home/DTDashboardScreen.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../utils/AppWidget.dart';
-import '../DTDrawerWidget.dart';
+import '../drawer/DTDrawerWidget.dart';
+
 
 class DTSignUpScreen extends StatefulWidget {
   static String tag = '/DTSignUpScreen';

@@ -7,14 +7,14 @@ import 'package:herafy/screen/login/login.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../model/DTReviewModel.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppWidget.dart';
-import '../utils/DTWidgets.dart';
-import 'DTDrawerWidget.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
+import '../../utils/DTWidgets.dart';
+
 import 'ReviewWidget.dart';
-import 'main/utils/flutter_rating_bar.dart';
+import '../drawer/DTDrawerWidget.dart';
+import '../main/utils/flutter_rating_bar.dart';
 
 class DTReviewScreen extends StatefulWidget {
   static String tag = '/DTReviewScreen';
@@ -183,13 +183,12 @@ class DTReviewScreenState extends State<DTReviewScreen> {
               child: Text('Write a Review',
                   style: boldTextStyle(color: appColorPrimary)),
             ).onTap(() async {
-              DTReviewModel? model = await showInDialog(context,
+              await showInDialog(context,
                   child: WriteReviewDialog(id: widget.id),
                   backgroundColor: Colors.transparent,
                   contentPadding: const EdgeInsets.all(0));
-              if (model != null) {
-                setState(() {});
-              }
+
+              setState(() {});
             }),
             reviewListing(),
           ],
@@ -344,15 +343,14 @@ class DTReviewScreenState extends State<DTReviewScreen> {
                     child: Text('Write a Review',
                         style: boldTextStyle(color: appColorPrimary)),
                   ).onTap(() async {
-                    DTReviewModel? model = await showInDialog(context,
+                    await showInDialog(context,
                         child: WriteReviewDialog(
                           id: widget.id,
                         ),
                         backgroundColor: Colors.transparent,
                         contentPadding: const EdgeInsets.all(0));
-                    if (model != null) {
-                      setState(() {});
-                    }
+
+                    setState(() {});
                   }),
                 ],
               ),
@@ -368,7 +366,7 @@ class DTReviewScreenState extends State<DTReviewScreen> {
 
     return Scaffold(
       appBar: appBar(context, 'Review & Rating'),
-      drawer: DTDrawerWidget(),
+      drawer: const DTDrawerWidget(),
       body: ContainerX(
         mobile: mobileWidget(),
         web: webWidget(),
@@ -485,12 +483,6 @@ class WriteReviewDialog extends StatelessWidget {
                             onTap: data['isAccept']
                                 ? () {
                                     if (reviewCont.text != '') {
-                                      var reviewData = DTReviewModel();
-                                      reviewData.name = "Benjamin";
-                                      reviewData.comment =
-                                          reviewCont.text.validate();
-                                      reviewData.ratting = ratting;
-                                      finish(context, reviewData);
                                       toast('Review is submitted');
                                     } else {
                                       toast(errorThisFieldRequired);

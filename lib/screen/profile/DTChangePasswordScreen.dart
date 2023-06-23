@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:herafy/screen/DTDashboardScreen.dart';
+import 'package:herafy/screen/home/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppWidget.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
 
 class DTChangePasswordScreen extends StatefulWidget {
   static String tag = '/DTChangePasswordScreen';

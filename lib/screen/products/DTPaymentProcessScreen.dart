@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/AppWidget.dart';
-import 'DTDashboardScreen.dart';
+import '../../utils/AppWidget.dart';
+import '../home/DTDashboardScreen.dart';
+
+
 
 class DTPaymentProcessScreen extends StatefulWidget {
   final bool? isSuccessFul;

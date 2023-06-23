@@ -3,7 +3,7 @@ import 'package:herafy/main.dart';
 import 'package:herafy/screen/main/utils/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/AppColors.dart';
+import '../../utils/AppColors.dart';
 
 class ReviewWidget extends StatefulWidget {
   static String tag = '/ReviewWidget';

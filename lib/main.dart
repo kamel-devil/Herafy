@@ -29,23 +29,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => GetMaterialApp(
-        navigatorKey: navigatorKey,
-        debugShowCheckedModeBanner: false,
-        title: '$mainAppName${!isMobile ? ' ${platformName()}' : ''}',
-        home: const AppSplashScreen(),
-        theme: !appStore.isDarkModeOn
-            ? AppThemeData.lightTheme
-            : AppThemeData.darkTheme,
-        scrollBehavior: CustomScrollBehaviour(),
-      ),
+      builder: (_) =>
+          GetMaterialApp(
+            navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            title: '$mainAppName${!isMobile ? ' ${platformName()}' : ''}',
+            home: const AppSplashScreen(),
+            theme: !appStore.isDarkModeOn
+                ? AppThemeData.lightTheme
+                : AppThemeData.darkTheme,
+            scrollBehavior: CustomScrollBehaviour(),
+          ),
     );
   }
 }
 
 class CustomScrollBehaviour extends MaterialScrollBehavior {
   @override
-  Set<PointerDeviceKind> get dragDevices => {
+  Set<PointerDeviceKind> get dragDevices =>
+      {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };

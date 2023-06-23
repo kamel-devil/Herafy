@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/AppWidget.dart';
-import '../utils/DTWidgets.dart';
-import 'DTDrawerWidget.dart';
-import 'DTProductDetailScreen.dart';
+import '../../main.dart';
+import '../../utils/AppWidget.dart';
+import '../../utils/DTWidgets.dart';
+
+import '../drawer/DTDrawerWidget.dart';
+import '../products/DTProductDetailScreen.dart';
 
 class DTCategoryDetailScreen extends StatefulWidget {
   static String tag = '/DTCategoryDetailScreen';

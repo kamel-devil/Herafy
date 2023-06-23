@@ -5,16 +5,14 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../model/DTAddressListModel.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppConstant.dart';
-import '../utils/AppWidget.dart';
-import '../utils/DTWidgets.dart';
-import 'DTDrawerWidget.dart';
-import 'DTReviewScreen.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
+import '../../utils/DTWidgets.dart';
 import 'ReviewWidget.dart';
-import 'order/order_info.dart';
+import '../drawer/DTDrawerWidget.dart';
+import '../order/order_info.dart';
+import 'DTReviewScreen.dart';
 
 // ignore: must_be_immutable
 class DTProductDetailScreen extends StatefulWidget {
@@ -32,7 +30,6 @@ class DTProductDetailScreen extends StatefulWidget {
 class DTProductDetailScreenState extends State<DTProductDetailScreen> {
   var discount = 15.0;
 
-  DTAddressListModel? mSelectedAddress;
 
   @override
   void initState() {
@@ -144,35 +141,6 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
                             int.parse(widget.productModel['price'].toString()),
                             fontSize: 28,
                             textColor: appColorPrimary),
-                        8.width,
-                        priceWidget(
-                            int.parse(widget.productModel['price'].toString()),
-                            applyStrike: true,
-                            fontSize: 18),
-                        16.width,
-                        FirebaseAuth.instance.currentUser != null
-                            ? StreamBuilder(
-                                stream: FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .snapshots(),
-                                builder: (context, AsyncSnapshot snapshot) {
-                                  if (snapshot.hasData) {
-                                    var data = snapshot.data;
-                                    return Text('${data['point']}% off',
-                                            style: boldTextStyle(
-                                                color: appColorPrimary))
-                                        .visible(discount != 0.0);
-                                  } else {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                })
-                            : Text('0 % off',
-                                    style:
-                                        boldTextStyle(color: appColorPrimary))
-                                .visible(discount != 0.0),
                       ],
                     ),
               10.height,
@@ -291,85 +259,85 @@ class DTProductDetailScreenState extends State<DTProductDetailScreen> {
   }
 }
 
-void mMoreOfferBottomSheet(BuildContext aContext) {
-  showModalBottomSheet(
-    context: aContext,
-    backgroundColor: appStore.scaffoldBackground,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-    ),
-    builder: (builder) {
-      return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            16.height,
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(MaterialCommunityIcons.truck_delivery,
-                    color: appColorPrimary),
-                10.width,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("\$10 Delivery in 2 days, Monday",
-                        style: boldTextStyle()),
-                    4.height,
-                    Text(
-                      LoremText,
-                      style: secondaryTextStyle(size: 14),
-                      maxLines: 2,
-                    ),
-                  ],
-                ).expand()
-              ],
-            ),
-            16.height,
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(FontAwesome.exchange, color: appColorPrimary),
-                10.width,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("7 Days return policy", style: boldTextStyle()),
-                    4.height,
-                    Text(
-                      LoremText,
-                      style: secondaryTextStyle(size: 14),
-                      maxLines: 2,
-                    ),
-                  ],
-                ).expand()
-              ],
-            ),
-            16.height,
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(MaterialIcons.attach_money, color: appColorPrimary),
-                10.width,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Cash on Delivery", style: boldTextStyle()),
-                    4.height,
-                    Text(
-                      LoremText,
-                      style: secondaryTextStyle(size: 14),
-                      maxLines: 2,
-                    ),
-                  ],
-                ).expand()
-              ],
-            ),
-            16.height,
-          ],
-        ),
-      );
-    },
-  );
-}
+// void mMoreOfferBottomSheet(BuildContext aContext) {
+//   showModalBottomSheet(
+//     context: aContext,
+//     backgroundColor: appStore.scaffoldBackground,
+//     shape: const RoundedRectangleBorder(
+//       borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+//     ),
+//     builder: (builder) {
+//       return SingleChildScrollView(
+//         padding: const EdgeInsets.all(16),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             16.height,
+//             Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const Icon(MaterialCommunityIcons.truck_delivery,
+//                     color: appColorPrimary),
+//                 10.width,
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text("\$10 Delivery in 2 days, Monday",
+//                         style: boldTextStyle()),
+//                     4.height,
+//                     Text(
+//                       LoremText,
+//                       style: secondaryTextStyle(size: 14),
+//                       maxLines: 2,
+//                     ),
+//                   ],
+//                 ).expand()
+//               ],
+//             ),
+//             16.height,
+//             Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const Icon(FontAwesome.exchange, color: appColorPrimary),
+//                 10.width,
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text("7 Days return policy", style: boldTextStyle()),
+//                     4.height,
+//                     Text(
+//                       LoremText,
+//                       style: secondaryTextStyle(size: 14),
+//                       maxLines: 2,
+//                     ),
+//                   ],
+//                 ).expand()
+//               ],
+//             ),
+//             16.height,
+//             Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const Icon(MaterialIcons.attach_money, color: appColorPrimary),
+//                 10.width,
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text("Cash on Delivery", style: boldTextStyle()),
+//                     4.height,
+//                     Text(
+//                       LoremText,
+//                       style: secondaryTextStyle(size: 14),
+//                       maxLines: 2,
+//                     ),
+//                   ],
+//                 ).expand()
+//               ],
+//             ),
+//             16.height,
+//           ],
+//         ),
+//       );
+//     },
+//   );
+// }

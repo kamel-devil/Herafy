@@ -6,13 +6,13 @@ import 'package:herafy/screen/login/DTSignUpScreen.dart';
 import 'package:herafy/screen/login/login.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppWidget.dart';
-import '../utils/DTWidgets.dart';
-import 'DTCategoryDetailScreen.dart';
-import 'DTProductDetailScreen.dart';
-import 'DTSearchScreen.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
+import '../../utils/DTWidgets.dart';
+import '../DTSearchScreen.dart';
+import '../category/DTCategoryDetailScreen.dart';
+import '../products/DTProductDetailScreen.dart';
 
 class DTDashboardWidget extends StatefulWidget {
   static String tag = '/DTDashboardWidget';

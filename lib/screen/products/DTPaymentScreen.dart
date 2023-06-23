@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:herafy/screen/products/DTPaymentProcessScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/AppColors.dart';
-import '../utils/AppWidget.dart';
-import '../utils/ExpirationTextField.dart';
-import '../utils/FlipCard.dart';
-import 'DTDrawerWidget.dart';
-import 'DTPaymentProcessScreen.dart';
+import '../../main.dart';
+import '../../utils/AppColors.dart';
+import '../../utils/AppWidget.dart';
+import '../../utils/ExpirationTextField.dart';
+import '../../utils/FlipCard.dart';
+import '../drawer/DTDrawerWidget.dart';
+
+
 
 class DTPaymentScreen extends StatefulWidget {
   static String tag = '/DTPaymentScreen';
@@ -65,7 +67,7 @@ class DTPaymentScreenState extends State<DTPaymentScreen> {
     return Observer(
       builder: (_) => Scaffold(
         appBar: appBar(context, 'Payment'),
-        drawer: DTDrawerWidget(),
+        drawer: const DTDrawerWidget(),
         body: Align(
           alignment: Alignment.topCenter,
           child: SizedBox(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
-import '../model/DTChatMessageModel.dart';
 import 'AppColors.dart';
 import 'AppWidget.dart';
 
@@ -11,16 +10,12 @@ Widget priceWidget(int? price, {bool applyStrike = false, double? fontSize, Colo
     applyStrike ? '$price' : 'JD $price',
     style: TextStyle(
       decoration: applyStrike ? TextDecoration.lineThrough : TextDecoration.none,
-      color: textColor != null
-          ? textColor
-          : applyStrike
+      color: textColor ?? (applyStrike
               ? appStore.textSecondaryColor
-              : appStore.textPrimaryColor,
-      fontSize: fontSize != null
-          ? fontSize
-          : applyStrike
+              : appStore.textPrimaryColor),
+      fontSize: fontSize ?? (applyStrike
               ? 15
-              : 18,
+              : 18),
       fontWeight: FontWeight.bold,
     ),
   );
@@ -137,45 +132,4 @@ Widget totalAmountWidget(int subTotal, int shippingCharges, int totalAmount) {
   );
 }
 
-class ChatMessageWidget extends StatelessWidget {
-  const ChatMessageWidget({
-    Key? key,
-    required this.isMe,
-    required this.data,
-  }) : super(key: key);
 
-  final bool isMe;
-  final DTChatMessageModel data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: isMe.validate() ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-          margin: isMe.validate()
-              ? EdgeInsets.only(top: 3.0, bottom: 3.0, right: 0, left: (dynamicWidth(context) * 0.25).toDouble())
-              : EdgeInsets.only(top: 4.0, bottom: 4.0, left: 0, right: (dynamicWidth(context) * 0.25).toDouble()),
-          decoration: BoxDecoration(
-            color: !isMe ? appColorPrimary : appStore.appBarColor,
-            boxShadow: defaultBoxShadow(),
-            borderRadius: isMe.validate()
-                ? const BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10), bottomRight: Radius.circular(0), topRight: Radius.circular(10))
-                : const BorderRadius.only(bottomLeft: Radius.circular(0), topLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(10)),
-            border: Border.all(color: isMe ? Theme.of(context).dividerColor : Colors.transparent),
-          ),
-          child: Column(
-            crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(child: Text(data.msg!, style: primaryTextStyle(color: !isMe ? white : appStore.textPrimaryColor))),
-              Text(data.time!, style: secondaryTextStyle(color: !isMe ? white : appStore.textSecondaryColor, size: 12))
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}

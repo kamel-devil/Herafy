@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../utils/AppConstant.dart';
-import '../DTDashboardScreen.dart';
+import '../home/DTDashboardScreen.dart';
 
 class ProfileEdit extends StatefulWidget {
   const ProfileEdit(

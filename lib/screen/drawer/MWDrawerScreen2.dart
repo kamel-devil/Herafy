@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:herafy/screen/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import 'main.dart';
+import '../../main.dart';
 
 
 class MWDrawerScreen2 extends StatefulWidget {
@@ -82,10 +82,10 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      "John Dow",
+                      "",
                       style: TextStyle(color: appStore.textPrimaryColor, fontSize: 18.0, fontWeight: FontWeight.w600),
                     ),
-                    Text("JohnDoe@gmail.com", style: TextStyle(color: appStore.textPrimaryColor, fontSize: 16.0)),
+                    Text("", style: TextStyle(color: appStore.textPrimaryColor, fontSize: 16.0)),
                     30.height,
                     itemList(Icon(Icons.home, color: appStore.iconColor), "Home"),
                     const Divider(),

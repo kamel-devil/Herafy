@@ -7,8 +7,8 @@ import '../main.dart';
 import '../utils/AppColors.dart';
 import '../utils/AppWidget.dart';
 import '../utils/DTWidgets.dart';
-import 'DTDrawerWidget.dart';
-import 'DTProductDetailScreen.dart';
+import 'drawer/DTDrawerWidget.dart';
+import 'products/DTProductDetailScreen.dart';
 
 class DTSearchScreen extends StatefulWidget {
   const DTSearchScreen({super.key});

@@ -3,16 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:herafy/screen/profile_edit/profile_edit.dart';
+import 'package:herafy/screen/profile/profile_edit.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../main.dart';
 import '../../utils/AppColors.dart';
 import '../../utils/AppConstant.dart';
 import '../../utils/AppWidget.dart';
-import '../DTDrawerWidget.dart';
-import '../DTSecurityScreen.dart';
+
+import '../drawer/DTDrawerWidget.dart';
 import '../main/screens/AppSplashScreen.dart';
+import 'DTSecurityScreen.dart';
 
 class DTProfileScreen extends StatefulWidget {
   static String tag = '/DTProfileScreen';

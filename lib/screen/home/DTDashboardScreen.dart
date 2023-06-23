@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../main.dart';
-import '../utils/AppWidget.dart';
+import '../../main.dart';
+import '../../utils/AppWidget.dart';
+import '../drawer/DTDrawerWidget.dart';
 import 'DTDashboardWidget.dart';
-import 'DTDrawerWidget.dart';
 
 class DTDashboardScreen extends StatefulWidget {
   static String tag = '/DTDashboardScreen';

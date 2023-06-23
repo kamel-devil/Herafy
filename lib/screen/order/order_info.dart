@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../DTPaymentProcessScreen.dart';
+import '../products/DTPaymentProcessScreen.dart';
 
 class OrderInfo extends StatefulWidget {
   const OrderInfo({

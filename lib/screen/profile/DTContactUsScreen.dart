@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/AppWidget.dart';
-import 'DTDrawerWidget.dart';
+import '../../utils/AppWidget.dart';
+import '../drawer/DTDrawerWidget.dart';
+
 
 class DTContactUsScreen extends StatefulWidget {
   static String tag = '/DTContactUsScreen';

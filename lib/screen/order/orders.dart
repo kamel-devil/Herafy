@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:herafy/screen/DTDashboardScreen.dart';
+import 'package:herafy/screen/home/DTDashboardScreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../DTPaymentScreen.dart';
+import '../products/DTPaymentScreen.dart';
 import 'order_edit.dart';
 
 class Orders extends StatelessWidget {
